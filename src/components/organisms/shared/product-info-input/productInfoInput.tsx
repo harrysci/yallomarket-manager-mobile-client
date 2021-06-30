@@ -193,7 +193,9 @@ const FinishButton = (props: FinishButtonProps) => {
 		<Button
 			title={title}
 			style={{}}
-			containerStyle={{}}
+			containerStyle={{
+				marginBottom: 24,
+			}}
 			buttonStyle={{
 				width: 327,
 				height: 48,
