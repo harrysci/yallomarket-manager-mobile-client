@@ -145,7 +145,6 @@
 				CC5BE1001B80C4BEEBA76158 /* Pods-client-clientTests.debug.xcconfig */,
 				FF3012FB48BA8994DE23B3D8 /* Pods-client-clientTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
