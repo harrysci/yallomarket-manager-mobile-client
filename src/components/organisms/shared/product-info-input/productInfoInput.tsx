@@ -1,14 +1,19 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Input, Button, Image } from 'react-native-elements';
+import useEventTargetValue from '../../../../utils/hooks/useEventTargetValue';
 
 interface InputTextBoxWithLabelProps {
 	title: string;
 	isNecessary: boolean;
+	value: string;
+	handleChange(e: React.ChangeEvent<HTMLInputElement> | any): void;
 }
 interface InputDescriptionBoxWithLabelProps {
 	title: string;
 	isNecessary: boolean;
+	value: string;
+	handleChange(e: React.ChangeEvent<HTMLInputElement> | any): void;
 }
 interface FinishButtonProps {
 	title: string;
@@ -27,10 +32,58 @@ interface CheckBoxGroupWithLabelProps {
 }
 
 function ProductInfoInput() {
+	/**
+	 * @name 상품_코드_핸들러
+	 */
+	const barcodeInput = useEventTargetValue();
+
+	/**
+	 * @name 상품명_핸들러
+	 */
+	const productNameInput = useEventTargetValue();
+
+	/**
+	 * @name 판매가_핸들러
+	 */
+	const currentPriceInput = useEventTargetValue();
+
+	/**
+	 * @name 상품_카테고리_핸들러
+	 */
+	const categoryInput = useEventTargetValue();
+
+	/**
+	 * @name 상품_판매_게시일_핸들러
+	 */
+	const openDateInput = useEventTargetValue();
+
+	/**
+	 * @name 상품_규격_핸들러
+	 */
+	const volumeInput = useEventTargetValue();
+
+	/**
+	 * @name 상품_판매_가능_체크박스_핸들러
+	 */
 	const [availableForSale, setAvailableForSale] = React.useState<boolean>(true);
 	const handleAvailableForSale = () => {
 		setAvailableForSale(!availableForSale);
 	};
+
+	/**
+	 * @name 매입처_핸들러
+	 */
+	const productOriginInput = useEventTargetValue();
+
+	/**
+	 * @name 원가_핸들러
+	 */
+	const originPriceInput = useEventTargetValue();
+
+	/**
+	 * @name 상품설명_핸들러
+	 */
+	const productDescription = useEventTargetValue();
 
 	return (
 		<ScrollView
@@ -45,16 +98,43 @@ function ProductInfoInput() {
 			showsVerticalScrollIndicator={false}
 		>
 			<View style={{ width: '87.5%' }}>
-				<InputTextBoxWithLabel title={'바코드'} isNecessary={true} />
-				<InputTextBoxWithLabel title={'상품명'} isNecessary={true} />
-				<InputTextBoxWithLabel title={'상품 현재 판매가'} isNecessary={true} />
-				<InputTextBoxWithLabel title={'상품 카테고리'} isNecessary={true} />
+				<InputTextBoxWithLabel
+					title={'바코드'}
+					isNecessary={true}
+					value={barcodeInput.value}
+					handleChange={barcodeInput.handleChange}
+				/>
+				<InputTextBoxWithLabel
+					title={'상품명'}
+					isNecessary={true}
+					value={productNameInput.value}
+					handleChange={productNameInput.handleChange}
+				/>
+				<InputTextBoxWithLabel
+					title={'상품 현재 판매가'}
+					isNecessary={true}
+					value={currentPriceInput.value}
+					handleChange={currentPriceInput.handleChange}
+				/>
+				<InputTextBoxWithLabel
+					title={'상품 카테고리'}
+					isNecessary={true}
+					value={categoryInput.value}
+					handleChange={categoryInput.handleChange}
+				/>
 				<InputTextBoxWithLabel
 					title={'얄로마켓 시스템 내 상품 게시일'}
 					isNecessary={true}
+					value={openDateInput.value}
+					handleChange={openDateInput.handleChange}
+				/>
+				<InputTextBoxWithLabel
+					title={'규격'}
+					isNecessary={true}
+					value={volumeInput.value}
+					handleChange={volumeInput.handleChange}
 				/>
 
-				<InputTextBoxWithLabel title={'규격'} isNecessary={true} />
 				<CheckBoxGroupWithLabel
 					title={'판매 가능 여부'}
 					isNecessary={true}
@@ -66,10 +146,40 @@ function ProductInfoInput() {
 			<DividerWithInterval />
 
 			<View style={{ width: '87.5%' }}>
-				<InputTextBoxWithLabel title={'매입처'} isNecessary={false} />
-				<InputTextBoxWithLabel title={'상품 매입 원가'} isNecessary={false} />
-				<InputDescriptionBoxWithLabel title={'상품 설명'} isNecessary={false} />
-				<FinishButton title={'등록하기'} callBack={() => console.log('aa')} />
+				<InputTextBoxWithLabel
+					title={'매입처'}
+					isNecessary={false}
+					value={productOriginInput.value}
+					handleChange={productOriginInput.handleChange}
+				/>
+				<InputTextBoxWithLabel
+					title={'상품 매입 원가'}
+					isNecessary={false}
+					value={originPriceInput.value}
+					handleChange={originPriceInput.handleChange}
+				/>
+				<InputDescriptionBoxWithLabel
+					title={'상품 설명'}
+					isNecessary={false}
+					value={productDescription.value}
+					handleChange={productDescription.handleChange}
+				/>
+				<FinishButton
+					title={'등록하기'}
+					callBack={() =>
+						console.log(
+							barcodeInput.value,
+							productNameInput.value,
+							currentPriceInput.value,
+							categoryInput.value,
+							openDateInput.value,
+							volumeInput.value,
+							availableForSale,
+							productOriginInput.value,
+							productDescription.value,
+						)
+					}
+				/>
 			</View>
 		</ScrollView>
 	);
@@ -242,7 +352,7 @@ const DividerWithInterval = () => {
 };
 
 const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) => {
-	const { title, isNecessary } = props;
+	const { title, isNecessary, value, handleChange } = props;
 
 	return (
 		<View>
@@ -289,6 +399,8 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 			</View>
 
 			<Input
+				value={value}
+				onChange={handleChange}
 				inputContainerStyle={{
 					width: 327,
 					minHeight: 120,
@@ -321,7 +433,7 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 };
 
 const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
-	const { title, isNecessary } = props;
+	const { title, isNecessary, value, handleChange } = props;
 	return (
 		<View>
 			<View
@@ -367,6 +479,8 @@ const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
 			</View>
 
 			<Input
+				value={value}
+				onChange={handleChange}
 				inputContainerStyle={{
 					width: 327,
 					height: 50,
