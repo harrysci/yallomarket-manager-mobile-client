@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
-import { Text, Input, Button, Image } from 'react-native-elements';
+import { Text, Input, Button, Image, BottomSheet } from 'react-native-elements';
 import useEventTargetValue from '../../../../utils/hooks/useEventTargetValue';
 
 interface InputTextBoxWithLabelProps {
@@ -51,6 +51,7 @@ function ProductInfoInput() {
 	 * @name 상품_카테고리_핸들러
 	 */
 	const categoryInput = useEventTargetValue();
+	const [open, setOpen] = React.useState(false);
 
 	/**
 	 * @name 상품_판매_게시일_핸들러
@@ -97,6 +98,8 @@ function ProductInfoInput() {
 			}}
 			showsVerticalScrollIndicator={false}
 		>
+			<CategoryBottomSheet isVisiable={open} handleClose={() => setOpen(false)} />
+
 			<View style={{ width: '87.5%' }}>
 				<InputTextBoxWithLabel
 					title={'바코드'}
@@ -116,6 +119,8 @@ function ProductInfoInput() {
 					value={currentPriceInput.value}
 					handleChange={currentPriceInput.handleChange}
 				/>
+				<Button title="open" onPress={() => setOpen(true)} />
+
 				<InputTextBoxWithLabel
 					title={'상품 카테고리'}
 					isNecessary={true}
@@ -218,6 +223,101 @@ const FinishButton = (props: FinishButtonProps) => {
 			}}
 			onPress={callBack}
 		/>
+	);
+};
+
+const CategoryBottomSheet = (props: any) => {
+	const { isVisiable, handleClose } = props;
+	return (
+		<BottomSheet
+			isVisible={isVisiable}
+			modalProps={{
+				transparent: true,
+				animationType: 'slide',
+			}}
+		>
+			<View
+				style={{
+					flex: 1,
+					flexDirection: 'column',
+					alignItems: 'center',
+					width: '100%',
+					height: 263,
+					borderRadius: 13,
+					backgroundColor: '#ffffff',
+				}}
+			>
+				<View>
+					<Button title="close" onPress={handleClose} />
+					<Text
+						style={{
+							width: 109,
+							height: 24,
+							// fontFamily: "AppleSDGothicNeo",
+							fontSize: 20,
+							fontWeight: 'bold',
+							fontStyle: 'normal',
+							lineHeight: 24,
+							letterSpacing: 0,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						상품 카테고리
+					</Text>
+
+					<TouchableOpacity
+						style={{
+							flex: 1,
+							flexDirection: 'row',
+							justifyContent: 'space-between',
+							width: 328,
+							height: 32,
+							// opacity: 0.12,
+							borderRadius: 3,
+							padding: 12,
+							// backgroundColor: '#ffd02e',
+						}}
+					>
+						<Text>저울 상품</Text>
+						<Image
+							source={require('../../../../assets/images/product-info-input/selected-check.png')}
+							style={{
+								width: 24,
+								height: 24,
+							}}
+						/>
+					</TouchableOpacity>
+
+					<Button
+						title={'카테고리 선택 완료'}
+						style={{}}
+						containerStyle={{
+							marginBottom: 24,
+						}}
+						buttonStyle={{
+							width: 327,
+							height: 48,
+							borderRadius: 3,
+							backgroundColor: '#fbd145',
+							borderStyle: 'solid',
+							borderWidth: 1,
+							borderColor: '#000000',
+						}}
+						titleStyle={{
+							// fontFamily: "AppleSDGothicNeo",
+							fontSize: 18,
+							fontWeight: '500',
+							fontStyle: 'normal',
+							letterSpacing: 0,
+							textAlign: 'center',
+							color: '#000000',
+						}}
+						// onPress={callBack}
+					/>
+				</View>
+			</View>
+		</BottomSheet>
 	);
 };
 
