@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,9 +7,17 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {Text, Button} from 'react-native-elements';
+import {Text, Button, Overlay} from 'react-native-elements';
+import DeleteOverlay from '../../organisms/product-detail-info-page/DeleteOverlay';
 
 const ProductDetailInfoPage = (): JSX.Element => {
+  const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] =
+    useState<boolean>(false);
+
+  const handleDeleteOverlay = () => {
+    setDeleteOverlayVisibleVisible(!deleteOverlayVisible);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
@@ -72,6 +81,14 @@ const ProductDetailInfoPage = (): JSX.Element => {
           titleStyle={styles.buttonText}
           type="outline"
           buttonStyle={styles.deleteButton}
+          onPress={handleDeleteOverlay}
+        />
+
+        <Overlay
+          isVisible={deleteOverlayVisible}
+          onBackdropPress={handleDeleteOverlay}
+          overlayStyle={styles.deleteOverlay}
+          children={DeleteOverlay}
         />
       </View>
     </SafeAreaView>
@@ -248,5 +265,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     alignSelf: 'center',
     color: '#000000',
+  },
+  deleteOverlay: {
+    width: '72%',
+    height: '11.8%',
+
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#000000',
+    backgroundColor: '#ffffff',
   },
 });
