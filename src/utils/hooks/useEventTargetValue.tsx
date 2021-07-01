@@ -7,6 +7,7 @@ export default function useEventTargetValue(defaultValue = ''): {
 	setValue: (value: React.SetStateAction<string>) => void;
 	handleChangePhoneNumber?(e: string | React.ChangeEvent<HTMLInputElement>): void;
 	handleChangeISODateNumber?(e: string): void;
+	handleChangeCurrencyNumber?(e: string | React.ChangeEvent<HTMLInputElement>): void;
 	handleTextChange(e: string): void;
 } {
 	const [value, setValue] = React.useState(defaultValue);
@@ -82,6 +83,23 @@ export default function useEventTargetValue(defaultValue = ''): {
 		setValue(inputISODate(e));
 	}
 
+	function inputCurrencyNumber(currency: string): string {
+		if (!isNaN(Number(currency))) {
+			const removeCommaNumber = Number(currency);
+			return removeCommaNumber.toLocaleString();
+		} else {
+			return '0';
+		}
+	}
+
+	function handleChangeCurrencyNumber(e: React.ChangeEvent<HTMLInputElement> | any): void {
+		e.preventDefault();
+		const currency = e.nativeEvent.text;
+		const removeComma = currency.replace(/,/g, '');
+
+		setValue(inputCurrencyNumber(removeComma));
+	}
+
 	function handleReset(): void {
 		setValue(defaultValue);
 	}
@@ -90,6 +108,7 @@ export default function useEventTargetValue(defaultValue = ''): {
 		value,
 		handleChange,
 		handleReset,
+		handleChangeCurrencyNumber,
 		setValue,
 		handleChangePhoneNumber,
 		handleChangeISODateNumber,

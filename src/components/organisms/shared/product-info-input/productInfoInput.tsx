@@ -8,6 +8,8 @@ interface InputTextBoxWithLabelProps {
 	isNecessary: boolean;
 	value: string;
 	handleChange(e: React.ChangeEvent<HTMLInputElement> | any): void;
+	inputType: 'numeric' | 'date' | 'any' | 'currency';
+	rightIconType?: 'won' | 'gram';
 }
 interface InputDescriptionBoxWithLabelProps {
 	title: string;
@@ -18,6 +20,7 @@ interface InputDescriptionBoxWithLabelProps {
 interface FinishButtonProps {
 	title: string;
 	callBack: any;
+	isAvaliable: boolean;
 }
 interface CheckBoxProps {
 	title: string;
@@ -30,6 +33,26 @@ interface CheckBoxGroupWithLabelProps {
 	isPossible: boolean;
 	callBack: any;
 }
+interface CategoryListItemProps {
+	title: string;
+	isSelected: boolean;
+	handleCategoryIndex: (newNumebr: number) => void;
+	currIndex: number;
+}
+interface CategoryBottomSheetProps {
+	isVisiable: boolean;
+	handleClose: () => void;
+	handleCategoryIndex: (param: number) => void;
+	categoryArray: Array<string>;
+}
+interface CategoryOpenButtonWithLabelProps {
+	title: string;
+	isNecessary: boolean;
+	value: string;
+	handleOpen: () => void;
+}
+
+const LIST_WIDTH = '87.5%';
 
 function ProductInfoInput() {
 	/**
@@ -50,7 +73,15 @@ function ProductInfoInput() {
 	/**
 	 * @name 상품_카테고리_핸들러
 	 */
-	const categoryInput = useEventTargetValue();
+	const [category] = React.useState<Array<string>>(['저울상품', '가공상품']);
+	const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+	const handleCategoryIndex = (newIndex: number) => {
+		setSelectedCategoryIndex(newIndex);
+	};
+
+	/**
+	 * @name 카테고리선택_BottomSheet_핸들러
+	 */
 	const [open, setOpen] = React.useState(false);
 
 	/**
@@ -98,46 +129,60 @@ function ProductInfoInput() {
 			}}
 			showsVerticalScrollIndicator={false}
 		>
-			<CategoryBottomSheet isVisiable={open} handleClose={() => setOpen(false)} />
+			<CategoryBottomSheet
+				isVisiable={open}
+				handleClose={() => setOpen(false)}
+				categoryArray={category}
+				handleCategoryIndex={handleCategoryIndex}
+			/>
 
-			<View style={{ width: '87.5%' }}>
+			<View style={{ width: LIST_WIDTH }}>
 				<InputTextBoxWithLabel
 					title={'바코드'}
 					isNecessary={true}
 					value={barcodeInput.value}
 					handleChange={barcodeInput.handleChange}
+					inputType="numeric"
 				/>
 				<InputTextBoxWithLabel
 					title={'상품명'}
 					isNecessary={true}
 					value={productNameInput.value}
 					handleChange={productNameInput.handleChange}
+					inputType="any"
 				/>
 				<InputTextBoxWithLabel
 					title={'상품 현재 판매가'}
 					isNecessary={true}
 					value={currentPriceInput.value}
-					handleChange={currentPriceInput.handleChange}
+					handleChange={
+						currentPriceInput.handleChangeCurrencyNumber
+							? currentPriceInput.handleChangeCurrencyNumber
+							: currentPriceInput.handleChange
+					}
+					inputType="numeric"
+					rightIconType="won"
 				/>
-				<Button title="open" onPress={() => setOpen(true)} />
-
-				<InputTextBoxWithLabel
+				<CategoryOpenButtonWithLabel
 					title={'상품 카테고리'}
 					isNecessary={true}
-					value={categoryInput.value}
-					handleChange={categoryInput.handleChange}
+					value={category[selectedCategoryIndex]}
+					handleOpen={() => setOpen(true)}
 				/>
 				<InputTextBoxWithLabel
 					title={'얄로마켓 시스템 내 상품 게시일'}
 					isNecessary={true}
 					value={openDateInput.value}
 					handleChange={openDateInput.handleChange}
+					inputType="date"
 				/>
 				<InputTextBoxWithLabel
 					title={'규격'}
 					isNecessary={true}
 					value={volumeInput.value}
 					handleChange={volumeInput.handleChange}
+					inputType="numeric"
+					rightIconType="gram"
 				/>
 
 				<CheckBoxGroupWithLabel
@@ -150,18 +195,25 @@ function ProductInfoInput() {
 
 			<DividerWithInterval />
 
-			<View style={{ width: '87.5%' }}>
+			<View style={{ width: LIST_WIDTH }}>
 				<InputTextBoxWithLabel
 					title={'매입처'}
 					isNecessary={false}
 					value={productOriginInput.value}
 					handleChange={productOriginInput.handleChange}
+					inputType="any"
 				/>
 				<InputTextBoxWithLabel
 					title={'상품 매입 원가'}
 					isNecessary={false}
 					value={originPriceInput.value}
-					handleChange={originPriceInput.handleChange}
+					handleChange={
+						originPriceInput.handleChangeCurrencyNumber
+							? originPriceInput.handleChangeCurrencyNumber
+							: originPriceInput.handleChange
+					}
+					inputType="numeric"
+					rightIconType="won"
 				/>
 				<InputDescriptionBoxWithLabel
 					title={'상품 설명'}
@@ -176,13 +228,21 @@ function ProductInfoInput() {
 							barcodeInput.value,
 							productNameInput.value,
 							currentPriceInput.value,
-							categoryInput.value,
+							category[selectedCategoryIndex],
 							openDateInput.value,
 							volumeInput.value,
 							availableForSale,
 							productOriginInput.value,
 							productDescription.value,
 						)
+					}
+					isAvaliable={
+						barcodeInput.value.length > 0 &&
+						productNameInput.value.length > 0 &&
+						currentPriceInput.value.length > 0 &&
+						category[selectedCategoryIndex].length > 0 &&
+						openDateInput.value.length > 0 &&
+						volumeInput.value.length > 0
 					}
 				/>
 			</View>
@@ -193,19 +253,19 @@ function ProductInfoInput() {
 export default ProductInfoInput;
 
 const FinishButton = (props: FinishButtonProps) => {
-	const { title, callBack } = props;
+	const { title, callBack, isAvaliable } = props;
 	return (
 		<Button
 			title={title}
 			style={{}}
 			containerStyle={{
 				marginBottom: 24,
+				width: '100%',
 			}}
 			buttonStyle={{
-				width: 327,
 				height: 48,
 				borderRadius: 3,
-				backgroundColor: '#fbd145',
+				backgroundColor: isAvaliable ? '#fbd145' : '#ededed',
 				borderStyle: 'solid',
 				borderWidth: 1,
 				borderColor: '#000000',
@@ -219,15 +279,188 @@ const FinishButton = (props: FinishButtonProps) => {
 				fontStyle: 'normal',
 				letterSpacing: 0,
 				textAlign: 'center',
-				color: '#000000',
+				color: isAvaliable ? '#000000' : '#707070',
 			}}
 			onPress={callBack}
+			disabled={!isAvaliable}
 		/>
 	);
 };
 
-const CategoryBottomSheet = (props: any) => {
-	const { isVisiable, handleClose } = props;
+const CategoryOpenButtonWithLabel = (props: CategoryOpenButtonWithLabelProps) => {
+	const { title, isNecessary, value, handleOpen } = props;
+
+	return (
+		<View
+			style={{
+				marginBottom: 24,
+			}}
+		>
+			<View
+				style={{
+					flex: 1,
+					flexDirection: 'row',
+					marginBottom: 6,
+				}}
+			>
+				{isNecessary ? (
+					<Text
+						style={{
+							height: 21,
+							// fontFamily: 'AppleSDGothicNeo',
+							fontSize: 20,
+							fontWeight: '600',
+							fontStyle: 'normal',
+							lineHeight: 21,
+							letterSpacing: -0.58,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						{title}
+					</Text>
+				) : (
+					<Text
+						style={{
+							width: 110,
+							height: 24,
+							opacity: 0.73,
+							// fontFamily: "AppleSDGothicNeo",
+							fontSize: 20,
+							fontWeight: '500',
+							fontStyle: 'normal',
+							lineHeight: 24,
+							letterSpacing: -0.64,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						{title}
+					</Text>
+				)}
+
+				{isNecessary && (
+					<Text
+						style={{
+							width: 9,
+							height: 21,
+							// fontFamily: 'AppleSDGothicNeo',
+							fontSize: 23,
+							fontWeight: 'normal',
+							fontStyle: 'normal',
+							lineHeight: 23,
+							letterSpacing: 0,
+							textAlign: 'right',
+							color: '#ff0000',
+						}}
+					>
+						*
+					</Text>
+				)}
+			</View>
+
+			<TouchableOpacity
+				style={{
+					width: '100%',
+					height: 50,
+					borderRadius: 9,
+					backgroundColor: '#ffffff',
+					borderStyle: 'solid',
+					borderWidth: 1,
+					borderColor: '#d5d5d5',
+					alignSelf: 'center',
+					paddingLeft: 12,
+					justifyContent: 'center',
+				}}
+				onPress={handleOpen}
+			>
+				<Text
+					style={{
+						width: 83,
+						// height: 29,
+						// fontFamily: 'AppleSDGothicNeo',
+						fontSize: 22,
+						fontWeight: 'normal',
+						fontStyle: 'normal',
+						// lineHeight: 28,
+						letterSpacing: 0,
+						textAlign: 'left',
+						color: '#3c3c3c',
+					}}
+				>
+					{value}
+				</Text>
+			</TouchableOpacity>
+		</View>
+	);
+};
+
+const CategoryListItem = (props: CategoryListItemProps) => {
+	const { title, isSelected, handleCategoryIndex, currIndex } = props;
+
+	return (
+		<TouchableOpacity
+			style={{
+				flexDirection: 'row',
+				justifyContent: 'space-between',
+				width: 328,
+				height: 32,
+				borderRadius: 3,
+				paddingLeft: 12,
+				paddingRight: 12,
+				backgroundColor: isSelected ? 'rgba(255, 208, 46, 0.12)' : '#ffff',
+				alignItems: 'center',
+				marginBottom: 4,
+			}}
+			onPress={() => {
+				handleCategoryIndex(currIndex);
+			}}
+		>
+			<Text
+				style={{
+					height: 19,
+					// fontFamily: 'AppleSDGothicNeo',
+					fontSize: 16,
+					fontWeight: '600',
+					fontStyle: 'normal',
+					lineHeight: 19,
+					letterSpacing: 0,
+					textAlign: 'left',
+					color: '#000000',
+				}}
+			>
+				{title}
+			</Text>
+			{isSelected ? (
+				<Image
+					source={require('../../../../assets/images/product-info-input/selected-check.png')}
+					style={{
+						width: 24,
+						height: 24,
+					}}
+				/>
+			) : (
+				<Image
+					source={require('../../../../assets/images/product-info-input/selected-check.png')}
+					style={{
+						width: 24,
+						height: 24,
+					}}
+				/>
+			)}
+		</TouchableOpacity>
+	);
+};
+
+const CategoryBottomSheet = (props: CategoryBottomSheetProps) => {
+	const { isVisiable, handleClose, handleCategoryIndex, categoryArray } = props;
+
+	const [arr, setArr] = React.useState(categoryArray);
+	const [selectedItemIndex, setSelectedListItemIndex] = React.useState(0);
+	const handleSelectedItemIndex = (newIndex: number) => {
+		setSelectedListItemIndex(newIndex);
+	};
+
 	return (
 		<BottomSheet
 			isVisible={isVisiable}
@@ -248,7 +481,23 @@ const CategoryBottomSheet = (props: any) => {
 				}}
 			>
 				<View>
-					<Button title="close" onPress={handleClose} />
+					<TouchableOpacity
+						style={{
+							alignItems: 'center',
+							marginTop: 8,
+							height: 12,
+							marginBottom: 16,
+						}}
+						onPress={handleClose}
+					>
+						<Image
+							source={require('../../../../assets/images/product-info-input/arrow-down.png')}
+							style={{
+								width: 21,
+								height: 8,
+							}}
+						/>
+					</TouchableOpacity>
 					<Text
 						style={{
 							width: 109,
@@ -261,39 +510,30 @@ const CategoryBottomSheet = (props: any) => {
 							letterSpacing: 0,
 							textAlign: 'left',
 							color: '#000000',
+							marginBottom: 18,
 						}}
 					>
 						상품 카테고리
 					</Text>
 
-					<TouchableOpacity
-						style={{
-							flex: 1,
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-							width: 328,
-							height: 32,
-							// opacity: 0.12,
-							borderRadius: 3,
-							padding: 12,
-							// backgroundColor: '#ffd02e',
-						}}
-					>
-						<Text>저울 상품</Text>
-						<Image
-							source={require('../../../../assets/images/product-info-input/selected-check.png')}
-							style={{
-								width: 24,
-								height: 24,
-							}}
-						/>
-					</TouchableOpacity>
+					{arr &&
+						arr.map((eachCategory, index) => {
+							return (
+								<CategoryListItem
+									title={eachCategory}
+									isSelected={arr[selectedItemIndex] === eachCategory}
+									handleCategoryIndex={handleSelectedItemIndex}
+									currIndex={index}
+								/>
+							);
+						})}
 
 					<Button
 						title={'카테고리 선택 완료'}
 						style={{}}
 						containerStyle={{
 							marginBottom: 24,
+							marginTop: 28,
 						}}
 						buttonStyle={{
 							width: 327,
@@ -313,7 +553,10 @@ const CategoryBottomSheet = (props: any) => {
 							textAlign: 'center',
 							color: '#000000',
 						}}
-						// onPress={callBack}
+						onPress={() => {
+							handleCategoryIndex(selectedItemIndex);
+							handleClose();
+						}}
 					/>
 				</View>
 			</View>
@@ -338,25 +581,27 @@ const CheckBox = (props: CheckBoxProps) => {
 				style={{
 					width: 25,
 					height: 25,
-					borderRadius: 6,
-					backgroundColor: '#ffffff',
-					borderStyle: 'solid',
-					borderWidth: 1.5,
-					borderColor: '#e2e2e2',
 					marginRight: 6,
 				}}
 			>
 				{state ? (
 					<Image
 						// source={{ uri: './images/product-info-input/checked.png' }}
-						source={require('../../../../assets/images/product-info-input/checked.png')}
+						source={require('../../../../assets/images/product-info-input/selected-radio.png')}
 						style={{
 							width: 24,
 							height: 24,
 						}}
 					/>
 				) : (
-					<View style={{ width: 24, height: 24 }} />
+					<Image
+						// source={{ uri: './images/product-info-input/checked.png' }}
+						source={require('../../../../assets/images/product-info-input/not-selected-radio.png')}
+						style={{
+							width: 24,
+							height: 24,
+						}}
+					/>
 				)}
 			</View>
 
@@ -395,7 +640,7 @@ const CheckBoxGroupWithLabel = (props: CheckBoxGroupWithLabelProps) => {
 					style={{
 						height: 21,
 						// fontFamily: 'AppleSDGothicNeo',
-						fontSize: 18,
+						fontSize: 20,
 						fontWeight: '600',
 						fontStyle: 'normal',
 						lineHeight: 21,
@@ -457,7 +702,7 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 	const { title, isNecessary, value, handleChange } = props;
 
 	return (
-		<View>
+		<View style={{}}>
 			<View
 				style={{
 					flex: 1,
@@ -465,21 +710,41 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 					marginBottom: 6,
 				}}
 			>
-				<Text
-					style={{
-						height: 21,
-						// fontFamily: 'AppleSDGothicNeo',
-						fontSize: 18,
-						fontWeight: '600',
-						fontStyle: 'normal',
-						lineHeight: 21,
-						letterSpacing: -0.58,
-						textAlign: 'left',
-						color: '#000000',
-					}}
-				>
-					{title}
-				</Text>
+				{isNecessary ? (
+					<Text
+						style={{
+							height: 21,
+							// fontFamily: 'AppleSDGothicNeo',
+							fontSize: 20,
+							fontWeight: '600',
+							fontStyle: 'normal',
+							lineHeight: 21,
+							letterSpacing: -0.58,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						{title}
+					</Text>
+				) : (
+					<Text
+						style={{
+							width: 110,
+							height: 24,
+							opacity: 0.73,
+							// fontFamily: "AppleSDGothicNeo",
+							fontSize: 20,
+							fontWeight: '500',
+							fontStyle: 'normal',
+							lineHeight: 24,
+							letterSpacing: -0.64,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						{title}
+					</Text>
+				)}
 				{isNecessary && (
 					<Text
 						style={{
@@ -503,8 +768,8 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 			<Input
 				value={value}
 				onChange={handleChange}
+				containerStyle={{ paddingHorizontal: 0 }}
 				inputContainerStyle={{
-					width: 327,
 					minHeight: 120,
 					borderRadius: 9,
 					backgroundColor: '#ffffff',
@@ -535,9 +800,55 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 };
 
 const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
-	const { title, isNecessary, value, handleChange } = props;
+	const numericReg = /^\d+$/;
+	const reg = {
+		pattern: new RegExp(''),
+	};
+
+	const { title, isNecessary, value, handleChange, inputType, rightIconType } = props;
+
+	if (inputType === 'numeric') {
+		reg.pattern = numericReg;
+	} else if (inputType === 'currency') {
+		reg.pattern = numericReg;
+	}
+
+	const handleRightIcon = (rightIconType: 'won' | 'gram' | undefined) => {
+		if (rightIconType === 'won') {
+			return (
+				<Image
+					// source={{ uri: './images/product-info-input/checked.png' }}
+					source={require('../../../../assets/images/product-info-input/won-mark.png')}
+					style={{
+						width: 23,
+						height: 32,
+						marginRight: 4,
+					}}
+				/>
+			);
+		} else if (rightIconType === 'gram') {
+			return (
+				<Image
+					// source={{ uri: './images/product-info-input/checked.png' }}
+					source={require('../../../../assets/images/product-info-input/g-mark.png')}
+					style={{
+						width: 13,
+						height: 32,
+						marginRight: 4,
+					}}
+				/>
+			);
+		} else {
+			return undefined;
+		}
+	};
+
 	return (
-		<View>
+		<View
+			style={{
+				marginBottom: 8,
+			}}
+		>
 			<View
 				style={{
 					flex: 1,
@@ -545,21 +856,42 @@ const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
 					marginBottom: 6,
 				}}
 			>
-				<Text
-					style={{
-						height: 21,
-						// fontFamily: 'AppleSDGothicNeo',
-						fontSize: 18,
-						fontWeight: '600',
-						fontStyle: 'normal',
-						lineHeight: 21,
-						letterSpacing: -0.58,
-						textAlign: 'left',
-						color: '#000000',
-					}}
-				>
-					{title}
-				</Text>
+				{isNecessary ? (
+					<Text
+						style={{
+							height: 21,
+							// fontFamily: 'AppleSDGothicNeo',
+							fontSize: 20,
+							fontWeight: '600',
+							fontStyle: 'normal',
+							lineHeight: 21,
+							letterSpacing: -0.58,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						{title}
+					</Text>
+				) : (
+					<Text
+						style={{
+							width: 110,
+							height: 24,
+							opacity: 0.73,
+							// fontFamily: "AppleSDGothicNeo",
+							fontSize: 20,
+							fontWeight: '500',
+							fontStyle: 'normal',
+							lineHeight: 24,
+							letterSpacing: -0.64,
+							textAlign: 'left',
+							color: '#000000',
+						}}
+					>
+						{title}
+					</Text>
+				)}
+
 				{isNecessary && (
 					<Text
 						style={{
@@ -583,8 +915,15 @@ const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
 			<Input
 				value={value}
 				onChange={handleChange}
+				errorMessage={
+					!reg.pattern.test(value.replace(/,/g, '')) && value.length > 0
+						? '입력값이 올바르지 않습니다.'
+						: ''
+				}
+				rightIcon={handleRightIcon(rightIconType)}
+				containerStyle={{ paddingHorizontal: 0 }}
 				inputContainerStyle={{
-					width: 327,
+					width: '100%',
 					height: 50,
 					borderRadius: 9,
 					backgroundColor: '#ffffff',
@@ -601,7 +940,7 @@ const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
 					fontSize: 22,
 					fontWeight: 'normal',
 					fontStyle: 'normal',
-					lineHeight: 23,
+					// lineHeight: 23,
 					letterSpacing: 0,
 					textAlign: 'left',
 					color: '#3c3c3c',
