@@ -77,7 +77,9 @@ function ProductInfoInput() {
 	/**
 	 * @name 상품설명_핸들러
 	 */
-	const productDescription = useEventTargetValue();
+	const productDescription = useEventTargetValue(
+		'신선제품의 특성상 상품의 중량의 3% 내외의 차이가 발생할 수 있습니다.',
+	);
 
 	return (
 		<ScrollView
@@ -175,6 +177,9 @@ function ProductInfoInput() {
 					isNecessary={false}
 					value={productDescription.value}
 					handleChange={productDescription.handleChange}
+					defaultDescription={
+						'신선제품의 특성상 상품의 중량의 3% 내외의 차이가 발생할 수 있습니다.'
+					}
 				/>
 				<FinishButton
 					title={'등록하기'}

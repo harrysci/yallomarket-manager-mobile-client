@@ -10,11 +10,12 @@ export interface InputDescriptionBoxWithLabelProps {
 	title: string;
 	isNecessary: boolean;
 	value: string;
+	defaultDescription?: string;
 	handleChange(e: React.ChangeEvent<HTMLInputElement> | any): void;
 }
 
 const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) => {
-	const { title, isNecessary, value, handleChange } = props;
+	const { title, isNecessary, value, handleChange, defaultDescription } = props;
 
 	return (
 		<View>
@@ -28,7 +29,7 @@ const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) 
 				inputStyle={style.input}
 				multiline={true}
 				maxLength={500}
-				numberOfLines={4}
+				placeholder={defaultDescription}
 			/>
 		</View>
 	);

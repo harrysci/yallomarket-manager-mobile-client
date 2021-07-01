@@ -20,12 +20,10 @@ const style = StyleSheet.create({
 	},
 	text: {
 		width: 83,
-		// height: 29,
 		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 22,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
-		// lineHeight: 28,
 		letterSpacing: 0,
 		textAlign: 'left',
 		color: '#3c3c3c',

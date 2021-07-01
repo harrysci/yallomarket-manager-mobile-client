@@ -5,7 +5,7 @@ const style = StyleSheet.create({
 		marginBottom: 8,
 	},
 	inputContainer: {
-		minHeight: 120,
+		minHeight: 160,
 		borderRadius: 9,
 		backgroundColor: '#ffffff',
 		borderStyle: 'solid',
@@ -25,6 +25,18 @@ const style = StyleSheet.create({
 		letterSpacing: 0,
 		textAlign: 'left',
 		color: '#3c3c3c',
+	},
+	nonInput: {
+		width: 83,
+		minHeight: 29,
+		// fontFamily: 'AppleSDGothicNeo',
+		fontSize: 22,
+		fontWeight: 'normal',
+		fontStyle: 'normal',
+		lineHeight: 23,
+		letterSpacing: 0,
+		textAlign: 'left',
+		color: '#d5d5d5',
 	},
 });
 
