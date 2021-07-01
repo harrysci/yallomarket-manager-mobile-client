@@ -1,3 +1,4 @@
+import useAxios from 'axios-hooks';
 import React from 'react';
 import {useState} from 'react';
 import {
@@ -6,9 +7,9 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import {Text, Button, Overlay} from 'react-native-elements';
-import DeleteOverlay from '../../organisms/product-detail-info-page/DeleteOverlay';
+import {Text, Button, Overlay, Divider} from 'react-native-elements';
 
 const ProductDetailInfoPage = (): JSX.Element => {
   const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] =
@@ -17,6 +18,24 @@ const ProductDetailInfoPage = (): JSX.Element => {
   const handleDeleteOverlay = () => {
     setDeleteOverlayVisibleVisible(!deleteOverlayVisible);
   };
+
+  const [confirmOverlayVisible, setConfirmOverlayVisibleVisible] =
+    useState<boolean>(false);
+
+  const handleConfirmOverlay = () => {
+    setConfirmOverlayVisibleVisible(!confirmOverlayVisible);
+  };
+
+  const [
+    {data: deletedData, loading: deleteLoading, error: deleteError},
+    executeDelete,
+  ] = useAxios<any>(
+    {
+      method: 'DELETE',
+      url: 'http://localhost:5000/product/deleteProductData/2/88030357308582',
+    },
+    {manual: true},
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -76,6 +95,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
           titleStyle={styles.buttonText}
           buttonStyle={styles.updateButton}
         />
+
         <Button
           title="삭제"
           titleStyle={styles.buttonText}
@@ -83,14 +103,85 @@ const ProductDetailInfoPage = (): JSX.Element => {
           buttonStyle={styles.deleteButton}
           onPress={handleDeleteOverlay}
         />
-
-        <Overlay
-          isVisible={deleteOverlayVisible}
-          onBackdropPress={handleDeleteOverlay}
-          overlayStyle={styles.deleteOverlay}
-          children={DeleteOverlay}
-        />
       </View>
+
+      {/* '정말 삭제하시겠습니까?' overlay */}
+      <Overlay
+        isVisible={deleteOverlayVisible}
+        onBackdropPress={handleDeleteOverlay}
+        overlayStyle={styles.deleteOverlay}>
+        <View style={styles.deleteOverlayContainer}>
+          <View style={styles.deleteOverlayTitleContainer}>
+            <Text style={styles.deleteOverlayTitleText}>
+              정말 삭제하시겠습니까?
+            </Text>
+          </View>
+          <Divider orientation="horizontal" />
+          <View style={styles.deleteOverlayButtonContainer}>
+            <Button
+              titleStyle={styles.deleteOverlayButtonText}
+              buttonStyle={styles.deleteOverlayButton}
+              title="아니오"
+              onPress={() => {
+                setDeleteOverlayVisibleVisible(false);
+              }}
+            />
+            <Divider orientation="vertical" />
+            <Button
+              titleStyle={styles.deleteOverlayButtonText}
+              buttonStyle={styles.deleteOverlayButton}
+              title="네"
+              onPress={() => {
+                // useAxios -> 해당 상품 삭제
+                executeDelete().catch(() => {
+                  // 상품 삭제 에러 발생 시 '해당 상품을 삭제할 수 없습니다.' overlay 띄움.
+                  setConfirmOverlayVisibleVisible(true);
+                });
+
+                setDeleteOverlayVisibleVisible(false);
+
+                if (!deleteError && !deleteLoading && deletedData) {
+                  /**
+                   * 1. '바코드 등록 상품 목록' 으로 페이지 전환
+                   * 2. '상품정보 삭제 완료!' 모달 띄우기
+                   */
+                }
+              }}
+            />
+          </View>
+        </View>
+
+        {/* 삭제 중 로딩 컴포넌트 */}
+        {deleteLoading && (
+          <View style={styles.loadingComponentContainer}>
+            <ActivityIndicator size="large" color="#f7d02f" />
+          </View>
+        )}
+      </Overlay>
+      {/* '해당 상품을 삭제할 수 없습니다.' overlay */}
+      <Overlay
+        isVisible={confirmOverlayVisible}
+        onBackdropPress={handleConfirmOverlay}
+        overlayStyle={styles.deleteOverlay}>
+        <View style={styles.deleteOverlayContainer}>
+          <View style={styles.deleteOverlayTitleContainer}>
+            <Text style={styles.deleteOverlayTitleText}>
+              해당 상품을 삭제할 수 없습니다.
+            </Text>
+          </View>
+          <Divider orientation="horizontal" />
+          <View style={styles.deleteOverlayButtonContainer}>
+            <Button
+              titleStyle={styles.deleteOverlayButtonText}
+              buttonStyle={styles.deleteOverlayButton}
+              title="확인"
+              onPress={() => {
+                setConfirmOverlayVisibleVisible(false);
+              }}
+            />
+          </View>
+        </View>
+      </Overlay>
     </SafeAreaView>
   );
 };
@@ -274,5 +365,48 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#000000',
     backgroundColor: '#ffffff',
+  },
+  deleteOverlayContainer: {
+    flexDirection: 'column',
+  },
+  deleteOverlayTitleContainer: {
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteOverlayButtonContainer: {
+    flexDirection: 'row',
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteOverlayTitleText: {
+    // fontFamily: "AppleSDGothicNeo",
+    fontSize: 17,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 22,
+    letterSpacing: -0.54,
+    textAlign: 'center',
+    color: '#000000',
+  },
+  deleteOverlayButton: {
+    backgroundColor: '#ffffff',
+    width: 135,
+  },
+  deleteOverlayButtonText: {
+    // fontFamily: 'AppleSDGothicNeo',
+    fontSize: 17,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 22,
+    letterSpacing: -0.41,
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: '#000000',
+  },
+  loadingComponentContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
