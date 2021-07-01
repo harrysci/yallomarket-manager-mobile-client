@@ -14,7 +14,9 @@ const style = StyleSheet.create({
 		borderColor: '#d5d5d5',
 		alignSelf: 'center',
 		paddingLeft: 12,
-		justifyContent: 'center',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		flexDirection: 'row',
 	},
 	text: {
 		width: 83,
@@ -27,6 +29,11 @@ const style = StyleSheet.create({
 		letterSpacing: 0,
 		textAlign: 'left',
 		color: '#3c3c3c',
+	},
+	image: {
+		width: 16,
+		height: 16,
+		marginRight: 12,
 	},
 });
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, Image } from 'react-native-elements';
 
-import StyledLabel from '../../text/styled-label/StyledLabel';
+import StyledLabel from '../../../atoms/text/styled-label/StyledLabel';
 
 import style from './CategoryOpenButtonWithLabel.style';
 
@@ -22,6 +22,11 @@ const CategoryOpenButtonWithLabel = (props: CategoryOpenButtonWithLabelProps) =>
 
 			<TouchableOpacity style={style.touchArea} onPress={handleOpen}>
 				<Text style={style.text}>{value}</Text>
+
+				<Image
+					source={require('../../../../assets/images/product-info-input/arrow-down-black.png')}
+					style={style.image}
+				/>
 			</TouchableOpacity>
 		</View>
 	);

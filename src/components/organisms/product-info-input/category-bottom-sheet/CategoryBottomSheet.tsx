@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Text, Button, Image, BottomSheet } from 'react-native-elements';
 
-import CategoryListItem from '../../list/category-list-item/CategoryListItem';
+import CategoryListItem from '../../../atoms/list/category-list-item/CategoryListItem';
 
 import style from './CategoryBottomSheet.style';
 

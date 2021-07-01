@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
-import ProductInfoInput from '../../organisms/shared/product-info-input/productInfoInput';
+import ProductInfoInput from '../product-info-input/productInfoInput';
 
 const styles = StyleSheet.create({
 	scrollContainer: {

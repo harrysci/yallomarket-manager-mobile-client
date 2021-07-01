@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import useEventTargetValue from '../../../../utils/hooks/useEventTargetValue';
+import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
-/* 사용자 정의 atom 컴포넌트 Import */
-import InputTextBoxWithLabel from '../../../atoms/input/input-text-box-with-label/InputTextBoxWithLabel';
-import InputDescriptionBoxWithLabel from '../../../atoms/input/input-description-box-with-label/InputDescriptionBoxWithLabel';
-import CheckBoxGroupWithLabel from '../../../atoms/check-box/check-box-group/CheckBoxGroupWithLabel';
-import CategoryBottomSheet from '../../../atoms/bottom-sheet/category-bottom-sheet/CategoryBottomSheet';
-import CategoryOpenButtonWithLabel from '../../../atoms/button/open-button-with-label/CategoryOpenButtonWithLabel';
-import FinishButton from '../../../atoms/button/finish-or-update-button/FinishButton';
-import DividerWithInterval from '../../../atoms/divider/divider-with-interval/DividerWithInterval';
+/* 사용자 정의 organisms 컴포넌트 Import */
+import InputTextBoxWithLabel from '../../organisms/product-info-input/input-text-box-with-label/InputTextBoxWithLabel';
+import InputDescriptionBoxWithLabel from '../../organisms/product-info-input/input-description-box-with-label/InputDescriptionBoxWithLabel';
+import CheckBoxGroupWithLabel from '../../organisms/product-info-input/check-box-group/CheckBoxGroupWithLabel';
+import CategoryBottomSheet from '../../organisms/product-info-input/category-bottom-sheet/CategoryBottomSheet';
+import CategoryOpenButtonWithLabel from '../../organisms/product-info-input/open-button-with-label/CategoryOpenButtonWithLabel';
+import FinishButton from '../../atoms/button/finish-or-update-button/FinishButton';
+import DividerWithInterval from '../../atoms/divider/divider-with-interval/DividerWithInterval';
 
 /* style 파일 Import */
 import productInfoStyle from './productInfoInput.style';

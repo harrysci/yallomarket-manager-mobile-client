@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Input, Image } from 'react-native-elements';
 
-import StyledLabel from '../../text/styled-label/StyledLabel';
+import StyledLabel from '../../../atoms/text/styled-label/StyledLabel';
 
 import style from './InputTextBoxWithLabel.style';
 

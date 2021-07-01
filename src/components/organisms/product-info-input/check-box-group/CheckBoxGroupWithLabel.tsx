@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import StyledLabel from '../../text/styled-label/StyledLabel';
-import CheckBox from '../styled-check-box/CheckBox';
+import StyledLabel from '../../../atoms/text/styled-label/StyledLabel';
+import CheckBox from '../../../atoms/check-box/styled-check-box/CheckBox';
 
 import style from './CheckBoxGroupWithLabel.style';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import style from '../../input/input-text-box-with-label/InputTextBoxWithLabel.style';
+import style from './DividerWithInterval.style';
 
 const DividerWithInterval = () => {
 	return <View style={style.root} />;
