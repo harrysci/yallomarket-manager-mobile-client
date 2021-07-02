@@ -79,9 +79,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
           <Text style={styles.detailInformationText}>2,290원</Text>
         </View>
         <View style={styles.productDetailInformationElement}>
-          <Text style={styles.detailTitleText}>
-            얄로마켓 시스템 내 상품 게시일
-          </Text>
+          <Text style={styles.detailTitleText}>상품 게시일</Text>
           <Text style={styles.detailInformationText}>2021/06/01</Text>
         </View>
         <View style={styles.productDetailInformationElement}>
@@ -195,7 +193,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   titleContainer: {
-    height: '12.9%',
+    height: '10%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productInformationContainer: {
-    height: '13.8%',
+    height: '10%',
   },
   productNamePriceContainer: {
     flexDirection: 'row',
@@ -234,20 +232,18 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   storeNameText: {
-    width: 68,
-    height: 16,
     // fontFamily: 'AppleSDGothicNeo',
     fontSize: 13,
     fontWeight: '500',
     fontStyle: 'normal',
     lineHeight: 16,
     letterSpacing: -0.13,
-    textAlign: 'center',
+    textAlign: 'left',
     color: '#6a6a6a',
     marginBottom: '1%',
   },
   productNameText: {
-    height: 24,
+    // height: 24,
     // fontFamily: 'AppleSDGothicNeo',
     fontSize: 20,
     fontWeight: '500',
@@ -259,7 +255,7 @@ const styles = StyleSheet.create({
     marginRight: '4%',
   },
   productOnSalePriceText: {
-    height: 24,
+    // height: 24,
     // fontFamily: 'AppleSDGothicNeo',
     fontSize: 20,
     fontWeight: 'bold',
@@ -311,7 +307,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   detailTitleText: {
-    width: '29%',
+    width: '33%',
     // fontFamily: 'AppleSDGothicNeo',
     fontSize: 15,
     fontWeight: '500',
@@ -359,7 +355,7 @@ const styles = StyleSheet.create({
   },
   deleteOverlay: {
     width: '72%',
-    height: '11.8%',
+    height: '15%',
 
     borderRadius: 10,
     borderWidth: 2,
@@ -392,7 +388,7 @@ const styles = StyleSheet.create({
   },
   deleteOverlayButton: {
     backgroundColor: '#ffffff',
-    width: 135,
+    width: 130,
   },
   deleteOverlayButtonText: {
     // fontFamily: 'AppleSDGothicNeo',
