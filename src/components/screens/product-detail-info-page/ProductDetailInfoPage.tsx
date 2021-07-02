@@ -19,13 +19,14 @@ const ProductDetailInfoPage = (): JSX.Element => {
     setDeleteOverlayVisibleVisible(!deleteOverlayVisible);
   };
 
-  const [confirmOverlayVisible, setConfirmOverlayVisibleVisible] =
+  const [deleteConfirmOverlayVisible, setDeleteConfirmOverlayVisible] =
     useState<boolean>(false);
 
-  const handleConfirmOverlay = () => {
-    setConfirmOverlayVisibleVisible(!confirmOverlayVisible);
+  const handleDeleteConfirmOverlay = () => {
+    setDeleteConfirmOverlayVisible(!deleteConfirmOverlayVisible);
   };
 
+  // 상품 삭제 요청
   const [
     {data: deletedData, loading: deleteLoading, error: deleteError},
     executeDelete,
@@ -33,6 +34,18 @@ const ProductDetailInfoPage = (): JSX.Element => {
     {
       method: 'DELETE',
       url: 'http://localhost:5000/product/deleteProductData/2/88030357308582',
+    },
+    {manual: true},
+  );
+
+  // 상품 갱신 요청
+  const [
+    {data: updateData, loading: updateLoading, error: updateError},
+    executeUpdate,
+  ] = useAxios<any>(
+    {
+      method: 'PUT',
+      url: 'http://localhost:5000/product/updateProductData/:ownerId/:barcode',
     },
     {manual: true},
   );
@@ -55,9 +68,13 @@ const ProductDetailInfoPage = (): JSX.Element => {
         <Text style={styles.storeNameText}>[경동빅마트]</Text>
         <View style={styles.productNamePriceContainer}>
           <Text style={styles.productNameText}>적양배추 1/2통</Text>
-          <Text style={styles.productOnSalePriceText}>2,290원</Text>
+          <Text style={styles.productOnSalePriceText}>
+            {new String(2290).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </Text>
           <Text style={styles.productSalePercentageText}>10%</Text>
-          <Text style={styles.productCurrentPriceText}>2,210원</Text>
+          <Text style={styles.productCurrentPriceText}>
+            {new String(2210).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </Text>
         </View>
       </View>
       <View style={styles.productDetailInformationContainer}>
@@ -72,11 +89,15 @@ const ProductDetailInfoPage = (): JSX.Element => {
         </View>
         <View style={styles.productDetailInformationElement}>
           <Text style={styles.detailTitleText}>상품 현재 판매가</Text>
-          <Text style={styles.detailInformationText}>1,450원</Text>
+          <Text style={styles.detailInformationText}>
+            {new String(1450).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </Text>
         </View>
         <View style={styles.productDetailInformationElement}>
           <Text style={styles.detailTitleText}>상품 카테고리</Text>
-          <Text style={styles.detailInformationText}>2,290원</Text>
+          <Text style={styles.detailInformationText}>
+            {new String(2290).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </Text>
         </View>
         <View style={styles.productDetailInformationElement}>
           <Text style={styles.detailTitleText}>상품 게시일</Text>
@@ -133,7 +154,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
                 // useAxios -> 해당 상품 삭제
                 executeDelete().catch(() => {
                   // 상품 삭제 에러 발생 시 '해당 상품을 삭제할 수 없습니다.' overlay 띄움.
-                  setConfirmOverlayVisibleVisible(true);
+                  setDeleteConfirmOverlayVisible(true);
                 });
 
                 setDeleteOverlayVisibleVisible(false);
@@ -158,8 +179,8 @@ const ProductDetailInfoPage = (): JSX.Element => {
       </Overlay>
       {/* '해당 상품을 삭제할 수 없습니다.' overlay */}
       <Overlay
-        isVisible={confirmOverlayVisible}
-        onBackdropPress={handleConfirmOverlay}
+        isVisible={deleteConfirmOverlayVisible}
+        onBackdropPress={handleDeleteConfirmOverlay}
         overlayStyle={styles.deleteOverlay}>
         <View style={styles.deleteOverlayContainer}>
           <View style={styles.deleteOverlayTitleContainer}>
@@ -174,7 +195,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
               buttonStyle={styles.deleteOverlayButton}
               title="확인"
               onPress={() => {
-                setConfirmOverlayVisibleVisible(false);
+                setDeleteConfirmOverlayVisible(false);
               }}
             />
           </View>
