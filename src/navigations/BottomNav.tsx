@@ -3,6 +3,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {StyleSheet} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,14 +33,14 @@ const BottomNav = (): JSX.Element => {
               if (focused) {
                 return (
                   <Image
-                    style={{width: 22.4, height: 20.6}}
+                    style={styles.barcodeScanTabImage}
                     source={require('../assets/icons/tabs/scan_active.png')}
                   />
                 );
               } else {
                 return (
                   <Image
-                    style={{width: 22.4, height: 20.6}}
+                    style={styles.barcodeScanTabImage}
                     source={require('../assets/icons/tabs/scan_inactive.png')}
                   />
                 );
@@ -48,14 +49,14 @@ const BottomNav = (): JSX.Element => {
               if (focused) {
                 return (
                   <Image
-                    style={{width: 17.1, height: 19.6}}
+                    style={styles.productListTabImage}
                     source={require('../assets/icons/tabs/list_active.png')}
                   />
                 );
               } else {
                 return (
                   <Image
-                    style={{width: 17.1, height: 19.6}}
+                    style={styles.productListTabImage}
                     source={require('../assets/icons/tabs/list_inactive.png')}
                   />
                 );
@@ -66,7 +67,7 @@ const BottomNav = (): JSX.Element => {
         tabBarOptions={{
           activeTintColor: '#000000',
           inactiveTintColor: '#B7B7B7',
-          style: {height: 84, backgroundColor: '#FBFBFB'},
+          style: styles.tabBar,
         }}>
         <Tab.Screen name="바코드 스캔" component={ScanScreen} />
         <Tab.Screen name="등록 목록" component={ListScreen} />
@@ -76,3 +77,18 @@ const BottomNav = (): JSX.Element => {
 };
 
 export default BottomNav;
+
+const styles = StyleSheet.create({
+  tabBar: {
+    height: '10.2%',
+    backgroundColor: '#FBFBFB',
+  },
+  productListTabImage: {
+    width: 17.1,
+    height: 19.6,
+  },
+  barcodeScanTabImage: {
+    width: 22.4,
+    height: 20.6,
+  },
+});
