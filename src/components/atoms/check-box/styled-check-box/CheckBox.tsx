@@ -17,13 +17,11 @@ const CheckBox = (props: CheckBoxProps) => {
 			<View style={style.imageContainer}>
 				{state ? (
 					<Image
-						// source={{ uri: './images/product-info-input/checked.png' }}
 						source={require('../../../../assets/images/product-info-input/selected-radio.png')}
 						style={style.image}
 					/>
 				) : (
 					<Image
-						// source={{ uri: './images/product-info-input/checked.png' }}
 						source={require('../../../../assets/images/product-info-input/not-selected-radio.png')}
 						style={style.image}
 					/>

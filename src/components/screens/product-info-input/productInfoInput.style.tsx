@@ -5,6 +5,7 @@ const productInfoStyle = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		flexDirection: 'column',
+		backgroundColor: '#ffff',
 	},
 	rootContainer: {
 		alignItems: 'center',

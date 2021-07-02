@@ -16,8 +16,6 @@ const style = StyleSheet.create({
 		paddingLeft: 12,
 	},
 	input: {
-		width: 83,
-		height: 29,
 		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 22,
 		fontWeight: 'normal',
@@ -27,14 +25,14 @@ const style = StyleSheet.create({
 		textAlign: 'left',
 	},
 	wonImage: {
-		width: 23,
-		height: 32,
-		marginRight: 4,
+		width: 22,
+		height: 31,
+		marginRight: 5,
 	},
 	gramImage: {
 		width: 13,
 		height: 32,
-		marginRight: 4,
+		marginRight: 5,
 	},
 });
 
