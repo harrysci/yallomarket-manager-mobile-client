@@ -6,7 +6,7 @@ import { ProductContainer } from '../../screens/product-list/dummy';
 const styles= StyleSheet.create({
   item_container: {
     flexDirection: 'row',
-    marginHorizontal: 8,
+    marginVertical: 8,
   },
   items:{
 
@@ -16,6 +16,7 @@ const styles= StyleSheet.create({
   },
   detail_container:{
     flexDirection: 'column',
+    marginLeft: 10,
   },
   last_containner:{
     flexDirection: 'row',
@@ -29,7 +30,8 @@ const styles= StyleSheet.create({
   lineHeight: 14,
   letterSpacing: 0,
   textAlign: "left",
-  color: "#000000"
+  color: "#000000",
+  marginBottom: 8,
   },
   product_name:{
     width: 212,
@@ -39,7 +41,8 @@ const styles= StyleSheet.create({
   lineHeight: 28,
   letterSpacing: -0.43,
   textAlign: "left",
-  color: "#000000"
+  color: "#000000",
+  marginBottom: 15,
   },
   product_price:{
     width: 62,
@@ -49,10 +52,14 @@ const styles= StyleSheet.create({
     lineHeight: 28,
     letterSpacing: -0.41,
     textAlign: "left",
-    color: "#d00404"
+    color: "#d00404",
+    marginRight: 99,
   },
   product_image:{
-
+    width: 107, 
+    height: 90, 
+    backgroundColor:'#123424',
+    borderRadius: 5,
   },
   go_detail:{
     flexDirection:'row',
@@ -66,6 +73,7 @@ const styles= StyleSheet.create({
   letterSpacing: -0.29,
   textAlign: "left",
   color: "#000000",
+  alignItems: 'center',
   
   },
   go_detail_image:{
@@ -82,14 +90,14 @@ const OneProductComponent =(props: OneproductComponentProps) => {
     <View style={styles.item_container}>
       <View style={styles.image_container}>
       <Image
-            style={{width: 104, height: 88}}
+            style={styles.product_image}
             source={require('../../../assets/icons/product-list/icon_forward.png')}
           >
             </Image>
             </View>
         <View style={styles.detail_container}>
         <Text style={styles.barcode}>바코드 {productData.barcode}</Text>
-        <Text style={styles.product_name}>상품명 {productData.productName}</Text>
+        <Text style={styles.product_name}>{productData.productName}</Text>
         <View style={styles.last_containner}>
           <Text style={styles.product_price}>{productData.price}원</Text>
           <TouchableOpacity style={styles.go_detail}>

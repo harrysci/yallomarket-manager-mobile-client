@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, ScrollView } from 'react-native';
 import { ListItem } from 'react-native-elements/dist/list/ListItem';
 import { ProductContainer } from '../../screens/product-list/dummy';
 import OneProductComponent from './OneProductComponent';
@@ -18,12 +18,12 @@ const ProductListComponent=()=>{
 		<OneProductComponent productData={item}/>
 	);
   return(
-    <View>
+    <ScrollView>
       <FlatList
         data={test}
         renderItem={renderItem}
       ></FlatList>
-    </View>
+    </ScrollView>
   )
 }
 export default ProductListComponent;
