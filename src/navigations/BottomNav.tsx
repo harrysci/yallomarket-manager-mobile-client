@@ -4,6 +4,7 @@ import {View, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet} from 'react-native';
+import ListScreen from '../components/screens/product-list/ListScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,14 +12,6 @@ function ScanScreen() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Scan!</Text>
-    </View>
-  );
-}
-
-function ListScreen() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>List!</Text>
     </View>
   );
 }
