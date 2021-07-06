@@ -1,27 +1,18 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {Text} from 'react-native-elements';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
+import Test from './src/components/screens/home/Test';
 
+const Stack = createStackNavigator<StackParamList>();
 const App = () => {
   return (
-    <SafeAreaView style={styles.testContainer}>
-      <Text h1 style={styles.testText}>
-        Owner Mobile Scanner{'\n'}App.tsx
-      </Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="테스트" component={Test} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  testContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fdbd39',
-  },
-  testText: {
-    fontSize: 40,
-    textAlign: 'center',
-  },
-});
 
 export default App;
