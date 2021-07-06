@@ -13,24 +13,50 @@ import DividerWithInterval from '../../atoms/divider/divider-with-interval/Divid
 
 /* style 파일 Import */
 import productInfoStyle from './productInfoInput.style';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 const LIST_WIDTH = '87.5%';
 
-function ProductInfoInput() {
+/**
+ * @example 상품 정보 입력 페이지 stack param 예시
+ * const routeParams: ProductInfoInputStackParams = {
+		mode: 'update',
+		initBarcode: '123123123123',
+		initProductName: '적양배추',
+		initCurrentPrice: 3120,
+		initCategory: '신선식품',
+		initOpenData: '2021-07-06',
+		initVolume: 400,
+		initProductOrigin: '부산광역시',
+		initOriginPrice: 4620,
+		initProductDescription: '개맛있는 적양배추',
+	};
+ */
+
+/**
+ * @name 상품_정보_입력_화면
+ * @returns JSX.Element
+ */
+function ProductInfoInput(): JSX.Element {
+	const route = useRoute<RouteProp<StackParamList, '상품 정보 입력'>>();
+
 	/**
 	 * @name 상품_코드_핸들러
 	 */
-	const barcodeInput = useEventTargetValue();
+	const barcodeInput = useEventTargetValue(route.params.initBarcode);
 
 	/**
 	 * @name 상품명_핸들러
 	 */
-	const productNameInput = useEventTargetValue();
+	const productNameInput = useEventTargetValue(route.params.initProductName);
 
 	/**
 	 * @name 판매가_핸들러
 	 */
-	const currentPriceInput = useEventTargetValue();
+	const currentPriceInput = useEventTargetValue(
+		route.params.initCurrentPrice ? String(route.params.initCurrentPrice) : '',
+	);
 
 	/**
 	 * @name 상품_카테고리_핸들러
@@ -49,12 +75,14 @@ function ProductInfoInput() {
 	/**
 	 * @name 상품_판매_게시일_핸들러
 	 */
-	const openDateInput = useEventTargetValue();
+	const openDateInput = useEventTargetValue(route.params.initOpenData);
 
 	/**
 	 * @name 상품_규격_핸들러
 	 */
-	const volumeInput = useEventTargetValue();
+	const volumeInput = useEventTargetValue(
+		route.params.initVolume ? String(route.params.initVolume) : '',
+	);
 
 	/**
 	 * @name 상품_판매_가능_체크박스_핸들러
@@ -67,18 +95,22 @@ function ProductInfoInput() {
 	/**
 	 * @name 매입처_핸들러
 	 */
-	const productOriginInput = useEventTargetValue();
+	const productOriginInput = useEventTargetValue(route.params.initProductOrigin);
 
 	/**
 	 * @name 원가_핸들러
 	 */
-	const originPriceInput = useEventTargetValue();
+	const originPriceInput = useEventTargetValue(
+		route.params.initOriginPrice ? String(route.params.initOriginPrice) : '',
+	);
 
 	/**
 	 * @name 상품설명_핸들러
 	 */
 	const productDescription = useEventTargetValue(
-		'신선제품의 특성상 상품의 중량의 3% 내외의 차이가 발생할 수 있습니다.',
+		route.params.initProductDescription
+			? route.params.initProductDescription
+			: '신선제품의 특성상 상품의 중량의 3% 내외의 차이가 발생할 수 있습니다.',
 	);
 
 	return (
@@ -94,7 +126,7 @@ function ProductInfoInput() {
 				handleCategoryIndex={handleCategoryIndex}
 			/>
 
-			<View style={{ width: LIST_WIDTH }}>
+			<View style={{ width: LIST_WIDTH, marginTop: 45 }}>
 				<InputTextBoxWithLabel
 					title={'바코드'}
 					isNecessary={true}
@@ -152,7 +184,7 @@ function ProductInfoInput() {
 
 			<DividerWithInterval />
 
-			<View style={{ width: LIST_WIDTH }}>
+			<View style={{ width: LIST_WIDTH, marginBottom: 45 }}>
 				<InputTextBoxWithLabel
 					title={'매입처'}
 					isNecessary={false}
@@ -182,7 +214,7 @@ function ProductInfoInput() {
 					}
 				/>
 				<FinishButton
-					title={'등록하기'}
+					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
 					callBack={() =>
 						console.log(
 							barcodeInput.value,

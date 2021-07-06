@@ -1,26 +1,21 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StackParamList } from './src/navigations/stack-param-list/StackParamList';
+import Test from './src/components/screens/home/Test';
+import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
 
-import TestScreen from './src/components/screens/test/testScreen';
+const Stack = createStackNavigator<StackParamList>();
 
 const App = () => {
 	return (
-		<SafeAreaView style={styles.testContainer}>
-			<TestScreen />
-		</SafeAreaView>
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name="테스트" component={Test} />
+				<Stack.Screen name="상품 정보 입력" component={ProductInfoInput} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 };
-
-const styles = StyleSheet.create({
-	testContainer: {
-		flex: 1,
-		// justifyContent: 'center',
-		// backgroundColor: 'green',
-	},
-	testText: {
-		fontSize: 40,
-		textAlign: 'center',
-	},
-});
 
 export default App;
