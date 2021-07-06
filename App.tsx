@@ -1,25 +1,27 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StackParamList } from './src/navigations/stack-param-list/StackParamList';
+import Test from './src/components/screens/home/Test';
 import BarcodeRecognitionComplete from './src/components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
+
+const Stack = createStackNavigator<StackParamList>();
 
 const App = () => {
 	return (
-		<SafeAreaView style={styles.testContainer}>
-			<BarcodeRecognitionComplete />
-		</SafeAreaView>
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name="테스트" component={Test} />
+				<Stack.Screen
+					name="바코드 인식 완료"
+					component={BarcodeRecognitionComplete}
+					options={{
+						headerShown: false,
+					}}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 };
-
-const styles = StyleSheet.create({
-	testContainer: {
-		flex: 1,
-		// justifyContent: 'center',
-		// backgroundColor: '#fdbd39',
-	},
-	testText: {
-		fontSize: 40,
-		textAlign: 'center',
-	},
-});
 
 export default App;

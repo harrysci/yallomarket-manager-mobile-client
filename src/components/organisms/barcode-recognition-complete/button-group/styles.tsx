@@ -3,13 +3,10 @@ import { StyleSheet } from 'react-native';
 const style = StyleSheet.create({
 	root: { flex: 1 },
 	text: {
-		width: 102,
-		height: 19,
 		// fontFamily: "AppleSDGothicNeo",
 		fontSize: 16,
 		fontWeight: '600',
 		fontStyle: 'normal',
-		lineHeight: 19,
 		letterSpacing: -0.51,
 		textAlign: 'center',
 		color: '#848484',

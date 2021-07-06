@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
 	root: {
-		width: 93,
+		// width: 93,
 		flex: 1,
 		//  fontFamily: "AppleSDGothicNeo",
 		fontSize: 21,
@@ -10,7 +10,7 @@ const style = StyleSheet.create({
 		fontStyle: 'normal',
 		lineHeight: 25,
 		letterSpacing: -0.67,
-		textAlign: 'left',
+		textAlign: 'center',
 		color: '#000000',
 		marginTop: '5.4%',
 	},

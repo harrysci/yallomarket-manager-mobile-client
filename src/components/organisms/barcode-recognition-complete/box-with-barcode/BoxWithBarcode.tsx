@@ -4,7 +4,12 @@ import { Text, Image } from 'react-native-elements';
 
 import style from './styles';
 
-const BoxWithBarcode = (props: any) => {
+export interface BoxWithBarcodeProps {
+	productName: string;
+	barcode: string;
+}
+
+const BoxWithBarcode = (props: BoxWithBarcodeProps) => {
 	const { productName, barcode } = props;
 
 	return (
@@ -15,6 +20,7 @@ const BoxWithBarcode = (props: any) => {
 						source={require('../../../../assets/images/barcode-recognition-complete/mini-badge.png')}
 						style={style.image}
 					/>
+					<Text style={style.productNameInfo}>상품명</Text>
 					<Text style={style.productName}>{productName}</Text>
 				</View>
 				<Text style={style.barcode}>{barcode}</Text>
