@@ -39,6 +39,9 @@ const LIST_WIDTH = '87.5%';
  * @returns JSX.Element
  */
 function ProductInfoInput(): JSX.Element {
+	/**
+	 * @name 네비게이션_route_param_핸들러
+	 */
 	const route = useRoute<RouteProp<StackParamList, '상품 정보 입력'>>();
 
 	/**
