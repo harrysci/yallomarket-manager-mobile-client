@@ -1,18 +1,22 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import useAxios from 'axios-hooks';
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
-import AlreadyRegistedAlertOverlay from '../../organisms/barcode-recognition-complete/already-registed-alert/AlreadyRegistedAlertOverlay';
 
 /* 구성 organisms 컴포넌트 import */
 import BoxWithBarcode from '../../organisms/barcode-recognition-complete/box-with-barcode/BoxWithBarcode';
 import ButtonGroup from '../../organisms/barcode-recognition-complete/button-group/ButtonGroup';
 import TopTitle from '../../organisms/barcode-recognition-complete/top-title/TopTitle';
+import AlreadyRegistedAlertOverlay from '../../organisms/barcode-recognition-complete/already-registed-alert/AlreadyRegistedAlertOverlay';
+
+/* axios hook */
+import useAxios from 'axios-hooks';
 
 /* 스타일 시트 import */
 import styles from './styles';
+
+/* stack param */
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 /**
  * @example 바코드 인식 완료 화면 stack param 예시
