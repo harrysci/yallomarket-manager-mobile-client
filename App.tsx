@@ -23,11 +23,9 @@ const App = () => {
 				<Stack.Screen
 					name="바코드 인식 완료"
 					component={BarcodeRecognitionComplete}
-					options={
-						{
-							// headerShown: false,
-						}
-					}
+					options={{
+						headerShown: true, // test 를 위해 header 를 보이게 함
+					}}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
