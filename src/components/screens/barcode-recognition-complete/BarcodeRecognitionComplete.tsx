@@ -1,8 +1,10 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import useAxios from 'axios-hooks';
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import AlreadyRegistedAlertOverlay from '../../organisms/barcode-recognition-complete/already-registed-alert/AlreadyRegistedAlertOverlay';
 
 /* 구성 organisms 컴포넌트 import */
 import BoxWithBarcode from '../../organisms/barcode-recognition-complete/box-with-barcode/BoxWithBarcode';
@@ -27,10 +29,43 @@ function BarcodeRecognitionComplete(): JSX.Element {
 	/* route params */
 	const route = useRoute<RouteProp<StackParamList, '바코드 인식 완료'>>();
 
-	const [productName, setProductName] = React.useState<string>('포카칩');
+	/* navigate params */
+	const navigation = useNavigation();
+
+	/* 상품 정보 핸들러 */
 	const [barcode, setBarcode] = React.useState<string>(
 		route.params.barcode ? route.params.barcode : '',
 	);
+
+	/* 바코드를 통한 상품 정보 조회 핸들러 */
+	const [
+		{
+			data: getCheckProductByBarcodeData,
+			loading: getCheckProductByBarcodeLoading,
+			error: getCheckProductByBarcodeError,
+		},
+	] = useAxios({
+		url: `/product/readProductData/${1}/${barcode}`,
+		method: 'get',
+	});
+
+	/* 이미 등록된 상품 overlay 핸들러 */
+	const [alreadyRegistedAlertOverlayOpen, setAlreadyRegistedAlertOverlayOpen] =
+		React.useState<boolean>(false);
+	const handleAlreadyRegistedAlertOverlay = (value: boolean) => {
+		setAlreadyRegistedAlertOverlayOpen(value);
+	};
+
+	React.useEffect(() => {
+		if (
+			!getCheckProductByBarcodeLoading &&
+			!getCheckProductByBarcodeError &&
+			getCheckProductByBarcodeData &&
+			getCheckProductByBarcodeData.productName
+		) {
+			setAlreadyRegistedAlertOverlayOpen(true);
+		}
+	}, [getCheckProductByBarcodeData]);
 
 	return (
 		<SafeAreaView style={styles.root}>
@@ -39,10 +74,27 @@ function BarcodeRecognitionComplete(): JSX.Element {
 				<TopTitle />
 
 				{/* 박스 섹션 */}
-				<BoxWithBarcode productName={productName} barcode={barcode} />
+				<BoxWithBarcode
+					productName={
+						!getCheckProductByBarcodeLoading &&
+						!getCheckProductByBarcodeError &&
+						getCheckProductByBarcodeData &&
+						getCheckProductByBarcodeData.productName
+							? getCheckProductByBarcodeData.productName
+							: ''
+					}
+					barcode={barcode}
+				/>
 
 				{/* 버튼 섹션 */}
 				<ButtonGroup />
+
+				{/* 이미 등록된 상품 Overlay */}
+				<AlreadyRegistedAlertOverlay
+					isOpen={alreadyRegistedAlertOverlayOpen}
+					handleOpen={handleAlreadyRegistedAlertOverlay}
+					navigation={navigation}
+				/>
 			</View>
 		</SafeAreaView>
 	);

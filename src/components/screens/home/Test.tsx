@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 export default function Test(): JSX.Element {
 	const navigation = useNavigation();
 	const routeParams: BarcodeRecognitionCompleteStackParams = {
-		barcode: '201 2232 1111',
+		barcode: '970607-111',
 	};
 
 	return (
