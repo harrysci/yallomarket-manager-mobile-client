@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Image } from 'react-native-elements/dist/image/Image';
-import { ProductContainer } from '../../screens/product-list/dummy';
+import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
+import { ProductContainer } from '../../screens/home/product-list/dummy';
 
 const styles= StyleSheet.create({
   item_container: {
@@ -23,7 +24,7 @@ const styles= StyleSheet.create({
   },
   barcode:{
     width: 139,
-  fontFamily: "AppleSDGothicNeo",
+  //fontFamily: "AppleSDGothicNeo",
   fontSize: 11,
   fontWeight: "500",
   fontStyle: "normal",
@@ -45,7 +46,7 @@ const styles= StyleSheet.create({
   marginBottom: 15,
   },
   product_price:{
-    width: 62,
+    width: 72,
     fontSize: 17,
     fontWeight: "600",
     fontStyle: "normal",
@@ -58,14 +59,14 @@ const styles= StyleSheet.create({
   product_image:{
     width: 107, 
     height: 90, 
-    backgroundColor:'#123424',
+    //backgroundColor:'#123424',
     borderRadius: 5,
   },
   go_detail:{
     flexDirection:'row',
     width: 62,
   opacity: 0.77,
-  fontFamily: "AppleSDGothicNeo",
+  //fontFamily: "AppleSDGothicNeo",
   fontSize: 12,
   fontWeight: "normal",
   fontStyle: "normal",
@@ -81,7 +82,7 @@ const styles= StyleSheet.create({
   }
 })
 export interface OneproductComponentProps {
-	productData: ProductContainer;
+	productData: GetImageProductListRes;
 }
 
 const OneProductComponent =(props: OneproductComponentProps) => {
@@ -91,15 +92,17 @@ const OneProductComponent =(props: OneproductComponentProps) => {
       <View style={styles.image_container}>
       <Image
             style={styles.product_image}
-            source={require('../../../assets/icons/product-list/icon_forward.png')}
+            source={{
+              uri:productData.representativeProductImage?productData.representativeProductImage:'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA2MThfMTg1%2FMDAxNjIzOTQ2NjUxOTc0.wUfnn86EWZvVnac4gj5kvruZD3pflMQRxLNbRqC-jhYg.RPT3uPkhDvI-F_ApoizqYiy9tEW55ZP3jRwMUK9SNUUg.JPEG.ana_ad%2FKakaoTalk_20210608_104228055_03.jpg&type=ofullfill340_600'
+            }}
           >
             </Image>
             </View>
         <View style={styles.detail_container}>
-        <Text style={styles.barcode}>바코드 {productData.barcode}</Text>
+        <Text style={styles.barcode}>바코드 {productData.productBarcode}</Text>
         <Text style={styles.product_name}>{productData.productName}</Text>
         <View style={styles.last_containner}>
-          <Text style={styles.product_price}>{productData.price}원</Text>
+          <Text style={styles.product_price}>{productData.productCurrentPrice}원</Text>
           <TouchableOpacity style={styles.go_detail}>
           <Text>
             상세보기
