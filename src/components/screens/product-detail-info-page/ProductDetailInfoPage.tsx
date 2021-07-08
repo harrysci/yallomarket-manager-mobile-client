@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import useAxios from 'axios-hooks';
 import React from 'react';
 import {useState} from 'react';
@@ -16,6 +17,16 @@ interface Props {
   product: GetImageProductListRes;
   storeName: string;
 }
+
+/**
+ *
+ * @param props
+ * @returns
+ * @미비사항
+ *  1. X 아이콘 클릭 -> 이전 페이지로 돌아가기
+ *  2. 수정 버튼 클릭 -> 수정 페이지로 전환
+ *  3. 삭제 버튼 클릭 -> 상품 리스트 페이지로 전환
+ */
 
 const ProductDetailInfoPage = (props: Props): JSX.Element => {
   // dummy props
