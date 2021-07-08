@@ -85,6 +85,10 @@ export interface OneproductComponentProps {
 	productData: GetImageProductListRes;
 }
 
+export interface productParams {
+  product: GetImageProductListRes;
+  storename: string;
+}
 const OneProductComponent =(props: OneproductComponentProps) => {
   const { productData}=props;
   return(
