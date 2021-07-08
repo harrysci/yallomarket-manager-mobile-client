@@ -1,13 +1,10 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {Text} from 'react-native-elements';
-
+import ScannerScreen from './src/components/screens/barcode/ScannerScreen';
 const App = () => {
   return (
     <SafeAreaView style={styles.testContainer}>
-      <Text h1 style={styles.testText}>
-        Owner Mobile Scanner{'\n'}App.tsx
-      </Text>
+      <ScannerScreen />
     </SafeAreaView>
   );
 };
