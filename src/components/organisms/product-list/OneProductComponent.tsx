@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Image } from 'react-native-elements/dist/image/Image';
@@ -85,12 +86,18 @@ export interface OneproductComponentProps {
 	productData: GetImageProductListRes;
 }
 
-export interface productParams {
+export interface Props {
   product: GetImageProductListRes;
   storename: string;
 }
 const OneProductComponent =(props: OneproductComponentProps) => {
+  const navigation=useNavigation();
   const { productData}=props;
+  const ProductParams: Props = {
+    product: productData,
+    storename: '경동빅마트',
+  };
+
   return(
     <View style={styles.item_container}>
       <View style={styles.image_container}>
@@ -107,7 +114,10 @@ const OneProductComponent =(props: OneproductComponentProps) => {
         <Text style={styles.product_name}>{productData.productName}</Text>
         <View style={styles.last_containner}>
           <Text style={styles.product_price}>{productData.productCurrentPrice}원</Text>
-          <TouchableOpacity style={styles.go_detail}>
+          <TouchableOpacity style={styles.go_detail} 
+          onPress={() => {
+            navigation.navigate('상품 상세 정보', { params: ProductParams });
+          }}>
           <Text>
             상세보기
           </Text>
