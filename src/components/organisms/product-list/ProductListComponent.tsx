@@ -5,7 +5,6 @@ import useAxios from 'axios-hooks';
 import {GetImageProductListRes} from '../../screens/home/dto/GetImageProductListDto';
 
 const ProductListComponent = () => {
-  //const baseURL = 'http://localhost:5000/product';
   const [{data: getData, loading: getLoading, error: getError}, executeGet] =
     useAxios<GetImageProductListRes[]>({
       method: 'GET',
