@@ -14,7 +14,12 @@ export interface InputDescriptionBoxWithLabelProps {
 	handleChange(e: React.ChangeEvent<HTMLInputElement> | any): void;
 }
 
-const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps) => {
+/**
+ * @name 상품_설명_입력_컴포넌트
+ * @param props InputDescriptionBoxWithLabelProps
+ * @returns JSX.Elements
+ */
+const InputDescriptionBoxWithLabel = (props: InputDescriptionBoxWithLabelProps): JSX.Element => {
 	const { title, isNecessary, value, handleChange, defaultDescription } = props;
 
 	return (

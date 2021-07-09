@@ -13,10 +13,18 @@ export interface CategoryBottomSheetProps {
 	categoryArray: Array<string>;
 }
 
-const CategoryBottomSheet = (props: CategoryBottomSheetProps) => {
+/**
+ * @name 카테고리선택_바텀시트_컴포넌트
+ * @param props CategoryBottomSheetProps
+ * @returns
+ */
+const CategoryBottomSheet = (props: CategoryBottomSheetProps): JSX.Element => {
 	const { isVisiable, handleClose, handleCategoryIndex, categoryArray } = props;
 
+	/* 선택가능한 상품 카테고리 배열 */
 	const [arr, setArr] = React.useState(categoryArray);
+
+	/* 선택된 상품 카테고리 핸들러 */
 	const [selectedItemIndex, setSelectedListItemIndex] = React.useState(0);
 	const handleSelectedItemIndex = (newIndex: number) => {
 		setSelectedListItemIndex(newIndex);
@@ -32,6 +40,7 @@ const CategoryBottomSheet = (props: CategoryBottomSheetProps) => {
 		>
 			<View style={style.rootContainer}>
 				<View>
+					{/* 상품 카테고리 선택 바텀 시트 Close 버튼 */}
 					<TouchableOpacity style={style.touchArea} onPress={handleClose}>
 						<Image
 							source={require('../../../../assets/images/product-info-input/arrow-down.png')}
@@ -52,6 +61,7 @@ const CategoryBottomSheet = (props: CategoryBottomSheetProps) => {
 							);
 						})}
 
+					{/* 카테고리 선택 완료 버튼 */}
 					<Button
 						title={'카테고리 선택 완료'}
 						containerStyle={style.buttonContainer}

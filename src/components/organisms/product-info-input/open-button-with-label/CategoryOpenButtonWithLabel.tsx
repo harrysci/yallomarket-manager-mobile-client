@@ -13,7 +13,12 @@ export interface CategoryOpenButtonWithLabelProps {
 	handleOpen: () => void;
 }
 
-const CategoryOpenButtonWithLabel = (props: CategoryOpenButtonWithLabelProps) => {
+/**
+ * @name 카테고리_바텀시트_open_버튼_컴포넌트
+ * @param props CategoryOpenButtonWithLabelProps
+ * @returns JSX.Element
+ */
+const CategoryOpenButtonWithLabel = (props: CategoryOpenButtonWithLabelProps): JSX.Element => {
 	const { title, isNecessary, value, handleOpen } = props;
 
 	return (

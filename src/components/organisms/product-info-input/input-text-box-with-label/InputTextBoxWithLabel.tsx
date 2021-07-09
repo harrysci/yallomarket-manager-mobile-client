@@ -15,7 +15,13 @@ export interface InputTextBoxWithLabelProps {
 	rightIconType?: 'won' | 'gram';
 }
 
+/**
+ * @name 상품_정보(숫자/통화/텍스트/날짜)_입력_컴포넌트
+ * @param props InputTextBoxWithLabelProps
+ * @returns JSX.Element
+ */
 const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
+	/* numeric 검사 정규식 */
 	const numericReg = /^\d+$/;
 	const reg = {
 		pattern: new RegExp(''),
@@ -23,12 +29,14 @@ const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
 
 	const { title, isNecessary, value, handleChange, inputType, rightIconType } = props;
 
+	/* 정규식을 통한 input 값 검사 */
 	if (inputType === 'numeric') {
 		reg.pattern = numericReg;
 	} else if (inputType === 'currency') {
 		reg.pattern = numericReg;
 	}
 
+	/* 인풋 단위 분기 렌더링 핸들러 ('원' 이미지 or 'gram' 이미지) */
 	const handleRightIcon = (rightIconType: 'won' | 'gram' | undefined) => {
 		if (rightIconType === 'won') {
 			return (

@@ -13,7 +13,12 @@ export interface CheckBoxGroupWithLabelProps {
 	callBack: any;
 }
 
-const CheckBoxGroupWithLabel = (props: CheckBoxGroupWithLabelProps) => {
+/**
+ * @name 체크박스그룹_컴포넌트
+ * @param props CheckBoxGroupWithLabelProps
+ * @returns JSX.Elements
+ */
+const CheckBoxGroupWithLabel = (props: CheckBoxGroupWithLabelProps): JSX.Element => {
 	const { title, isNecessary, isPossible, callBack } = props;
 	return (
 		<View>

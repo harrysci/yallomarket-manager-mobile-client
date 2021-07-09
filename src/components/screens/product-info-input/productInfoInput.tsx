@@ -122,6 +122,7 @@ function ProductInfoInput(): JSX.Element {
 			contentContainerStyle={productInfoStyle.rootContainer}
 			showsVerticalScrollIndicator={false}
 		>
+			{/* 카테고리 선택 바텀시트 컴포넌트 */}
 			<CategoryBottomSheet
 				isVisiable={open}
 				handleClose={() => setOpen(false)}
@@ -129,6 +130,7 @@ function ProductInfoInput(): JSX.Element {
 				handleCategoryIndex={handleCategoryIndex}
 			/>
 
+			{/* 각 상품 정보 입력창 컴포넌트 */}
 			<View style={{ width: LIST_WIDTH, marginTop: 45 }}>
 				<InputTextBoxWithLabel
 					title={'바코드'}
@@ -216,6 +218,8 @@ function ProductInfoInput(): JSX.Element {
 						'신선제품의 특성상 상품의 중량의 3% 내외의 차이가 발생할 수 있습니다.'
 					}
 				/>
+
+				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
 					callBack={() =>
