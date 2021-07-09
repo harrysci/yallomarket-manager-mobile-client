@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 });
+
 export default function Test(): JSX.Element {
 	const navigation = useNavigation();
 	const routeParams: ProductInfoInputStackParams = {
