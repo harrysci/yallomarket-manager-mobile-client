@@ -29,52 +29,6 @@ interface Props {
  */
 
 const ProductDetailInfoPage = (props: Props): JSX.Element => {
-  // dummy props
-  props = {
-    product: {
-      productId: 145,
-      storeId: 1,
-      productBarcode: '123412341234',
-      productName: '더원',
-      productOriginalPrice: 2500,
-      productCurrentPrice: 4500,
-      productProfit: 44.4444,
-      productDescription: '더원화이트',
-      productIsProcessed: true,
-      productIsSoldout: false,
-      productOnsale: true,
-      productCategory: '미분류',
-      productCreatedAt: new Date('2021-05-01'),
-
-      representativeProductImageId: 85,
-      representativeProductImage:
-        'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA2MThfMTg1%2FMDAxNjIzOTQ2NjUxOTc0.wUfnn86EWZvVnac4gj5kvruZD3pflMQRxLNbRqC-jhYg.RPT3uPkhDvI-F_ApoizqYiy9tEW55ZP3jRwMUK9SNUUg.JPEG.ana_ad%2FKakaoTalk_20210608_104228055_03.jpg&t',
-      detailProductImageId: 86,
-      detailProductImage: '더원더원',
-      additionalProductImageId: 87,
-      additionalProductImage:
-        'https://www.pinterest.co.kr/pin/8373949283300732/',
-
-      processedProductId: 34,
-      processedProductName: 'name dummy',
-      processedProductCompany: 'company dummy',
-      processedProductStandardType: 'type dummy',
-      processedProductStandardValues: 'values dummy',
-      processedProductComposition: 'composition dummy',
-      processedProductVolume: 'volume dummy',
-      processedProductAdult: 'adult dummy',
-      processedProductCaution: 'caution dummy',
-      processedProductInformation: 'information dummy',
-
-      weightedProductId: undefined,
-      weightedProductVolume: undefined,
-
-      onsaleProductId: 33,
-      productOnsalePrice: 1000,
-    },
-    storeName: '경동마트',
-  };
-
   const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] =
     useState<boolean>(false);
 
@@ -118,13 +72,16 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
       <View style={ProductDetailInfoPageStyles.titleContainer}>
         <Text style={ProductDetailInfoPageStyles.titleText}>상품 정보</Text>
         <TouchableOpacity>
-          <Image source={require('../../../assets/images/4114.png')} />
+          <Image
+            source={require('../../atoms/product-detail-info-page/exit.png')}
+          />
         </TouchableOpacity>
       </View>
 
       <View style={ProductDetailInfoPageStyles.imageContainer}>
         <Image
-          source={require('../../../assets/images/93.png')}
+          // source={require('../../../assets/images/93.png')}
+          source={{uri: props.product.representativeProductImage}}
           style={ProductDetailInfoPageStyles.productImage}
         />
       </View>
@@ -210,7 +167,6 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
           <Text style={ProductDetailInfoPageStyles.detailTitleText}>
             상품 현재 판매가
           </Text>
-          {/*  */}
           {props.product.productOnsale && props.product.productOnsalePrice ? (
             // 세일 상품인 경우
             <Text style={ProductDetailInfoPageStyles.detailInformationText}>
