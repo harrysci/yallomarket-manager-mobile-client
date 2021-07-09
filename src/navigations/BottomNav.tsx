@@ -18,7 +18,6 @@ function ScanScreen() {
 
 const BottomNav = (): JSX.Element => {
   return (
-    // <NavigationContainer>
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused}) => {
@@ -65,7 +64,6 @@ const BottomNav = (): JSX.Element => {
       <Tab.Screen name="바코드 스캔" component={ScanScreen} />
       <Tab.Screen name="등록 목록" component={ListScreen} />
     </Tab.Navigator>
-    // </NavigationContainer>
   );
 };
 

@@ -14,11 +14,6 @@ const App = () => {
           component={BottomNav}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
-					name="상품 상세 정보"
-					component={ProductDetail}
-					options={{ headerTitle: '' }}
-				/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
