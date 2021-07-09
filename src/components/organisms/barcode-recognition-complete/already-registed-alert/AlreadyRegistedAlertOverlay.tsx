@@ -2,8 +2,21 @@ import { TouchableOpacity, View } from 'react-native';
 import { Text, Overlay } from 'react-native-elements';
 import React from 'react';
 import style from './styles';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { StackParamList } from '../../../../navigations/stack-param-list/StackParamList';
 
-const AlreadyRegistedAlertOverlay = (props: any) => {
+export interface AlreadyRegistedAlertOverlayProps {
+	isOpen: boolean;
+	handleOpen: (state: boolean) => void;
+	navigation: StackNavigationProp<StackParamList, '상품 상세 정보'>;
+}
+
+/**
+ *
+ * @param props
+ * @returns
+ */
+const AlreadyRegistedAlertOverlay = (props: AlreadyRegistedAlertOverlayProps): JSX.Element => {
 	const { isOpen, handleOpen, navigation } = props;
 
 	return (

@@ -9,7 +9,12 @@ export interface BoxWithBarcodeProps {
 	barcode: string;
 }
 
-const BoxWithBarcode = (props: BoxWithBarcodeProps) => {
+/**
+ * @name 바코드_표시_박스_컴포넌트
+ * @param props BoxWithBarcodeProps
+ * @returns JSX.Element
+ */
+const BoxWithBarcode = (props: BoxWithBarcodeProps): JSX.Element => {
 	const { productName, barcode } = props;
 
 	return (

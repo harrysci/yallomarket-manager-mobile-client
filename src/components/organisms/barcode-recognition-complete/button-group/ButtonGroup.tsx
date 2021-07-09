@@ -4,7 +4,11 @@ import { Text } from 'react-native-elements';
 
 import style from './styles';
 
-const ButtonGroup = () => {
+/**
+ * @name 바코드_스캔완료_상품등록하기_컴포넌트
+ * @returns JSX.Element
+ */
+const ButtonGroup = (): JSX.Element => {
 	return (
 		<View style={style.root}>
 			<Text style={style.text}>바코드 스캔 완료</Text>

@@ -17,6 +17,7 @@ import styles from './styles';
 /* stack param */
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 /**
  * @example 바코드 인식 완료 화면 stack param 예시
@@ -34,7 +35,7 @@ function BarcodeRecognitionComplete(): JSX.Element {
 	const route = useRoute<RouteProp<StackParamList, '바코드 인식 완료'>>();
 
 	/* navigate params */
-	const navigation = useNavigation();
+	const navigation = useNavigation<StackNavigationProp<StackParamList, '상품 상세 정보'>>();
 
 	/* 상품 정보 핸들러 */
 	const [barcode, setBarcode] = React.useState<string>(
