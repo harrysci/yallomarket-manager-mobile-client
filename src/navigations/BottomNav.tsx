@@ -18,54 +18,54 @@ function ScanScreen() {
 
 const BottomNav = (): JSX.Element => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused}) => {
-            if (route.name === '바코드 스캔') {
-              if (focused) {
-                return (
-                  <Image
-                    style={styles.barcodeScanTabImage}
-                    source={require('../assets/icons/tabs/scan_active.png')}
-                  />
-                );
-              } else {
-                return (
-                  <Image
-                    style={styles.barcodeScanTabImage}
-                    source={require('../assets/icons/tabs/scan_inactive.png')}
-                  />
-                );
-              }
-            } else if (route.name === '등록 목록') {
-              if (focused) {
-                return (
-                  <Image
-                    style={styles.productListTabImage}
-                    source={require('../assets/icons/tabs/list_active.png')}
-                  />
-                );
-              } else {
-                return (
-                  <Image
-                    style={styles.productListTabImage}
-                    source={require('../assets/icons/tabs/list_inactive.png')}
-                  />
-                );
-              }
+    // <NavigationContainer>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused}) => {
+          if (route.name === '바코드 스캔') {
+            if (focused) {
+              return (
+                <Image
+                  style={styles.barcodeScanTabImage}
+                  source={require('../assets/icons/tabs/scan_active.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  style={styles.barcodeScanTabImage}
+                  source={require('../assets/icons/tabs/scan_inactive.png')}
+                />
+              );
             }
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: '#000000',
-          inactiveTintColor: '#B7B7B7',
-          style: styles.tabBar,
-        }}>
-        <Tab.Screen name="바코드 스캔" component={ScanScreen} />
-        <Tab.Screen name="등록 목록" component={ListScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          } else if (route.name === '등록 목록') {
+            if (focused) {
+              return (
+                <Image
+                  style={styles.productListTabImage}
+                  source={require('../assets/icons/tabs/list_active.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  style={styles.productListTabImage}
+                  source={require('../assets/icons/tabs/list_inactive.png')}
+                />
+              );
+            }
+          }
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#000000',
+        inactiveTintColor: '#B7B7B7',
+        style: styles.tabBar,
+      }}>
+      <Tab.Screen name="바코드 스캔" component={ScanScreen} />
+      <Tab.Screen name="등록 목록" component={ListScreen} />
+    </Tab.Navigator>
+    // </NavigationContainer>
   );
 };
 
