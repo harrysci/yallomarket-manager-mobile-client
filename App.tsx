@@ -1,12 +1,17 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import ProductDetailInfoPage from './src/components/screens/product-detail-info-page/ProductDetailInfoPage';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
+import Test from './src/components/screens/home/Test';
 
+const Stack = createStackNavigator<StackParamList>();
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ProductDetailInfoPage />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="테스트" component={Test} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
