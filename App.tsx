@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import ScannerScreen from './src/components/screens/barcode/ScannerScreen';
+import {ScannerScreen} from './src/components/screens/barcode/ScannerScreen';
 const App = () => {
   return (
     <SafeAreaView style={styles.testContainer}>
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   testContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#fdbd39',
+    backgroundColor: '#ffff',
   },
   testText: {
     fontSize: 40,
