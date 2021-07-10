@@ -3,20 +3,24 @@ export const styles = StyleSheet.create({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: '#ffff',
   },
   cameraStyle: {
     width: '100%',
-    height: 300,
-    marginTop: 170,
+    height: 288,
+    marginTop: 135,
+  },
+  imageStyle: {
+    width: '100%',
+    height: 288,
+    zIndex: 0,
   },
   buttonStyle: {
     alignItems: 'center',
     width: 62,
     height: 62,
     borderRadius: 50,
-    borderStyle: 'dotted',
-    borderWidth: 5,
-    borderColor: '#fbd145',
+
     backgroundColor: '#fbd145',
   },
   flexRow: {

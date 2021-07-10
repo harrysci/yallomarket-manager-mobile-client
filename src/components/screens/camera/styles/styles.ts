@@ -1,9 +1,14 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  root: {display: 'flex', flexDirection: 'column', flex: 1},
+  root1: {backgroundColor: '#ffff', flex: 1},
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: '#ffff',
+  },
   yellowText: {
-    marginTop: '4.9%',
     fontFamily: 'AppleSDGothicNeo',
     fontSize: 13,
     fontWeight: 'normal',
@@ -52,7 +57,7 @@ export const styles = StyleSheet.create({
   },
   flexbox2: {
     justifyContent: 'center',
-    paddingTop: 113,
+    paddingTop: '13.2%',
     marginLeft: '24.6%',
   },
   guidefont1: {
@@ -97,7 +102,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   flexBox: {
-    marginTop: 81,
+    marginTop: '10%',
     alignItems: 'center',
   },
   font1: {

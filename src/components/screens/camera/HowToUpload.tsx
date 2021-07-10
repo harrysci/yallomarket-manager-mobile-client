@@ -3,12 +3,14 @@ import {View, Text} from 'react-native';
 import {Button} from 'react-native-elements';
 
 import {Image} from 'react-native-elements/dist/image/Image';
+import {useNavigation} from '@react-navigation/native';
 
 import {styles} from './styles/styles';
 export default function HowToUpload(): JSX.Element {
   let ImagePath = require('/Users/sangeun/chanlanhan/yallomarket-manager-mobile-client/src/assets/images/drawable-hdpi/adobe_stock_301721923.jpg');
   let ImagePath2 = require('/Users/sangeun/chanlanhan/yallomarket-manager-mobile-client/src/assets/images/background/drawable-hdpi/2019.png');
   let ImagePath3 = require('/Users/sangeun/chanlanhan/yallomarket-manager-mobile-client/src/assets/images/focus/drawable-hdpi/4165.png');
+  const navigation = useNavigation();
   return (
     <View style={styles.root}>
       <View style={styles.flexbox1}>
@@ -46,6 +48,7 @@ export default function HowToUpload(): JSX.Element {
           buttonStyle={styles.buttonStyle}
           onPress={() => {
             /* screen 이동 */
+            navigation.navigate(' ');
           }}
         />
       </View>
