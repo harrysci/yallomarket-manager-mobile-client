@@ -3,21 +3,10 @@ import {View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {Button} from 'react-native-elements/dist/buttons/Button';
 import {styles} from './styles/style';
-import styled from 'styled-components';
 import {Text} from 'react-native-elements';
 
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
 export default function UploadPhoto(): JSX.Element {
-  //   const Button = styled.View`
-  //   width: 71px;
-  //   height: 70px;
-  //   border-radius: 50px;
-  //   border: 10px solid
-  //   background-color: #fbd145;
-  // `;
-
-  const Touchable = styled.TouchableOpacity``;
-
   const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
 
   const takePhoto = async () => {
