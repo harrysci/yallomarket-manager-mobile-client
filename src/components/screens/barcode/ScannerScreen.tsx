@@ -6,11 +6,11 @@ import {BarCodeReadEvent} from 'react-native-camera';
 import {styles} from '../../organisms/barcode/styles/styles';
 
 export const ScannerScreen = (): JSX.Element => {
-  const [barcodeNum, setCodeInfo] = React.useState<BarCodeReadEvent>();
-  const onBarcodeScan = (barcode: BarCodeReadEvent) => {
+  const [barcodeNum, setCodeInfo] = React.useState<string>();
+  const onBarcodeScan = (event: BarCodeReadEvent) => {
     console.log('barcode on');
     console.log('number : ' + barcodeNum);
-    setCodeInfo(barcode);
+    setCodeInfo(event.data);
   };
   return (
     <View style={styles.capture}>
