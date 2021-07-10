@@ -1,10 +1,11 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import {ScannerScreen} from './src/components/screens/barcode/ScannerScreen';
+// import {ScannerScreen} from './src/components/screens/barcode/ScannerScreen';
+import HowToUpload from './src/components/screens/camera/HowToUpload';
 const App = () => {
   return (
     <SafeAreaView style={styles.testContainer}>
-      <ScannerScreen />
+      <HowToUpload />
     </SafeAreaView>
   );
 };
