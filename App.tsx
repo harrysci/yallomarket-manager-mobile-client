@@ -3,8 +3,9 @@ import BottomNav from './src/navigations/BottomNav';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
-const Stack = createStackNavigator<StackParamList>();
+import Test from './src/components/screens/home/Test';
 
+const Stack = createStackNavigator<StackParamList>();
 const App = () => {
   return (
     <NavigationContainer>
@@ -14,6 +15,7 @@ const App = () => {
           component={BottomNav}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="테스트" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
