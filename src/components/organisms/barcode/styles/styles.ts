@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   font: {
     height: 23,
-    fontFamily: 'AppleSDGothicNeo',
+    fontFamily: '',
     fontSize: 17,
     fontWeight: 'bold',
     fontStyle: 'normal',
@@ -32,7 +32,6 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fade7f',
   },
   fontRight: {
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 17,
     fontWeight: '500',
     fontStyle: 'normal',

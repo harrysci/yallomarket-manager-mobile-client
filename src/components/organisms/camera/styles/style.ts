@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
+
 export const styles = StyleSheet.create({
   root: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#ffff',
@@ -11,6 +13,7 @@ export const styles = StyleSheet.create({
     marginTop: 135,
   },
   imageStyle: {
+    marginTop: 135,
     width: '100%',
     height: 288,
     zIndex: 0,
@@ -23,6 +26,24 @@ export const styles = StyleSheet.create({
 
     backgroundColor: '#fbd145',
   },
+  buttonStyle2: {
+    width: 328,
+    height: 48,
+    borderRadius: 3,
+    backgroundColor: '#ffffff',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#000000',
+  },
+  buttonStyle3: {
+    width: 328,
+    height: 48,
+    borderRadius: 3,
+    backgroundColor: '#fbd145',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#000000',
+  },
   flexRow: {
     marginLeft: '6.4%',
     marginTop: 32,
@@ -33,7 +54,6 @@ export const styles = StyleSheet.create({
   },
   font1: {
     height: 23,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 16,
     fontStyle: 'normal',
     lineHeight: 25,
@@ -43,7 +63,6 @@ export const styles = StyleSheet.create({
     color: '#000000',
   },
   font4: {
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 21,
     fontWeight: '600',
     fontStyle: 'normal',
@@ -55,7 +74,6 @@ export const styles = StyleSheet.create({
   },
   font3: {
     height: 23,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 16,
     fontWeight: 'bold',
     fontStyle: 'normal',
@@ -69,5 +87,33 @@ export const styles = StyleSheet.create({
   buttonFlex: {
     alignItems: 'center',
     marginTop: '13.2%',
+  },
+  textBox: {
+    marginTop: '4.8%',
+    alignItems: 'center',
+  },
+  textStyle: {
+    fontSize: 20,
+    fontWeight: '600',
+    fontStyle: 'normal',
+  },
+  buttonTitleFont: {
+    fontSize: 17,
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: 20,
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '#000000',
+  },
+  buttonBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 118,
+  },
+  buttonBox2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
   },
 });

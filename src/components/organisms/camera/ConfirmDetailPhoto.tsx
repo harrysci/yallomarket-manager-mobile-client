@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 interface ImageProps {
   imagePath: TakePictureResponse;
 }
-export default function ConfirmImage(prop: ImageProps): JSX.Element {
+export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
   const {imagePath} = prop;
   const [imgPath, setPath] = useState('');
   const navigation = useNavigation();
@@ -31,7 +31,7 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
         }}
       />
       <View style={styles.textBox}>
-        <Text style={styles.textStyle}>대표 이미지 촬영완료</Text>
+        <Text style={styles.textStyle}>상세 이미지 촬영완료</Text>
       </View>
       <View style={styles.buttonBox}>
         <Button
@@ -41,19 +41,19 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
           buttonStyle={styles.buttonStyle2}
           onPress={() => {
             /* screen 이동 */
-            navigation.navigate('대표 이미지 촬영');
+            navigation.navigate('상세 이미지 촬영');
           }}
         />
       </View>
       <View style={styles.buttonBox2}>
         <Button
           type="outline"
-          title="대표 이미지 등록하기"
+          title="상세 이미지 등록하기"
           titleStyle={styles.buttonTitleFont}
           buttonStyle={styles.buttonStyle3}
           onPress={() => {
             /* screen 이동 */
-            navigation.navigate('2단계');
+            /* 법우님 최종등록 페이지로 연결 */
           }}
         />
       </View>

@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#ffff',
   },
   yellowText: {
-    fontFamily: 'AppleSDGothicNeo',
+    marginTop: '4.9%',
     fontSize: 13,
     fontWeight: 'normal',
     fontStyle: 'normal',
@@ -21,7 +21,6 @@ export const styles = StyleSheet.create({
   header: {
     width: 156,
     height: 23,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 19,
     fontWeight: '600',
     fontStyle: 'normal',
@@ -63,7 +62,6 @@ export const styles = StyleSheet.create({
   guidefont1: {
     width: 28,
     height: 16,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 13,
     fontWeight: '600',
     fontStyle: 'normal',
@@ -76,7 +74,6 @@ export const styles = StyleSheet.create({
   guidefont2: {
     width: 136,
     height: 25,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 21,
     fontWeight: '600',
     fontStyle: 'normal',
@@ -87,7 +84,7 @@ export const styles = StyleSheet.create({
   },
   flexRow: {
     marginLeft: '6.4%',
-    marginTop: 32,
+    marginTop: '4.8%',
     justifyContent: 'flex-start',
     alignItems: 'center',
     display: 'flex',
@@ -95,42 +92,36 @@ export const styles = StyleSheet.create({
   },
   flexRow2: {
     marginLeft: '6.4%',
-    marginTop: '1%',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    display: 'flex',
     flexDirection: 'row',
   },
   flexBox: {
-    marginTop: '10%',
+    flexDirection: 'row',
+    width: '100%',
+    flex: 1,
+    marginTop: '78.9%',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   font1: {
-    height: 23,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 16,
     fontStyle: 'normal',
-    lineHeight: 25,
     letterSpacing: -0.17,
     textAlign: 'left',
     alignSelf: 'center',
     color: '#000000',
   },
   font2: {
-    height: 23,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 16,
     fontWeight: 'bold',
     fontStyle: 'normal',
-    lineHeight: 25,
     letterSpacing: -0.17,
     textAlign: 'left',
     alignSelf: 'center',
     color: '#000000',
   },
   font3: {
-    height: 23,
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 16,
     fontWeight: 'bold',
     fontStyle: 'normal',
@@ -142,8 +133,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fade7f',
   },
   buttonStyle: {
-    width: 328,
-    height: 48,
+    width: 350,
+    height: 60,
     borderRadius: 24,
     backgroundColor: '#fbd145',
     borderStyle: 'solid',
@@ -151,7 +142,6 @@ export const styles = StyleSheet.create({
     borderColor: '#000000',
   },
   buttonTitleFont: {
-    fontFamily: 'AppleSDGothicNeo',
     fontSize: 17,
     fontWeight: '500',
     fontStyle: 'normal',
@@ -159,5 +149,9 @@ export const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: 'center',
     color: '#000000',
+  },
+  flexBox1: {
+    flex: 1,
+    width: '100%',
   },
 });
