@@ -1,9 +1,9 @@
 import React from 'react';
-import BottomNav from './src/navigations/BottomNav';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StackParamList} from './src/navigations/stack-param-list/StackParamList';
 import Test from './src/components/screens/home/Test';
+import BottomNav from './src/navigations/bottom-nav/BottomNav';
 
 const Stack = createStackNavigator<StackParamList>();
 const App = () => {
