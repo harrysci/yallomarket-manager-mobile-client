@@ -675,11 +675,7 @@
 
 "@babel/runtime@7.14.0":
   version "7.14.0"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
-=======
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz"
->>>>>>> cbdcb173b5cef3526360612379f3a6afd3606aba
   integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
   dependencies:
     regenerator-runtime "^0.13.4"
@@ -1705,11 +1701,7 @@ atob@^2.1.2:
 
 axios-hooks@2.6.3:
   version "2.6.3"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/axios-hooks/-/axios-hooks-2.6.3.tgz#b74b8d1e9ac143bb80dc68edc39a7adf64ffeac2"
-=======
   resolved "https://registry.npmjs.org/axios-hooks/-/axios-hooks-2.6.3.tgz"
->>>>>>> cbdcb173b5cef3526360612379f3a6afd3606aba
   integrity sha512-IKHI8/1asLi5LkOxJyH4qriduz2VBr+IBVwUtXj0no01L4SL8plvlYOYkmv8sKKXDEIxdiGr3URONfTv2lFBqQ==
   dependencies:
     "@babel/runtime" "7.14.0"
@@ -1718,11 +1710,7 @@ axios-hooks@2.6.3:
 
 axios@0.21.1:
   version "0.21.1"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
-=======
   resolved "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
->>>>>>> cbdcb173b5cef3526360612379f3a6afd3606aba
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   dependencies:
     follow-redirects "^1.10.0"
@@ -2473,11 +2461,7 @@ depd@~1.1.2:
 
 dequal@2.0.2:
   version "2.0.2"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
-=======
   resolved "https://registry.npmjs.org/dequal/-/dequal-2.0.2.tgz"
->>>>>>> cbdcb173b5cef3526360612379f3a6afd3606aba
   integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
 
 destroy@~1.0.4:
@@ -3072,11 +3056,7 @@ flow-parser@^0.121.0:
 
 follow-redirects@^1.10.0:
   version "1.14.1"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
-=======
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.1.tgz"
->>>>>>> cbdcb173b5cef3526360612379f3a6afd3606aba
   integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
 for-in@^1.0.2:

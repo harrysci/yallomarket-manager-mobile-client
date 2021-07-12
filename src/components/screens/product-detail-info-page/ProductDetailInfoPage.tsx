@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import useAxios from 'axios-hooks';
 import React from 'react';
 import {useState} from 'react';
@@ -10,12 +11,15 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {Text, Button, Overlay, Divider} from 'react-native-elements';
+import {StackParamList} from '../../../navigations/stack-param-list/StackParamList';
 import {GetImageProductListRes} from '../home/dto/GetImageProductListDto';
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
 
-interface Props {
+export interface ProductDetailInfoPageProps {
   product: GetImageProductListRes;
   storeName: string;
+  ownerId: number;
+  executeGetHandler: () => void;
 }
 
 /**
@@ -27,8 +31,14 @@ interface Props {
  *  2. 수정 버튼 클릭 -> 수정 페이지로 전환
  *  3. 삭제 버튼 클릭 -> 상품 리스트 페이지로 전환
  */
+const ProductDetailInfoPage = (): JSX.Element => {
+  const navigation = useNavigation();
 
-const ProductDetailInfoPage = (props: Props): JSX.Element => {
+  const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
+  const {product, storeName, ownerId, executeGetHandler} = route.params;
+
+  console.log(product.productId);
+
   const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] =
     useState<boolean>(false);
 
@@ -50,7 +60,7 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
   ] = useAxios<any>(
     {
       method: 'DELETE',
-      url: 'http://localhost:5000/product/deleteProductData/2/88030357308582',
+      url: `http://localhost:5000/product/deleteProductData/${ownerId}/${product.productBarcode}`,
     },
     {manual: true},
   );
@@ -71,7 +81,10 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
     <SafeAreaView style={ProductDetailInfoPageStyles.container}>
       <View style={ProductDetailInfoPageStyles.titleContainer}>
         <Text style={ProductDetailInfoPageStyles.titleText}>상품 정보</Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}>
           <Image
             source={require('../../atoms/product-detail-info-page/exit.png')}
           />
@@ -80,26 +93,25 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
 
       <View style={ProductDetailInfoPageStyles.imageContainer}>
         <Image
-          // source={require('../../../assets/images/93.png')}
-          source={{uri: props.product.representativeProductImage}}
+          source={{uri: product.representativeProductImage}}
           style={ProductDetailInfoPageStyles.productImage}
         />
       </View>
 
       <View style={ProductDetailInfoPageStyles.productInformationContainer}>
         <Text style={ProductDetailInfoPageStyles.storeNameText}>
-          {props.storeName}
+          {storeName}
         </Text>
         <View style={ProductDetailInfoPageStyles.productNamePriceContainer}>
           <Text style={ProductDetailInfoPageStyles.productNameText}>
-            {props.product.productName}
+            {product.productName}
           </Text>
 
           {/* 세일 상품인 경우 */}
-          {props.product.onsaleProductId && props.product.productOnsalePrice && (
+          {product.onsaleProductId && product.productOnsalePrice && (
             <>
               <Text style={ProductDetailInfoPageStyles.productOnSalePriceText}>
-                {String(props.product.productOnsalePrice).replace(
+                {String(product.productOnsalePrice).replace(
                   /\B(?=(\d{3})+(?!\d))/g,
                   ',',
                 )}
@@ -107,13 +119,12 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
               </Text>
               <Text
                 style={ProductDetailInfoPageStyles.productSalePercentageText}>
-                {(props.product.productCurrentPrice -
-                  props.product.productOnsalePrice) /
+                {(product.productCurrentPrice - product.productOnsalePrice) /
                   100 +
                   '%'}
               </Text>
               <Text style={ProductDetailInfoPageStyles.productCurrentPriceText}>
-                {String(props.product.productCurrentPrice).replace(
+                {String(product.productCurrentPrice).replace(
                   /\B(?=(\d{3})+(?!\d))/g,
                   ',',
                 )}
@@ -123,10 +134,10 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
           )}
 
           {/* 세일 상품이 아닌 경우 */}
-          {!props.product.onsaleProductId && !props.product.productOnsalePrice && (
+          {!product.onsaleProductId && !product.productOnsalePrice && (
             <>
               <Text style={ProductDetailInfoPageStyles.productOnSalePriceText}>
-                {String(props.product.productCurrentPrice).replace(
+                {String(product.productCurrentPrice).replace(
                   /\B(?=(\d{3})+(?!\d))/g,
                   ',',
                 )}
@@ -149,7 +160,7 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
             바코드
           </Text>
           <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-            {props.product.productBarcode}
+            {product.productBarcode}
           </Text>
         </View>
         <View
@@ -158,7 +169,7 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
             상품명
           </Text>
           <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-            {props.product.processedProductName}
+            {product.processedProductName}
           </Text>
         </View>
 
@@ -167,10 +178,10 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
           <Text style={ProductDetailInfoPageStyles.detailTitleText}>
             상품 현재 판매가
           </Text>
-          {props.product.productOnsale && props.product.productOnsalePrice ? (
+          {product.productOnsale && product.productOnsalePrice ? (
             // 세일 상품인 경우
             <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-              {String(props.product.productOnsalePrice).replace(
+              {String(product.productOnsalePrice).replace(
                 /\B(?=(\d{3})+(?!\d))/g,
                 ',',
               )}
@@ -179,7 +190,7 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
           ) : (
             // 세일 상품이 아닌 경우
             <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-              {String(props.product.productCurrentPrice).replace(
+              {String(product.productCurrentPrice).replace(
                 /\B(?=(\d{3})+(?!\d))/g,
                 ',',
               )}
@@ -194,7 +205,7 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
             상품 카테고리
           </Text>
           <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-            {props.product.productCategory}
+            {product.productCategory}
           </Text>
         </View>
 
@@ -204,7 +215,7 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
             상품 게시일
           </Text>
           <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-            {String(props.product.productCreatedAt)}
+            {String(product.productCreatedAt)}
           </Text>
         </View>
 
@@ -214,16 +225,15 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
             규격 (g)
           </Text>
 
-          {props.product.productIsProcessed &&
-          props.product.processedProductVolume ? (
+          {product.productIsProcessed && product.processedProductVolume ? (
             // 공산품인 경우
             <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-              {props.product.processedProductVolume}
+              {product.processedProductVolume}
             </Text>
           ) : (
             // 저울상품인 경우
             <Text style={ProductDetailInfoPageStyles.detailInformationText}>
-              {props.product.weightedProductVolume}
+              {product.weightedProductVolume}
             </Text>
           )}
         </View>
@@ -234,6 +244,9 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
           title="수정"
           titleStyle={ProductDetailInfoPageStyles.buttonText}
           buttonStyle={ProductDetailInfoPageStyles.updateButton}
+          onPress={() => {
+            navigation.navigate('메인화면');
+          }}
         />
 
         <Button
@@ -274,10 +287,16 @@ const ProductDetailInfoPage = (props: Props): JSX.Element => {
               title="네"
               onPress={() => {
                 // useAxios -> 해당 상품 삭제
-                executeDelete().catch(() => {
-                  // 상품 삭제 에러 발생 시 '해당 상품을 삭제할 수 없습니다.' overlay 띄움.
-                  setDeleteConfirmOverlayVisible(true);
-                });
+                executeDelete()
+                  .then(() => {
+                    // 상품 목록 재요청
+                    executeGetHandler();
+                    navigation.navigate('메인화면');
+                  })
+                  .catch(() => {
+                    // 상품 삭제 에러 발생 시 '해당 상품을 삭제할 수 없습니다.' overlay 띄움.
+                    setDeleteConfirmOverlayVisible(true);
+                  });
 
                 setDeleteOverlayVisibleVisible(false);
 

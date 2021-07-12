@@ -5,20 +5,25 @@ import {Image} from 'react-native-elements/dist/image/Image';
 import {GetImageProductListRes} from '../../screens/home/dto/GetImageProductListDto';
 import styles from './style/style';
 
-export interface OneproductComponentProps {
+export interface OneProductComponentProps {
   productData: GetImageProductListRes;
+  executeGetHandler: () => void;
 }
 
 export interface Props {
   product: GetImageProductListRes;
-  storename: string;
+  storeName: string;
+  ownerId: number;
+  executeGetHandler: () => void;
 }
-const OneProductComponent = (props: OneproductComponentProps) => {
+const OneProductComponent = (props: OneProductComponentProps) => {
   const navigation = useNavigation();
-  const {productData} = props;
+  const {productData, executeGetHandler} = props;
   const ProductParams: Props = {
     product: productData,
-    storename: '경동빅마트',
+    storeName: '경동빅마트',
+    ownerId: 1,
+    executeGetHandler: executeGetHandler,
   };
 
   return (
@@ -42,7 +47,7 @@ const OneProductComponent = (props: OneproductComponentProps) => {
           <TouchableOpacity
             style={styles.go_detail}
             onPress={() => {
-              navigation.navigate('상품 상세 정보', {params: ProductParams});
+              navigation.navigate('상품 상세 정보', ProductParams);
             }}>
             <Text>상세보기</Text>
             <Image
