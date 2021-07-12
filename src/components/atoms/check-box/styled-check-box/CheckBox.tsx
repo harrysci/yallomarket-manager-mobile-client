@@ -10,6 +10,11 @@ export interface CheckBoxProps {
 	callBack: any;
 }
 
+/**
+ * @name 이미지_체크박스_Atom_컴포넌트
+ * @param props CheckBoxProps
+ * @returns JSX.Element
+ */
 const CheckBox = (props: CheckBoxProps) => {
 	const { title, state, callBack } = props;
 	return (

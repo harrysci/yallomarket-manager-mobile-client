@@ -20,7 +20,6 @@ const style = StyleSheet.create({
 	},
 	text: {
 		width: 83,
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 22,
 		fontWeight: 'normal',
 		fontStyle: 'normal',

@@ -9,6 +9,11 @@ export interface FinishButtonProps {
 	isAvaliable: boolean;
 }
 
+/**
+ * @name 수정/등록완료_버튼_Atom_컴포넌트
+ * @param props FinishButtonProps
+ * @returns JSX.Element
+ */
 const FinishButton = (props: FinishButtonProps) => {
 	const { title, callBack, isAvaliable } = props;
 	return (

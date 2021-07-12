@@ -16,11 +16,9 @@ const style = StyleSheet.create({
 		paddingLeft: 12,
 	},
 	input: {
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 22,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
-		// lineHeight: 23,
 		letterSpacing: 0,
 		textAlign: 'left',
 	},

@@ -23,9 +23,6 @@ const style = StyleSheet.create({
 		borderColor: '#000000',
 	},
 	titleAvaliable: {
-		// width: 78,
-		// height: 18,
-		// fontFamily: "AppleSDGothicNeo",
 		fontSize: 18,
 		fontWeight: '500',
 		fontStyle: 'normal',
@@ -34,9 +31,6 @@ const style = StyleSheet.create({
 		color: '#000000',
 	},
 	titleNotAvaliable: {
-		// width: 78,
-		// height: 18,
-		// fontFamily: "AppleSDGothicNeo",
 		fontSize: 18,
 		fontWeight: '500',
 		fontStyle: 'normal',

@@ -18,7 +18,6 @@ const style = StyleSheet.create({
 		height: 24,
 	},
 	text: {
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 20,
 		fontWeight: 'normal',
 		fontStyle: 'normal',

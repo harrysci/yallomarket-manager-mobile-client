@@ -7,7 +7,6 @@ const style = StyleSheet.create({
 		marginBottom: 6,
 	},
 	textNecessary: {
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 20,
 		fontWeight: '600',
 		fontStyle: 'normal',
@@ -16,10 +15,7 @@ const style = StyleSheet.create({
 		color: '#000000',
 	},
 	textNotNecessary: {
-		// width: 110,
-		// height: 24,
 		opacity: 0.73,
-		// fontFamily: "AppleSDGothicNeo",
 		fontSize: 20,
 		fontWeight: '500',
 		fontStyle: 'normal',
@@ -30,7 +26,6 @@ const style = StyleSheet.create({
 	point: {
 		width: 9,
 		height: 21,
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 23,
 		fontWeight: 'normal',
 		fontStyle: 'normal',

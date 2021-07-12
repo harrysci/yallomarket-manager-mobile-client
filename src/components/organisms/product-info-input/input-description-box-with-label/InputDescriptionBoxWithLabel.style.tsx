@@ -17,7 +17,6 @@ const style = StyleSheet.create({
 	input: {
 		width: 83,
 		minHeight: 29,
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 22,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -29,7 +28,6 @@ const style = StyleSheet.create({
 	nonInput: {
 		width: 83,
 		minHeight: 29,
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 22,
 		fontWeight: 'normal',
 		fontStyle: 'normal',

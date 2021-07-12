@@ -22,13 +22,9 @@ const style = StyleSheet.create({
 		height: 8,
 	},
 	text: {
-		// width: 109,
-		// height: 24,
-		// fontFamily: "AppleSDGothicNeo",
 		fontSize: 20,
 		fontWeight: 'bold',
 		fontStyle: 'normal',
-		// lineHeight: 24,
 		letterSpacing: 0,
 		textAlign: 'left',
 		color: '#000000',
@@ -48,7 +44,6 @@ const style = StyleSheet.create({
 		borderColor: '#000000',
 	},
 	buttonTitle: {
-		// fontFamily: "AppleSDGothicNeo",
 		fontSize: 18,
 		fontWeight: '500',
 		fontStyle: 'normal',

@@ -27,12 +27,9 @@ const style = StyleSheet.create({
 		marginBottom: 4,
 	},
 	text: {
-		height: 19,
-		// fontFamily: 'AppleSDGothicNeo',
 		fontSize: 16,
 		fontWeight: '600',
 		fontStyle: 'normal',
-		lineHeight: 19,
 		letterSpacing: 0,
 		textAlign: 'left',
 		color: '#000000',

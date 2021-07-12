@@ -11,7 +11,12 @@ export interface CategoryListItemProps {
 	currIndex: number;
 }
 
-const CategoryListItem = (props: CategoryListItemProps) => {
+/**
+ * @name 카테고리선택_바텀시트_리스트_아이템_Atom_컴포넌트
+ * @param props CategoryListItemProps
+ * @returns JSX.Element
+ */
+const CategoryListItem = (props: CategoryListItemProps): JSX.Element => {
 	const { title, isSelected, handleCategoryIndex, currIndex } = props;
 
 	return (

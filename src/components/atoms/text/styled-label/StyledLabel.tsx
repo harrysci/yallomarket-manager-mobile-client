@@ -9,7 +9,12 @@ export interface StyledLabelProps {
 	isNecessary: boolean;
 }
 
-const StyledLabel = (props: StyledLabelProps) => {
+/**
+ * @name 상품정보_입력창_label_Atom_컴포넌트
+ * @param props StyledLabelProps
+ * @returns JSX.Element
+ */
+const StyledLabel = (props: StyledLabelProps): JSX.Element => {
 	const { title, isNecessary } = props;
 
 	return (
