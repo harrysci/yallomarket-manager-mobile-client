@@ -15,5 +15,9 @@ export interface ProductInfoInputStackParams {
 	initOpenData?: string;
 	initVolume?: string;
 
+	representativeProductImage?: string;
+	detailProductImage?: string;
+	additionalProductImage?: string;
+
 	executeGetHandler?: () => void;
 }

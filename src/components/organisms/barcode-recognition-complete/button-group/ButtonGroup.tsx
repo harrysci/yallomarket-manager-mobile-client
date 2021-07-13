@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
@@ -9,6 +10,8 @@ import style from './styles';
  * @returns JSX.Element
  */
 const ButtonGroup = (): JSX.Element => {
+	const navigation = useNavigation();
+
 	return (
 		<View style={style.root}>
 			<Text style={style.text}>바코드 스캔 완료</Text>

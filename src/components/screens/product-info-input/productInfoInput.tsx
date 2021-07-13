@@ -19,6 +19,8 @@ import { StackParamList } from '../../../navigations/stack-param-list/StackParam
 import useAxios from 'axios-hooks';
 import { updateBarcodeProductInfoReq } from './dto/updateBarcodeProductInfoReq.dto';
 import moment from 'moment';
+import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
+import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
 
 const LIST_WIDTH = '87.5%';
 
@@ -184,6 +186,89 @@ function ProductInfoInput(): JSX.Element {
 		}
 	};
 
+	/**
+	 * @name 가공상품_생성_axios
+	 */
+	const [, executeSaveProcessedProduct] = useAxios<any>(
+		{
+			method: 'POST',
+			url: `/product/createProcessedProduct/${Number(route.params.ownerId)}`,
+		},
+		{ manual: true },
+	);
+
+	/**
+	 * @name 가공상품_생성_axios_요청_핸들러
+	 */
+	const saveProcessedProductButtonHandler = () => {
+		if (route.params.mode === 'regist') {
+			const saveProcessedProductReq: CreateBarcodeProcessedProductReq = {
+				productBarcode: barcodeInput.value,
+				productName: productNameInput.value,
+
+				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
+				productCreatedAt: new Date(),
+				productVolume: volumeInput.value,
+				productIsSoldout: !availableForSale,
+
+				// 매입처 DB 칼럼에 없음.
+				productCurrentPrice: Number(currentPriceInput.value),
+				productOriginPrice: Number(originPriceInput.value),
+				productDescription: productDescription.value,
+
+				representativeProductImage: '',
+				detailProductImage: '',
+				additionalProductImage: '',
+			};
+		}
+	};
+
+	/**
+	 * @name 저울상품_생성_axios
+	 */
+	const [, executeSaveWeightedProduct] = useAxios<any>(
+		{
+			method: 'POST',
+			url: `/product/createWeightedProduct/${Number(route.params.ownerId)}`,
+		},
+		{ manual: true },
+	);
+
+	/**
+	 * @name 저울상품_생성_axios_요청_핸들러
+	 */
+	const saveWeightedProductButtonHandler = () => {
+		if (route.params.mode === 'regist') {
+			const saveWeightedProductReq: CreateBarcodeWeightedProductReq = {
+				productBarcode: barcodeInput.value,
+				productName: productNameInput.value,
+
+				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
+				productCreatedAt: new Date(),
+				productVolume: volumeInput.value,
+				productIsSoldout: !availableForSale,
+
+				// 매입처 DB 칼럼에 없음.
+				productCurrentPrice: Number(currentPriceInput.value),
+				productOriginPrice: Number(originPriceInput.value),
+				productDescription: productDescription.value,
+
+				representativeProductImage:
+					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+				detailProductImage:
+					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+				additionalProductImage:
+					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+			};
+
+			executeSaveWeightedProduct({
+				data: saveWeightedProductReq,
+			}).then(res => {
+				console.log(res.data);
+			});
+		}
+	};
+
 	return (
 		<ScrollView
 			style={productInfoStyle.root}
@@ -290,7 +375,17 @@ function ProductInfoInput(): JSX.Element {
 				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
-					callBack={() => updateProductInfoButtonHandler()}
+					callBack={() => {
+						if (route.params.mode === 'update') {
+							return updateProductInfoButtonHandler;
+						} else {
+							if (route.params.initProductCategory === '가공상품') {
+								return saveProcessedProductButtonHandler;
+							} else {
+								return saveWeightedProductButtonHandler;
+							}
+						}
+					}}
 					isAvailable={
 						barcodeInput.value.length > 0 &&
 						productNameInput.value.length > 0 &&
