@@ -16,6 +16,7 @@ export interface ProductDetailInfoPageProps {
 	storeName: string;
 	ownerId: number;
 	executeGetHandler: () => void;
+	handleUpdateCompleteOverlay: () => void;
 }
 
 /**
@@ -31,7 +32,8 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
-	const { product, storeName, ownerId, executeGetHandler } = route.params;
+	const { product, storeName, ownerId, executeGetHandler, handleUpdateCompleteOverlay } =
+		route.params;
 
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
 	const handleDeleteOverlay = () => {
@@ -41,12 +43,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const [deleteConfirmOverlayVisible, setDeleteConfirmOverlayVisible] = useState<boolean>(false);
 	const handleDeleteConfirmOverlay = () => {
 		setDeleteConfirmOverlayVisible(!deleteConfirmOverlayVisible);
-	};
-
-	const [updateCompleteOverlayVisible, setUpdateCompleteOverlayVisible] =
-		useState<boolean>(false);
-	const handleUpdateCompleteOverlay = () => {
-		setUpdateCompleteOverlayVisible(!updateCompleteOverlayVisible);
 	};
 
 	// 상품 삭제 요청
@@ -322,34 +318,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 			</Overlay>
 
 			{/* <Overlay isVisible={} onBackdropPress={} overlayStyle={}> */}
-			<Overlay
-				// isVisible={updateCompleteOverlayVisible}
-				// onBackdropPress={handleUpdateCompleteOverlay}
-				// overlayStyle={ProductDetailInfoPageStyles.updateCompleteOverlay}
-				isVisible={true}
-				onBackdropPress={handleUpdateCompleteOverlay}
-				overlayStyle={ProductDetailInfoPageStyles.updateCompleteOverlay}
-			>
-				<TouchableOpacity
-					style={{
-						alignSelf: 'flex-end',
-					}}
-				>
-					<Image
-						source={require('../../../assets/images/product-detail-info/4114.png')}
-						style={{ width: 16, height: 16, position: 'absolute' }}
-					/>
-				</TouchableOpacity>
-				<View style={ProductDetailInfoPageStyles.updateCompleteContainer}>
-					<Image
-						source={require('../../../assets/images/product-detail-info/299.png')}
-						style={ProductDetailInfoPageStyles.updateCompleteCheckImage}
-					/>
-					<Text style={ProductDetailInfoPageStyles.updateCompleteText}>
-						상품정보 수정 완료!
-					</Text>
-				</View>
-			</Overlay>
 		</SafeAreaView>
 	);
 };
