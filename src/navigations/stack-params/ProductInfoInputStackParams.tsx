@@ -20,4 +20,5 @@ export interface ProductInfoInputStackParams {
 	additionalProductImage?: string;
 
 	executeGetHandler?: () => void;
+	handleUpdateCompleteOverlay?: () => void;
 }

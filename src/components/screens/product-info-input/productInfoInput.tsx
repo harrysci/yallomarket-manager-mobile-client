@@ -175,6 +175,14 @@ function ProductInfoInput(): JSX.Element {
 								console.log('executeGetHandler failed');
 						  };
 					executeGetHandler();
+
+					const handleUpdateCompleteOverlay = route.params.handleUpdateCompleteOverlay
+						? route.params.handleUpdateCompleteOverlay
+						: () => {
+								console.log('handleUpdateCompleteOverlay failed');
+						  };
+					handleUpdateCompleteOverlay();
+
 					navigation.navigate('메인화면');
 				})
 				.catch(err => {
