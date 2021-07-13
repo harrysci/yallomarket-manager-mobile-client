@@ -333,14 +333,11 @@ const ProductDetailInfoPage = (): JSX.Element => {
 				<TouchableOpacity
 					style={{
 						alignSelf: 'flex-end',
-						position: 'absolute',
-						top: 10,
-						right: 10,
 					}}
 				>
 					<Image
 						source={require('../../../assets/images/product-detail-info/4114.png')}
-						style={{ width: 16, height: 16 }}
+						style={{ width: 16, height: 16, position: 'absolute' }}
 					/>
 				</TouchableOpacity>
 				<View style={ProductDetailInfoPageStyles.updateCompleteContainer}>
