@@ -4,13 +4,17 @@ import {RNCamera} from 'react-native-camera';
 import {Button} from 'react-native-elements/dist/buttons/Button';
 import {styles} from './styles/style';
 import {Text} from 'react-native-elements';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
+interface DetailPhotoProps {
+  ImgPath: any;
+}
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
-export default function DetailUpload(): JSX.Element {
+export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
+  const {ImgPath} = data;
   const navigation = useNavigation();
   const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
-
+  const route = useRoute();
   const takePhoto = async () => {
     if (cameraRef) {
       const data = await cameraRef.current?.takePictureAsync({
@@ -18,7 +22,13 @@ export default function DetailUpload(): JSX.Element {
         exif: true,
         base64: true,
       });
-      navigation.navigate('상세 이미지 확인', {param: {imagePath: data}});
+      //console.log(route.params.param.ImgPath, data);
+      navigation.navigate('상세 이미지 확인', {
+        param: {
+          imagePath: route.params.param.ImgPath,
+          detailImgPath: data?.base64,
+        },
+      });
     }
   };
   return (

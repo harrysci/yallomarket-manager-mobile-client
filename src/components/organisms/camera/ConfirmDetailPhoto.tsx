@@ -9,16 +9,33 @@ import {styles} from './styles/style';
 import {useNavigation} from '@react-navigation/native';
 
 interface ImageProps {
-  imagePath: TakePictureResponse;
+  imgPath: string;
+  detailImgPath: string;
 }
+
+/* 
+*****************************************************************
+상세이미지 확인화면 
+
+상세이미지를 확인하고 대표이미지 데이터와 상세이미지 데이터를 상품 등록 페이지로 전달한다.
+*****************************************************************
+setPath -> imagePath의 상태관리
+imagePath (object type)
+- detailImgPath : 상세이미지 base64 string
+- imgPath : 대표이미지 base64 string
+*****************************************************************
+*/
 export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
-  const {imagePath} = prop;
-  const [imgPath, setPath] = useState('');
+  const {imgPath, detailImgPath} = prop;
+  const [imagePath, setPath] = useState<ImageProps>();
   const navigation = useNavigation();
   const route = useRoute();
 
   React.useEffect(() => {
-    setPath(route.params.param.imagePath.base64);
+    setPath({
+      imgPath: route.params.param.imgPath,
+      detailImgPath: route.params.param.detailImgPath,
+    });
   }, []);
 
   // let path = require(imgPath);
@@ -27,7 +44,7 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
       <Image
         style={styles.imageStyle}
         source={{
-          uri: `data:image/jpeg;base64,${imgPath}`,
+          uri: `data:image/jpeg;base64,${imagePath?.detailImgPath}`,
         }}
       />
       <View style={styles.textBox}>
@@ -54,6 +71,7 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
           onPress={() => {
             /* screen 이동 */
             /* 법우님 최종등록 페이지로 연결 */
+            /* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
           }}
         />
       </View>

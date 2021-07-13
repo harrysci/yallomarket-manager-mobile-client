@@ -5,8 +5,8 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 import CameraUploadScreen from './src/components/screens/camera/CameraUploadScreen';
 import HowToUpload from './src/components/screens/camera/HowToUpload';
 import ConfirmImage from './src/components/organisms/camera/ConfirmPhoto';
-import DetailHowToUpload from './src/components/screens/camera/DetailHowToUpload';
-import DetailUpload from './src/components/organisms/camera/DetailUpload';
+import HowToDetailUpload from './src/components/screens/camera/HowToDetailUpload';
+import UploadDetailPhoto from './src/components/organisms/camera/UploadDetailPhoto';
 import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailPhoto';
 import {ScannerScreen} from './src/components/screens/barcode/ScannerScreen';
 const Stack = createStackNavigator();
@@ -15,12 +15,11 @@ const App = () => {
     <SafeAreaView style={styles.testContainer}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen name="바코드 스캔" component={ScannerScreen} /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="스캔화면"
             options={{title: '바코드 스캔'}}
             component={ScannerScreen}
-          />
+          /> */}
           <Stack.Screen
             options={{headerShown: false}}
             name="1단계"
@@ -39,12 +38,12 @@ const App = () => {
           <Stack.Screen
             options={{headerShown: false}}
             name="2단계"
-            component={DetailHowToUpload}
+            component={HowToDetailUpload}
           />
           <Stack.Screen
             name="상세 이미지 촬영"
             options={{title: '상세 이미지 촬영'}}
-            component={DetailUpload}
+            component={UploadDetailPhoto}
           />
           <Stack.Screen
             name="상세 이미지 확인"

@@ -53,7 +53,7 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
           buttonStyle={styles.buttonStyle3}
           onPress={() => {
             /* screen 이동 */
-            navigation.navigate('2단계');
+            navigation.navigate('2단계', {param: {imagePath: imgPath}});
           }}
         />
       </View>
