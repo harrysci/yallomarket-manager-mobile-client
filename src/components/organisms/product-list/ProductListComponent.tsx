@@ -9,7 +9,7 @@ const ProductListComponent = () => {
 		GetImageProductListRes[]
 	>({
 		method: 'GET',
-		url: 'http://localhost:5000/product/getProductList/1',
+		url: '/product/getProductList/1',
 	});
 
 	const executeGetHandler = () => {

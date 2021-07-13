@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
 /* 사용자 정의 organisms 컴포넌트 Import */
@@ -17,6 +17,8 @@ import productInfoStyle from './productInfoInput.style';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import useAxios from 'axios-hooks';
+import { updateBarcodeProductInfoReq } from './dto/updateBarcodeProductInfoReq.dto';
+import moment from 'moment';
 
 const LIST_WIDTH = '87.5%';
 
@@ -69,7 +71,7 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 상품_카테고리_핸들러
 	 */
 	const [category] = React.useState<Array<string>>(['저울상품', '가공상품']);
-	const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+	const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(1);
 	const handleCategoryIndex = (newIndex: number) => {
 		setSelectedCategoryIndex(newIndex);
 	};
@@ -81,8 +83,14 @@ function ProductInfoInput(): JSX.Element {
 
 	/**
 	 * @name 상품_판매_게시일_핸들러
+	 * 1. 초기값은 route param 이 존재 하는 경우 (update mode) 해당 날짜의 yyyy-mm-dd 포맷 저장
+	 * 2. route param 이 없는 경우 (regist mode) 현재 날짜의 yyyy-mm-dd 포맷 저장
 	 */
-	const openDateInput = useEventTargetValue(route.params.initOpenData);
+	const openDateInput = useEventTargetValue(
+		route.params.initOpenData
+			? moment(route.params.initOpenData).format('yyyy-MM-DD')
+			: moment(new Date()).format('yyyy-MM-DD'),
+	);
 
 	/**
 	 * @name 상품_규격_핸들러
@@ -123,29 +131,55 @@ function ProductInfoInput(): JSX.Element {
 	/**
 	 * @name 상품_갱신_axios
 	 */
-	const [{ data: updateData, loading: updateLoading, error: updateError }, executeUpdate] =
-		useAxios<any>(
-			{
-				method: 'PUT',
-				url: `http://localhost:5000/product/updateProductData/${Number(
-					route.params.ownerId,
-				)}/${String(route.params.initBarcode)}`,
-				data: {
-					productId: route.params.productId,
-					productIsProcessed: selectedCategoryIndex === 1 ? true : false,
-					productBarcode: barcodeInput.value,
-					productName: productNameInput.value,
-					productCurrentPrice: Number(currentPriceInput.value),
-					productCategory: category[selectedCategoryIndex],
-					productCreatedAt: openDateInput.value,
-					productVolume: volumeInput.value,
-					productIsSoldout: !availableForSale,
-					productOriginPrice: Number(originPriceInput.value),
-					productDescription: productDescription.value,
-				},
-			},
-			{ manual: true },
-		);
+	const [{ loading: updateProductLoading }, executeUpdate] = useAxios<any>(
+		{
+			method: 'PUT',
+			url: `http://localhost:5000/product/updateProductData/${Number(
+				route.params.ownerId,
+			)}/${String(route.params.initBarcode)}`,
+		},
+		{ manual: true },
+	);
+
+	/**
+	 * @name 상품_갱신_axios_요청_핸들러
+	 */
+	const updateProductInfoButtonHandler = () => {
+		if (route.params.mode === 'update' && route.params.productId) {
+			const updateProductDataReq: updateBarcodeProductInfoReq = {
+				productId: route.params.productId,
+				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
+				productBarcode: barcodeInput.value,
+				productName: productNameInput.value,
+				productCurrentPrice: Number(currentPriceInput.value),
+				productCategory: category[selectedCategoryIndex],
+				productCreatedAt: new Date(openDateInput.value),
+				productVolume: volumeInput.value,
+				productIsSoldout: !availableForSale,
+				productOriginPrice: Number(originPriceInput.value),
+				productDescription: productDescription.value,
+			};
+
+			executeUpdate({
+				data: updateProductDataReq,
+			})
+				.then(() => {
+					const executeGetHandler = route.params.executeGetHandler
+						? route.params.executeGetHandler
+						: () => {
+								console.log('executeGetHandler failed');
+						  };
+					executeGetHandler();
+					navigation.navigate('메인화면');
+				})
+				.catch(err => {
+					console.log('executeUpdate failed');
+					console.log(err);
+				});
+		} else {
+			/* route param mode 오류 발생 시 예외 처리 */
+		}
+	};
 
 	return (
 		<ScrollView
@@ -253,26 +287,7 @@ function ProductInfoInput(): JSX.Element {
 				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
-					callBack={() => {
-						if (route.params.mode === 'update') {
-							executeUpdate()
-								.then(() => {
-									const executeGetHandler = route.params.executeGetHandler
-										? route.params.executeGetHandler
-										: () => {
-												console.log('executeGetHandler failed');
-										  };
-									executeGetHandler();
-									navigation.navigate('메인화면');
-								})
-								.catch(err => {
-									console.log('executeUpdate failed');
-									console.log(err);
-								});
-						} else {
-							//
-						}
-					}}
+					callBack={() => updateProductInfoButtonHandler()}
 					isAvailable={
 						barcodeInput.value.length > 0 &&
 						productNameInput.value.length > 0 &&
@@ -283,6 +298,8 @@ function ProductInfoInput(): JSX.Element {
 					}
 				/>
 			</View>
+
+			<ActivityIndicator animating={updateProductLoading} color="#fbd145" size="small" />
 		</ScrollView>
 	);
 }

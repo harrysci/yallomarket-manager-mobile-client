@@ -33,7 +33,6 @@ const App = () => {
 					component={ProductDetailInfoPage}
 					options={{ headerShown: false }}
 				/>
-				<Stack.Screen name="상품 정보 입력" component={ProductInfoInput} />
 
 				<Stack.Screen name="테스트" component={Test} />
 				<Stack.Screen
