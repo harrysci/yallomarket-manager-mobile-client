@@ -1,16 +1,17 @@
-import {useRoute} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import React from 'react';
-import {useState} from 'react';
-import {View} from 'react-native';
-import {TakePictureResponse} from 'react-native-camera';
-import {Button, Text} from 'react-native-elements';
-import {Image} from 'react-native-elements/dist/image/Image';
-import {styles} from './styles/style';
-import {useNavigation} from '@react-navigation/native';
+import { useState } from 'react';
+import { View } from 'react-native';
+import { TakePictureResponse } from 'react-native-camera';
+import { Button, Text } from 'react-native-elements';
+import { Image } from 'react-native-elements/dist/image/Image';
+import { styles } from './styles/style';
+import { useNavigation } from '@react-navigation/native';
+import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
 
 interface ImageProps {
-  imgPath: string;
-  detailImgPath: string;
+	imgPath: string;
+	detailImgPath: string;
 }
 
 /* 
@@ -26,55 +27,65 @@ imagePath (object type)
 *****************************************************************
 */
 export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
-  const {imgPath, detailImgPath} = prop;
-  const [imagePath, setPath] = useState<ImageProps>();
-  const navigation = useNavigation();
-  const route = useRoute();
+	const { imgPath, detailImgPath } = prop;
+	const [imagePath, setPath] = useState<ImageProps>();
+	const navigation = useNavigation();
+	const route = useRoute();
 
-  React.useEffect(() => {
-    setPath({
-      imgPath: route.params.param.imgPath,
-      detailImgPath: route.params.param.detailImgPath,
-    });
-  }, []);
+	React.useEffect(() => {
+		setPath({
+			imgPath: route.params.param.imgPath,
+			detailImgPath: route.params.param.detailImgPath,
+		});
+	}, []);
 
-  // let path = require(imgPath);
-  return (
-    <View style={styles.root}>
-      <Image
-        style={styles.imageStyle}
-        source={{
-          uri: `data:image/jpeg;base64,${imagePath?.detailImgPath}`,
-        }}
-      />
-      <View style={styles.textBox}>
-        <Text style={styles.textStyle}>상세 이미지 촬영완료</Text>
-      </View>
-      <View style={styles.buttonBox}>
-        <Button
-          type="outline"
-          title="다시 촬영하기"
-          titleStyle={styles.buttonTitleFont}
-          buttonStyle={styles.buttonStyle2}
-          onPress={() => {
-            /* screen 이동 */
-            navigation.navigate('상세 이미지 촬영');
-          }}
-        />
-      </View>
-      <View style={styles.buttonBox2}>
-        <Button
-          type="outline"
-          title="상세 이미지 등록하기"
-          titleStyle={styles.buttonTitleFont}
-          buttonStyle={styles.buttonStyle3}
-          onPress={() => {
-            /* screen 이동 */
-            /* 법우님 최종등록 페이지로 연결 */
-            /* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
-          }}
-        />
-      </View>
-    </View>
-  );
+	// let path = require(imgPath);
+	return (
+		<View style={styles.root}>
+			<Image
+				style={styles.imageStyle}
+				source={{
+					uri: `data:image/jpeg;base64,${imagePath?.detailImgPath}`,
+				}}
+			/>
+			<View style={styles.textBox}>
+				<Text style={styles.textStyle}>상세 이미지 촬영완료</Text>
+			</View>
+			<View style={styles.buttonBox}>
+				<Button
+					type="outline"
+					title="다시 촬영하기"
+					titleStyle={styles.buttonTitleFont}
+					buttonStyle={styles.buttonStyle2}
+					onPress={() => {
+						/* screen 이동 */
+						navigation.navigate('상세 이미지 촬영');
+					}}
+				/>
+			</View>
+			<View style={styles.buttonBox2}>
+				<Button
+					type="outline"
+					title="상세 이미지 등록하기"
+					titleStyle={styles.buttonTitleFont}
+					buttonStyle={styles.buttonStyle3}
+					onPress={() => {
+						/* screen 이동 */
+						/* 법우님 최종등록 페이지로 연결 */
+						/* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
+
+						/* 상품 정보 입력 (상품 등록 모드) navigation*/
+						const productInfoInputStackParams: ProductInfoInputStackParams = {
+							mode: 'regist',
+							ownerId: 1,
+							/* 더미 데이터, 바코드 인식 완료후 인식된 바코드, 서버에 받은 카테고리로 변경 필요 */
+							initBarcode: '1123123',
+							initProductCategory: '저울상품',
+						};
+						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
+					}}
+				/>
+			</View>
+		</View>
+	);
 }

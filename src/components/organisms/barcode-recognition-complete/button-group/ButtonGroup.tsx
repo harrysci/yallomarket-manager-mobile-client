@@ -20,7 +20,12 @@ const ButtonGroup = (): JSX.Element => {
 				<Text style={style.reScanText}>다시 스캔하기</Text>
 			</TouchableOpacity>
 
-			<TouchableOpacity style={style.touchAreaSave}>
+			<TouchableOpacity
+				style={style.touchAreaSave}
+				onPress={() => {
+					navigation.navigate('1단계');
+				}}
+			>
 				<Text style={style.saveText}>상품 등록하기</Text>
 			</TouchableOpacity>
 		</View>

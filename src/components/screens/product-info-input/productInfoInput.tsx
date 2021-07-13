@@ -220,6 +220,17 @@ function ProductInfoInput(): JSX.Element {
 				detailProductImage: '',
 				additionalProductImage: '',
 			};
+
+			executeSaveProcessedProduct({
+				data: saveProcessedProductReq,
+			})
+				.then(res => {
+					/* 저장 완료 후 로직 */
+					console.log('save success');
+				})
+				.catch(() => {
+					/* 저장 에러 발생 후 로직 */
+				});
 		}
 	};
 
@@ -263,9 +274,14 @@ function ProductInfoInput(): JSX.Element {
 
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
-			}).then(res => {
-				console.log(res.data);
-			});
+			})
+				.then(res => {
+					/* 저장 완료 후 로직 */
+					console.log('save success');
+				})
+				.catch(() => {
+					/* 저장 에러 발생 후 로직 */
+				});
 		}
 	};
 
@@ -377,12 +393,12 @@ function ProductInfoInput(): JSX.Element {
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
 					callBack={() => {
 						if (route.params.mode === 'update') {
-							return updateProductInfoButtonHandler;
+							updateProductInfoButtonHandler();
 						} else {
-							if (route.params.initProductCategory === '가공상품') {
-								return saveProcessedProductButtonHandler;
+							if (category[selectedCategoryIndex] === '가공상품') {
+								saveProcessedProductButtonHandler();
 							} else {
-								return saveWeightedProductButtonHandler;
+								saveWeightedProductButtonHandler();
 							}
 						}
 					}}

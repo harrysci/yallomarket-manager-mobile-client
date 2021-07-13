@@ -5,6 +5,7 @@ import BottomNavStyles from './styles/BottomNavStyles';
 
 import ListScreen from '../../components/screens/home/product-list/ListScreen';
 import { ScannerScreen } from '../../components/screens/barcode/ScannerScreen';
+import BarcodeRecognitionComplete from '../../components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +56,8 @@ const BottomNav = (): JSX.Element => {
 				style: BottomNavStyles.tabBar,
 			}}
 		>
-			<Tab.Screen name="바코드 스캔" component={ScannerScreen} />
+			{/* 테스트를 위해 주석처리  <Tab.Screen name="바코드 스캔" component={ScannerScreen} /> */}
+			<Tab.Screen name="바코드 스캔" component={BarcodeRecognitionComplete} />
 			<Tab.Screen name="등록 목록" component={ListScreen} />
 		</Tab.Navigator>
 		// </NavigationContainer>
