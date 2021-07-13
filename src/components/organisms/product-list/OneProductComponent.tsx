@@ -27,7 +27,10 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 	};
 
 	return (
-		<View style={styles.item_container}>
+		<TouchableOpacity style={styles.item_container}
+		onPress={() => {
+			navigation.navigate('상품 상세 정보', ProductParams);
+		}}>
 			<View style={styles.image_container}>
 				<Image
 					style={styles.product_image}
@@ -43,21 +46,19 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 				<Text style={styles.product_name}>{productData.productName}</Text>
 				<View style={styles.last_containner}>
 					<Text style={styles.product_price}>{productData.productCurrentPrice}원</Text>
-					<TouchableOpacity
+					<View
 						style={styles.go_detail}
-						onPress={() => {
-							navigation.navigate('상품 상세 정보', ProductParams);
-						}}
+						
 					>
 						<Text>상세보기</Text>
 						<Image
 							style={styles.go_detail_image}
 							source={require('../../../assets/icons/product-list/icon_forward.png')}
 						></Image>
-					</TouchableOpacity>
+					</View>
 				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 };
 export default OneProductComponent;

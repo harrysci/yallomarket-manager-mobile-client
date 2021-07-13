@@ -1,16 +1,23 @@
 import React from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView, ScrollView, View } from 'react-native';
+import DeleteOverComponent from '../../../organisms/product-list/DeleteOverComponent';
 import ProductListComponent from '../../../organisms/product-list/ProductListComponent';
 import UpContainer from '../../../organisms/product-list/UpContainer';
 import styles from './style';
 
-export default function ListScreen(): JSX.Element {
+export interface deleteProps {
+	deleteState: boolean;
+	setDeleteState: ()=> void;
+}
+
+
+export default function ListScreen(props: deleteProps): JSX.Element {
 	return (
-		<SafeAreaView>
-			<View style={styles.upContainer}>
+
+			<ScrollView style={styles.upContainer}>
 				<UpContainer />
 				<ProductListComponent />
-			</View>
-		</SafeAreaView>
+				<DeleteOverComponent deleteState={props.deleteState} setDeleteState={props.setDeleteState}/>
+			</ScrollView>
 	);
 }
