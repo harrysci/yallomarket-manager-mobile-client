@@ -216,9 +216,14 @@ function ProductInfoInput(): JSX.Element {
 				productOriginPrice: Number(originPriceInput.value),
 				productDescription: productDescription.value,
 
-				representativeProductImage: '',
-				detailProductImage: '',
-				additionalProductImage: '',
+				representativeProductImage: route.params.representativeProductImage
+					? route.params.representativeProductImage
+					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+				detailProductImage: route.params.detailProductImage
+					? route.params.detailProductImage
+					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+				additionalProductImage:
+					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
 
 			executeSaveProcessedProduct({
@@ -264,10 +269,12 @@ function ProductInfoInput(): JSX.Element {
 				productOriginPrice: Number(originPriceInput.value),
 				productDescription: productDescription.value,
 
-				representativeProductImage:
-					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				detailProductImage:
-					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+				representativeProductImage: route.params.representativeProductImage
+					? route.params.representativeProductImage
+					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
+				detailProductImage: route.params.detailProductImage
+					? route.params.detailProductImage
+					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 				additionalProductImage:
 					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
