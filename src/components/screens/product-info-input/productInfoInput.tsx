@@ -71,7 +71,9 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 상품_카테고리_핸들러
 	 */
 	const [category] = React.useState<Array<string>>(['저울상품', '가공상품']);
-	const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(1);
+	const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(
+		category.indexOf(route.params.initProductCategory),
+	);
 	const handleCategoryIndex = (newIndex: number) => {
 		setSelectedCategoryIndex(newIndex);
 	};
@@ -134,9 +136,9 @@ function ProductInfoInput(): JSX.Element {
 	const [{ loading: updateProductLoading }, executeUpdate] = useAxios<any>(
 		{
 			method: 'PUT',
-			url: `http://localhost:5000/product/updateProductData/${Number(
-				route.params.ownerId,
-			)}/${String(route.params.initBarcode)}`,
+			url: `/product/updateProductData/${Number(route.params.ownerId)}/${String(
+				route.params.initBarcode,
+			)}`,
 		},
 		{ manual: true },
 	);
@@ -160,6 +162,7 @@ function ProductInfoInput(): JSX.Element {
 				productDescription: productDescription.value,
 			};
 
+			/* executeUpdate 를 통한 update axios 요청부 */
 			executeUpdate({
 				data: updateProductDataReq,
 			})
@@ -189,7 +192,7 @@ function ProductInfoInput(): JSX.Element {
 		>
 			{/* 카테고리 선택 바텀시트 컴포넌트 */}
 			<CategoryBottomSheet
-				isVisiable={open}
+				isVisiable={route.params.mode === 'regist' ? open : false}
 				handleClose={() => setOpen(false)}
 				categoryArray={category}
 				handleCategoryIndex={handleCategoryIndex}
@@ -241,7 +244,7 @@ function ProductInfoInput(): JSX.Element {
 					isNecessary={true}
 					value={volumeInput.value}
 					handleChange={volumeInput.handleChange}
-					inputType="numeric"
+					inputType="any"
 					rightIconType="gram"
 				/>
 				<CheckBoxGroupWithLabel

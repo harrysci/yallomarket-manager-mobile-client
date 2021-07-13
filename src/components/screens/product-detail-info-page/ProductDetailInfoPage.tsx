@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import useAxios from 'axios-hooks';
+import moment from 'moment';
 import React from 'react';
 import { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
@@ -172,7 +173,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 				<View style={ProductDetailInfoPageStyles.productDetailInformationElement}>
 					<Text style={ProductDetailInfoPageStyles.detailTitleText}>상품 게시일</Text>
 					<Text style={ProductDetailInfoPageStyles.detailInformationText}>
-						{String(product.productCreatedAt)}
+						{moment(product.productCreatedAt).format('yyyy-MM-DD')}
 					</Text>
 				</View>
 
@@ -204,6 +205,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 							productId: product.productId,
 							ownerId: ownerId,
 
+							initProductCategory: product.productCategory,
 							initBarcode: product.productBarcode,
 							initProductName: product.productName,
 							initCurrentPrice: product.productCurrentPrice,

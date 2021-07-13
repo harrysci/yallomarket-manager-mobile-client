@@ -5,6 +5,8 @@ export interface ProductInfoInputStackParams {
 	productId?: number;
 
 	initBarcode: string;
+
+	initProductCategory: string;
 	initProductName?: string;
 	initCurrentPrice?: number;
 	initOriginPrice?: number;
