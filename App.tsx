@@ -2,6 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { StackParamList } from './src/navigations/stack-param-list/StackParamList';
+import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
+
 import Test from './src/components/screens/home/Test';
 import BarcodeRecognitionComplete from './src/components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
 import { configure } from 'axios-hooks';
@@ -23,6 +25,13 @@ const App = () => {
 				<Stack.Screen
 					name="바코드 인식 완료"
 					component={BarcodeRecognitionComplete}
+					options={{
+						headerShown: true, // test 를 위해 header 를 보이게 함
+					}}
+				/>
+				<Stack.Screen
+					name="상품 정보 입력"
+					component={ProductInfoInput}
 					options={{
 						headerShown: true, // test 를 위해 header 를 보이게 함
 					}}
