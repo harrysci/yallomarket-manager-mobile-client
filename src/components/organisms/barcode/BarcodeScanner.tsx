@@ -32,9 +32,6 @@ export default function BarcodeScanner(
         type={RNCamera.Constants.Type.back}
         ref={ref}
         captureAudio={false}
-        onGoogleVisionBarcodesDetected={barcode => {
-          console.log(barcode);
-        }}
         onBarCodeRead={barcode => {
           // console.warn('barcode readed');
           onBarcodeScan(barcode);

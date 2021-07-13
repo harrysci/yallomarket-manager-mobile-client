@@ -7,7 +7,7 @@ import {Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
-export default function UploadPhoto(): JSX.Element {
+export default function DetailUpload(): JSX.Element {
   const navigation = useNavigation();
   const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
 
@@ -18,16 +18,11 @@ export default function UploadPhoto(): JSX.Element {
         exif: true,
         base64: true,
       });
-      navigation.navigate('대표 이미지 확인', {param: {imagePath: data}});
-      // CameraRoll.saveToCameraRoll(data?.uri);
-      console.log('😻 data', data);
-      // console.log('😻 data', data);
+      navigation.navigate('상세 이미지 확인', {param: {imagePath: data}});
     }
   };
   return (
     <View style={styles.root}>
-      {/* <Text style={styles.font4}>대표 이미지 촬영</Text> */}
-
       <View>
         <RNCamera
           ref={cameraRef}
@@ -37,7 +32,7 @@ export default function UploadPhoto(): JSX.Element {
       </View>
       <View style={styles.flexRow}>
         <Text style={styles.font1}>등록할 상품의</Text>
-        <Text style={styles.font3}>대표 이미지를</Text>
+        <Text style={styles.font3}>상세 이미지를</Text>
         <Text style={styles.font1}> 촬영해 주세요.</Text>
       </View>
       <View style={styles.buttonFlex}>
