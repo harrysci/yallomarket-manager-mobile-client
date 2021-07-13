@@ -4,7 +4,6 @@ import ProductDetailInfoPage from './src/components/screens/product-detail-info-
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StackParamList } from './src/navigations/stack-param-list/StackParamList';
-import Test from './src/components/screens/home/Test';
 import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
 
 const Stack = createStackNavigator<StackParamList>();

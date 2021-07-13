@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import { View, ScrollView } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
@@ -13,8 +14,9 @@ import DividerWithInterval from '../../atoms/divider/divider-with-interval/Divid
 
 /* style 파일 Import */
 import productInfoStyle from './productInfoInput.style';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import useAxios from 'axios-hooks';
 
 const LIST_WIDTH = '87.5%';
 
@@ -39,6 +41,8 @@ const LIST_WIDTH = '87.5%';
  * @returns JSX.Element
  */
 function ProductInfoInput(): JSX.Element {
+	const navigation = useNavigation();
+
 	/**
 	 * @name 네비게이션_route_param_핸들러
 	 */
@@ -116,6 +120,33 @@ function ProductInfoInput(): JSX.Element {
 			: '신선제품의 특성상 상품의 중량의 3% 내외의 차이가 발생할 수 있습니다.',
 	);
 
+	/**
+	 * @name 상품_갱신_axios
+	 */
+	const [{ data: updateData, loading: updateLoading, error: updateError }, executeUpdate] =
+		useAxios<any>(
+			{
+				method: 'PUT',
+				url: `http://localhost:5000/product/updateProductData/${Number(
+					route.params.ownerId,
+				)}/${String(route.params.initBarcode)}`,
+				data: {
+					productId: route.params.productId,
+					productIsProcessed: selectedCategoryIndex === 1 ? true : false,
+					productBarcode: barcodeInput.value,
+					productName: productNameInput.value,
+					productCurrentPrice: Number(currentPriceInput.value),
+					productCategory: category[selectedCategoryIndex],
+					productCreatedAt: openDateInput.value,
+					productVolume: volumeInput.value,
+					productIsSoldout: !availableForSale,
+					productOriginPrice: Number(originPriceInput.value),
+					productDescription: productDescription.value,
+				},
+			},
+			{ manual: true },
+		);
+
 	return (
 		<ScrollView
 			style={productInfoStyle.root}
@@ -152,7 +183,7 @@ function ProductInfoInput(): JSX.Element {
 					value={currentPriceInput.value}
 					handleChange={
 						currentPriceInput.handleChangeCurrencyNumber
-							? currentPriceInput.handleChangeCurrencyNumber
+							? currentPriceInput.handleChange
 							: currentPriceInput.handleChange
 					}
 					inputType="numeric"
@@ -203,7 +234,7 @@ function ProductInfoInput(): JSX.Element {
 					value={originPriceInput.value}
 					handleChange={
 						originPriceInput.handleChangeCurrencyNumber
-							? originPriceInput.handleChangeCurrencyNumber
+							? originPriceInput.handleChange
 							: originPriceInput.handleChange
 					}
 					inputType="numeric"
@@ -222,20 +253,27 @@ function ProductInfoInput(): JSX.Element {
 				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
-					callBack={() =>
-						console.log(
-							barcodeInput.value,
-							productNameInput.value,
-							currentPriceInput.value,
-							category[selectedCategoryIndex],
-							openDateInput.value,
-							volumeInput.value,
-							availableForSale,
-							productOriginInput.value,
-							productDescription.value,
-						)
-					}
-					isAvaliable={
+					callBack={() => {
+						if (route.params.mode === 'update') {
+							executeUpdate()
+								.then(() => {
+									const executeGetHandler = route.params.executeGetHandler
+										? route.params.executeGetHandler
+										: () => {
+												console.log('executeGetHandler failed');
+										  };
+									executeGetHandler();
+									navigation.navigate('메인화면');
+								})
+								.catch(err => {
+									console.log('executeUpdate failed');
+									console.log(err);
+								});
+						} else {
+							//
+						}
+					}}
+					isAvailable={
 						barcodeInput.value.length > 0 &&
 						productNameInput.value.length > 0 &&
 						currentPriceInput.value.length > 0 &&

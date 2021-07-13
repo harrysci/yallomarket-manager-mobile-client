@@ -5,8 +5,8 @@ import style from './FinishButton.style';
 
 export interface FinishButtonProps {
 	title: string;
-	callBack: any;
-	isAvaliable: boolean;
+	callBack: () => void;
+	isAvailable: boolean;
 }
 
 /**
@@ -15,15 +15,15 @@ export interface FinishButtonProps {
  * @returns JSX.Element
  */
 const FinishButton = (props: FinishButtonProps) => {
-	const { title, callBack, isAvaliable } = props;
+	const { title, callBack, isAvailable } = props;
 	return (
 		<Button
 			title={title}
 			containerStyle={style.buttonContainer}
-			buttonStyle={isAvaliable ? style.buttonAvaliable : style.buttonNotAvaliable}
-			titleStyle={isAvaliable ? style.titleAvaliable : style.titleNotAvaliable}
+			buttonStyle={isAvailable ? style.buttonAvailable : style.buttonNotAvailable}
+			titleStyle={isAvailable ? style.titleAvailable : style.titleNotAvailable}
 			onPress={callBack}
-			disabled={!isAvaliable}
+			disabled={!isAvailable}
 		/>
 	);
 };

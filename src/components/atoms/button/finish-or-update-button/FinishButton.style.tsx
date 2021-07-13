@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
 	root: {},
-	buttonAvaliable: {
+	buttonAvailable: {
 		height: 48,
 		borderRadius: 3,
 		backgroundColor: '#fbd145',
@@ -14,7 +14,7 @@ const style = StyleSheet.create({
 		marginBottom: 24,
 		width: '100%',
 	},
-	buttonNotAvaliable: {
+	buttonNotAvailable: {
 		height: 48,
 		borderRadius: 3,
 		backgroundColor: '#ededed',
@@ -22,7 +22,7 @@ const style = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#000000',
 	},
-	titleAvaliable: {
+	titleAvailable: {
 		fontSize: 18,
 		fontWeight: '500',
 		fontStyle: 'normal',
@@ -30,7 +30,7 @@ const style = StyleSheet.create({
 		textAlign: 'center',
 		color: '#000000',
 	},
-	titleNotAvaliable: {
+	titleNotAvailable: {
 		fontSize: 18,
 		fontWeight: '500',
 		fontStyle: 'normal',

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
 import { GetImageProductListRes } from '../home/dto/GetImageProductListDto';
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
 
@@ -31,8 +32,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
 	const { product, storeName, ownerId, executeGetHandler } = route.params;
 
-	console.log(product.productId);
-
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
 
 	const handleDeleteOverlay = () => {
@@ -51,16 +50,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 			{
 				method: 'DELETE',
 				url: `http://localhost:5000/product/deleteProductData/${ownerId}/${product.productBarcode}`,
-			},
-			{ manual: true },
-		);
-
-	// 상품 갱신 요청
-	const [{ data: updateData, loading: updateLoading, error: updateError }, executeUpdate] =
-		useAxios<any>(
-			{
-				method: 'PUT',
-				url: 'http://localhost:5000/product/updateProductData/:ownerId/:barcode',
 			},
 			{ manual: true },
 		);
@@ -210,7 +199,26 @@ const ProductDetailInfoPage = (): JSX.Element => {
 					titleStyle={ProductDetailInfoPageStyles.buttonText}
 					buttonStyle={ProductDetailInfoPageStyles.updateButton}
 					onPress={() => {
-						navigation.navigate('메인화면');
+						const updateParams: ProductInfoInputStackParams = {
+							mode: 'update',
+							productId: product.productId,
+							ownerId: ownerId,
+
+							initBarcode: product.productBarcode,
+							initProductName: product.productName,
+							initCurrentPrice: product.productCurrentPrice,
+							initOriginPrice: product.productOriginalPrice,
+							initProductOrigin: '',
+							initProductDescription: product.productDescription,
+							initOpenData: product.productCreatedAt.toString(),
+							initVolume:
+								product.productIsProcessed && product.processedProductVolume
+									? product.processedProductVolume
+									: product.weightedProductVolume,
+
+							executeGetHandler: executeGetHandler,
+						};
+						navigation.navigate('상품 정보 입력', updateParams);
 					}}
 				/>
 
@@ -254,7 +262,11 @@ const ProductDetailInfoPage = (): JSX.Element => {
 								// useAxios -> 해당 상품 삭제
 								executeDelete()
 									.then(() => {
-										// 상품 목록 재요청
+										/**
+										 * 1. 상품 목록 재요청 (바코드 등록 상품 목록에 사용되는 상품 목록)
+										 * 2. '바코드 등록 상품 목록' 으로 페이지 전환
+										 * 3. '상품정보 삭제 완료!' 모달 띄우기
+										 */
 										executeGetHandler();
 										navigation.navigate('메인화면');
 									})
@@ -264,13 +276,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 									});
 
 								setDeleteOverlayVisibleVisible(false);
-
-								if (!deleteError && !deleteLoading && deletedData) {
-									/**
-									 * 1. '바코드 등록 상품 목록' 으로 페이지 전환
-									 * 2. '상품정보 삭제 완료!' 모달 띄우기
-									 */
-								}
 							}}
 						/>
 					</View>
