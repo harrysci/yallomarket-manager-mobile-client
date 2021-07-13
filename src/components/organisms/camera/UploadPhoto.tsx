@@ -19,15 +19,10 @@ export default function UploadPhoto(): JSX.Element {
         base64: true,
       });
       navigation.navigate('대표 이미지 확인', {param: {imagePath: data}});
-      // CameraRoll.saveToCameraRoll(data?.uri);
-      console.log('😻 data', data);
-      // console.log('😻 data', data);
     }
   };
   return (
     <View style={styles.root}>
-      {/* <Text style={styles.font4}>대표 이미지 촬영</Text> */}
-
       <View>
         <RNCamera
           ref={cameraRef}

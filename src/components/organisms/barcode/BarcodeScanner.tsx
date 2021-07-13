@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {BarCodeReadEvent, RNCamera} from 'react-native-camera';
 import {styles} from './styles/styles';
 import {useRef} from 'react';
-
+import {useNavigation} from '@react-navigation/native';
 /*
 ****************************
 ** barcodeProps - by sangeun Park
@@ -24,6 +24,7 @@ export default function BarcodeScanner(
 ): JSX.Element {
   const {onBarcodeScan, barcodeNum} = BarcodeProps;
   const ref = useRef<RNCamera>(null);
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -33,11 +34,11 @@ export default function BarcodeScanner(
         ref={ref}
         captureAudio={false}
         onBarCodeRead={barcode => {
-          // console.warn('barcode readed');
           onBarcodeScan(barcode);
-          // console.warn(barcode.data);
 
           /*이곳에서 page전환 연결, barcodeNum의 데이터를 Param으로 전달.*/
+          /* 네비게이션 테스트 */
+          navigation.navigate('1단계');
         }}
         autoFocus={RNCamera.Constants.AutoFocus.on}
       />

@@ -8,6 +8,7 @@ import ConfirmImage from './src/components/organisms/camera/ConfirmPhoto';
 import DetailHowToUpload from './src/components/screens/camera/DetailHowToUpload';
 import DetailUpload from './src/components/organisms/camera/DetailUpload';
 import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailPhoto';
+import {ScannerScreen} from './src/components/screens/barcode/ScannerScreen';
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -16,23 +17,38 @@ const App = () => {
         <Stack.Navigator>
           {/* <Stack.Screen name="바코드 스캔" component={ScannerScreen} /> */}
           <Stack.Screen
+            name="스캔화면"
+            options={{title: '바코드 스캔'}}
+            component={ScannerScreen}
+          />
+          <Stack.Screen
             options={{headerShown: false}}
             name="1단계"
             component={HowToUpload}
           />
           <Stack.Screen
             name="대표 이미지 촬영"
+            options={{title: '대표 이미지 촬영'}}
             component={CameraUploadScreen}
           />
-          <Stack.Screen name="대표 이미지 확인" component={ConfirmImage} />
+          <Stack.Screen
+            name="대표 이미지 확인"
+            options={{title: '대표 이미지 촬영'}}
+            component={ConfirmImage}
+          />
           <Stack.Screen
             options={{headerShown: false}}
             name="2단계"
             component={DetailHowToUpload}
           />
-          <Stack.Screen name="상세 이미지 촬영" component={DetailUpload} />
+          <Stack.Screen
+            name="상세 이미지 촬영"
+            options={{title: '상세 이미지 촬영'}}
+            component={DetailUpload}
+          />
           <Stack.Screen
             name="상세 이미지 확인"
+            options={{title: '상세 이미지 촬영'}}
             component={ConfirmDetailImage}
           />
         </Stack.Navigator>
