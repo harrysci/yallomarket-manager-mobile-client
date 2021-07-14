@@ -10,10 +10,10 @@ PODS:
     - React-jsi (= 0.64.1)
     - ReactCommon/turbomodule/core (= 0.64.1)
   - glog (0.3.5)
-  - GoogleDataTransport (9.1.0):
+  - GoogleDataTransport (9.0.1):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
+    - PromisesObjC (~> 1.2)
   - GoogleMLKit/MLKitCore (2.2.0):
     - MLKitCommon (~> 3.0.0)
   - GoogleMLKit/TextRecognition (2.2.0):
@@ -31,11 +31,11 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.3.1)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.1)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.3.1)"
-  - GoogleUtilities/Environment (7.5.0):
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.5.0):
+  - GoogleUtilities/Environment (7.4.3):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (7.4.3):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (7.5.0):
+  - GoogleUtilities/UserDefaults (7.4.3):
     - GoogleUtilities/Logger
   - GoogleUtilitiesComponents (1.0.0):
     - GoogleUtilities/Logger
@@ -65,7 +65,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - PromisesObjC (2.0.0)
+  - PromisesObjC (1.2.12)
   - Protobuf (3.17.0)
   - RCT-Folly (2020.01.13.00):
     - boost-for-react-native
@@ -517,12 +517,12 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: 2e5e116e01f005933a4f29d7bca43f54b4c3d1b8
+  FBReactNativeSpec: 1b50bdb6969756ea06d5f2d20fda99fe52269b8c
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
+  GoogleDataTransport: 04c3e9a480bbcaa2ec3f5d27f1cdeb6a92f20c8d
   GoogleMLKit: 85ffdc9641d05311c76dbba5bbf93059087be12f
   GoogleToolboxForMac: 471e0c05d39506e50e6398f46fa9a12ae0efeff9
-  GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
+  GoogleUtilities: 45dbb24a7f351d69d0a601482b39ad6c32e30dab
   GoogleUtilitiesComponents: a69c0b3b369ba443e988141e75ef49d9010b1c80
   GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
   MLImage: 647f3d580c10b3c9a3f6154f5d7baead60c42a0c
@@ -530,7 +530,7 @@ SPEC CHECKSUMS:
   MLKitTextRecognition: fd52b7b3cef00751c202475f5a147e9752130767
   MLKitVision: 26da299aef93291f24f5200e8372919f73abf3b5
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 7327d4444215b5f18e560a97f879ff5503c4581c
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
   RCTRequired: ec2ebc96b7bfba3ca5c32740f5a0c6a014a274d2
