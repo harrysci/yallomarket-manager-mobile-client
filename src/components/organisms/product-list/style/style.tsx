@@ -75,37 +75,6 @@ const styles = StyleSheet.create({
 		width: 20,
 		height: 20,
 	},
-
-	updateCompleteOverlay: {
-		width: '87.2%',
-		height: '7.4%',
-		borderRadius: 30,
-		backgroundColor: '#ffffff',
-
-		position: 'absolute',
-		bottom: '25%',
-	},
-	updateCompleteContainer: {
-		height: '100%',
-		flexDirection: 'row',
-		justifyContent: 'center',
-	},
-	updateCompleteText: {
-		// fontFamily: 'AppleSDGothicNeo',
-		fontSize: 16,
-		fontWeight: '600',
-		fontStyle: 'normal',
-		lineHeight: 19,
-		letterSpacing: -0.51,
-		textAlign: 'center',
-		color: '#000000',
-
-		alignSelf: 'center',
-		marginLeft: 5.7,
-	},
-	updateCompleteCheckImage: {
-		alignSelf: 'center',
-	},
 });
 
 export default styles;

@@ -10,6 +10,7 @@ import styles from './style/style';
 export interface OneProductComponentProps {
 	productData: GetImageProductListRes;
 	executeGetHandler: () => void;
+	handleUpdateCompleteOverlay: () => void;
 }
 
 export interface Props {
@@ -23,18 +24,12 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 	const navigation = useNavigation();
 	const { productData, executeGetHandler } = props;
 
-	const [updateCompleteOverlayVisible, setUpdateCompleteOverlayVisible] =
-		React.useState<boolean>(false);
-	const handleUpdateCompleteOverlay = () => {
-		setUpdateCompleteOverlayVisible(true);
-	};
-
 	const ProductParams: Props = {
 		product: productData,
 		storeName: '경동빅마트',
 		ownerId: 1,
 		executeGetHandler: executeGetHandler,
-		handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
+		handleUpdateCompleteOverlay: props.handleUpdateCompleteOverlay,
 	};
 
 	return (

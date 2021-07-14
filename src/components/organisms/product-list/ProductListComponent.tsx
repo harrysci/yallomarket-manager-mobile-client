@@ -4,7 +4,11 @@ import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
 
-const ProductListComponent = () => {
+export interface ProductListComponentProps {
+	handleUpdateCompleteOverlay: () => void;
+}
+
+const ProductListComponent = (props: ProductListComponentProps) => {
 	const [{ data: getData, loading: getLoading, error: getError }, executeGet] = useAxios<
 		GetImageProductListRes[]
 	>({
@@ -17,7 +21,11 @@ const ProductListComponent = () => {
 	};
 
 	const renderItem = ({ item }: { item: GetImageProductListRes }) => (
-		<OneProductComponent productData={item} executeGetHandler={executeGetHandler} />
+		<OneProductComponent
+			productData={item}
+			executeGetHandler={executeGetHandler}
+			handleUpdateCompleteOverlay={props.handleUpdateCompleteOverlay}
+		/>
 	);
 	return (
 		<ScrollView>
