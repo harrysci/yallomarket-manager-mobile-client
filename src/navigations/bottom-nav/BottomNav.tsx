@@ -12,11 +12,11 @@ import { StackParamList } from '../stack-param-list/StackParamList';
 const Tab = createBottomTabNavigator();
 
 const BottomNav = (): JSX.Element => {
-	//const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
+	
 	return (
 		// <NavigationContainer>
 		<Tab.Navigator
-			//initialRouteName={route?.params.deleteState!==undefined? '등록 목록': '바코드 스캔'}
+			
 			screenOptions={({ route }) => ({
 				tabBarIcon: ({ focused }) => {
 					if (route.name === '바코드 스캔') {

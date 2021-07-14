@@ -34,7 +34,7 @@ export default function ListScreen(): JSX.Element {
 	};
 
 	return (
-		<SafeAreaView style={styles.upContainer}>
+		<ScrollView style={styles.upContainer}>
 				<UpContainer />
 				<ProductListComponent overState={overState} handleDeleteOverlay={handleDeleteOverlay} handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}/>
 				
@@ -91,6 +91,6 @@ export default function ListScreen(): JSX.Element {
         
 			</Overlay>
 			{/*  */}
-		</SafeAreaView>
+		</ScrollView>
 	);
 }
