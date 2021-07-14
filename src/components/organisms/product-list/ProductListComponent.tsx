@@ -5,7 +5,13 @@ import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
 import { deleteProps } from '../../screens/home/product-list/ListScreen';
 
-const ProductListComponent = (props: deleteProps) => {
+export interface ProductListComponentProps {
+	overState: boolean;
+	handleUpdateCompleteOverlay: () => void;
+	handleDeleteOverlay: () => void;
+}
+
+const ProductListComponent = (props: ProductListComponentProps) => {
 	const [{ data: getData, loading: getLoading, error: getError }, executeGet] = useAxios<
 		GetImageProductListRes[]
 	>({
@@ -18,7 +24,12 @@ const ProductListComponent = (props: deleteProps) => {
 	};
 
 	const renderItem = ({ item }: { item: GetImageProductListRes }) => (
-		<OneProductComponent productData={item} executeGetHandler={executeGetHandler} handleDeleteOverlay={props.handleDeleteOverlay} />
+		<OneProductComponent
+			productData={item}
+			executeGetHandler={executeGetHandler}
+			handleUpdateCompleteOverlay={props.handleUpdateCompleteOverlay}
+			handleDeleteOverlay={props.handleDeleteOverlay}
+		/>
 	);
 	return (
 		 <View style={{backgroundColor:'white', marginHorizontal:17}}>

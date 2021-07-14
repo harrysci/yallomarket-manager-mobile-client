@@ -175,7 +175,21 @@ function ProductInfoInput(): JSX.Element {
 								console.log('executeGetHandler failed');
 						  };
 					executeGetHandler();
-					navigation.navigate('메인화면');
+
+					// const handleUpdateCompleteOverlay = route.params.handleUpdateCompleteOverlay
+					// 	? route.params.handleUpdateCompleteOverlay
+					// 	: () => {
+					// 			console.log('handleUpdateCompleteOverlay failed');
+					// 	  };
+
+					if (route.params.handleUpdateCompleteOverlay) {
+						route.params.handleUpdateCompleteOverlay();
+						navigation.navigate('메인화면', {
+							updateSuccess: true,
+						});
+					}
+
+					// handleUpdateCompleteOverlay();
 				})
 				.catch(err => {
 					console.log('executeUpdate failed');

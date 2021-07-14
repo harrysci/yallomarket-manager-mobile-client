@@ -3,10 +3,14 @@ import { ProductInfoInputStackParams } from '../stack-params/ProductInfoInputSta
 import { BarcodeRecognitionCompleteStackParams } from '../stack-params/BarcodeRecognitionCompleteStackParams';
 import { DeleteCompleteStackParams } from '../stack-params/DeleteCompleteStackParams';
 
+export interface MainPageStackParams {
+	updateSuccess: boolean;
+}
+
 export type StackParamList = {
 	테스트: any;
 	'상품 리스트': any;
-	메인화면: any;
+	메인화면: MainPageStackParams;
 	'상품 상세 정보': ProductDetailInfoPageProps;
 	'상품 정보 입력': ProductInfoInputStackParams;
 	'바코드 인식 완료': BarcodeRecognitionCompleteStackParams;
