@@ -18,29 +18,25 @@ export interface deleteProps {
 
 export default function ListScreen(): JSX.Element {
 	const [overState,setOverState]=useState<boolean>(false);
-  console.log("overState:",overState);
+	/*삭제 handler*/
   const handleDeleteOverlay=()=>{
     setOverState(!overState);
     /*상세 정보 페이지의 delete state도 변경*/
   };
 	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
 
-	console.log('aaaaa');
-	console.log(route.params);
 
 	const [updateCompleteOverlayVisible, setUpdateCompleteOverlayVisible] =
 		React.useState<boolean>(false);
+	/*수정 handler*/
 	const handleUpdateCompleteOverlay = () => {
 		setUpdateCompleteOverlayVisible(!updateCompleteOverlayVisible);
 	};
 
 	return (
 		<SafeAreaView style={styles.upContainer}>
-			{/* <ScrollView > */}
 				<UpContainer />
 				<ProductListComponent overState={overState} handleDeleteOverlay={handleDeleteOverlay} handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}/>
-				{/* <DeleteOverComponent overState={overState} handleDeleteOverlay={handleDeleteOverlay}/> */}
-			{/* </ScrollView> */}
 				
 
 			<Overlay

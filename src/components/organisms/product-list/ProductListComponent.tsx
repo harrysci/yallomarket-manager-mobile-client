@@ -3,7 +3,6 @@ import { FlatList, ScrollView, Text, View } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
-import { deleteProps } from '../../screens/home/product-list/ListScreen';
 
 export interface ProductListComponentProps {
 	overState: boolean;
