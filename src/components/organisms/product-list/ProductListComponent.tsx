@@ -1,11 +1,13 @@
 import React from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { FlatList, ScrollView, Text, View } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
 
 export interface ProductListComponentProps {
+	overState: boolean;
 	handleUpdateCompleteOverlay: () => void;
+	handleDeleteOverlay: () => void;
 }
 
 const ProductListComponent = (props: ProductListComponentProps) => {
@@ -25,14 +27,15 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 			productData={item}
 			executeGetHandler={executeGetHandler}
 			handleUpdateCompleteOverlay={props.handleUpdateCompleteOverlay}
+			handleDeleteOverlay={props.handleDeleteOverlay}
 		/>
 	);
 	return (
-		<ScrollView>
+		 <View style={{backgroundColor:'white', marginHorizontal:17}}>
 			{!getLoading && !getError && getData && (
 				<FlatList data={getData} renderItem={renderItem} />
 			)}
-		</ScrollView>
+		</View>
 	);
 };
 export default ProductListComponent;

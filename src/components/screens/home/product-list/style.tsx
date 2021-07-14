@@ -2,8 +2,10 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	upContainer: {
-		marginTop: 43,
-		marginLeft: 24,
+		flex: 1,
+    backgroundColor:'white',
+    //marginTop: 43,
+    //marginLeft: 20,
 	},
 
 	updateCompleteOverlay: {
@@ -52,6 +54,40 @@ const styles = StyleSheet.create({
 		color: '#000000',
 
 		marginLeft: 5.7,
-	},
+  },
+  
+  deleteOver: {
+    position: 'absolute',
+    bottom: '15%',
+		width: 326,
+    height: 60,
+    borderRadius: 30,
+		//backgroundColor: 'transparent',
+		elevation: 0,
+  },
+  deleteView:{
+    marginTop: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteText:{
+    //width: 118,
+    //height: 32,
+    //fontFamily: "AppleSDGothicNeo",
+    fontSize: 16,
+    fontWeight: "600",
+    fontStyle: "normal",
+    //lineHeight: 19,
+    letterSpacing: -0.51,
+    textAlign: "center",
+    color: "#000000",
+    marginLeft: 6.2,
+  },
+  xbutton:{
+    position: 'absolute',
+    top : 4,
+    right : 15,
+  }
 });
 export default styles;

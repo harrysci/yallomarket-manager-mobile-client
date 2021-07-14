@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import DeleteOverComponent from '../../../organisms/product-list/DeleteOverComponent';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import React from 'react';
-import { SafeAreaView, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Overlay } from 'react-native-elements/dist/overlay/Overlay';
@@ -9,24 +10,34 @@ import ProductListComponent from '../../../organisms/product-list/ProductListCom
 import UpContainer from '../../../organisms/product-list/UpContainer';
 import styles from './style';
 
+export interface deleteProps {
+	overState: boolean;
+	handleDeleteOverlay: ()=> void;
+}
+
+
 export default function ListScreen(): JSX.Element {
+	const [overState,setOverState]=useState<boolean>(false);
+	/*삭제 handler*/
+  const handleDeleteOverlay=()=>{
+    setOverState(!overState);
+    /*상세 정보 페이지의 delete state도 변경*/
+  };
 	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
 
-	console.log('aaaaa');
-	console.log(route.params);
 
 	const [updateCompleteOverlayVisible, setUpdateCompleteOverlayVisible] =
 		React.useState<boolean>(false);
+	/*수정 handler*/
 	const handleUpdateCompleteOverlay = () => {
 		setUpdateCompleteOverlayVisible(!updateCompleteOverlayVisible);
 	};
 
 	return (
-		<SafeAreaView>
-			<View style={styles.upContainer}>
+		<SafeAreaView style={styles.upContainer}>
 				<UpContainer />
-				<ProductListComponent handleUpdateCompleteOverlay={handleUpdateCompleteOverlay} />
-			</View>
+				<ProductListComponent overState={overState} handleDeleteOverlay={handleDeleteOverlay} handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}/>
+				
 
 			<Overlay
 				isVisible={updateCompleteOverlayVisible}
@@ -55,6 +66,31 @@ export default function ListScreen(): JSX.Element {
 					</View>
 				</View>
 			</Overlay>
+
+			{/*  */}
+			<Overlay
+				isVisible={overState===true?true:false}
+				onBackdropPress={handleDeleteOverlay}
+				overlayStyle={styles.deleteOver}
+			>
+        <TouchableOpacity style={styles.xbutton} onPress={handleDeleteOverlay}>
+          
+          <Image
+            style={{width:16, height:16}}
+            source={require('../../../../assets/images/product-list/xbutton.png')}
+            />
+          </TouchableOpacity>
+          
+        
+        <View style={styles.deleteView}>
+          <Image
+            source={require('../../../../assets/images/product-list/deletecheck.png')}
+            style={{ width:32, height:32}}/>
+          <Text style={styles.deleteText}>상품 삭제 정보 삭제 완료!</Text>
+        </View>
+        
+			</Overlay>
+			{/*  */}
 		</SafeAreaView>
 	);
 }

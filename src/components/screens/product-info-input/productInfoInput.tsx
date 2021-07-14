@@ -414,21 +414,12 @@ function ProductInfoInput(): JSX.Element {
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
 					callBack={() => {
 						if (route.params.mode === 'update') {
-<<<<<<< HEAD
 							updateProductInfoButtonHandler();
 						} else {
 							if (category[selectedCategoryIndex] === '가공상품') {
 								saveProcessedProductButtonHandler();
 							} else {
 								saveWeightedProductButtonHandler();
-=======
-							return updateProductInfoButtonHandler();
-						} else {
-							if (route.params.initProductCategory === '가공상품') {
-								return saveProcessedProductButtonHandler();
-							} else {
-								return saveWeightedProductButtonHandler();
->>>>>>> 01153f3c493af4bfff2eca97df324f143ba08dfd
 							}
 						}
 					}}

@@ -1,6 +1,7 @@
 import { ProductDetailInfoPageProps } from '../../components/screens/product-detail-info-page/ProductDetailInfoPage';
 import { ProductInfoInputStackParams } from '../stack-params/ProductInfoInputStackParams';
 import { BarcodeRecognitionCompleteStackParams } from '../stack-params/BarcodeRecognitionCompleteStackParams';
+import { DeleteCompleteStackParams } from '../stack-params/DeleteCompleteStackParams';
 
 export interface MainPageStackParams {
 	updateSuccess: boolean;
