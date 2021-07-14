@@ -8,6 +8,7 @@ import styles from './style/style';
 export interface OneProductComponentProps {
 	productData: GetImageProductListRes;
 	executeGetHandler: () => void;
+	handleDeleteOverlay: ()=> void;
 }
 
 export interface Props {
@@ -15,15 +16,17 @@ export interface Props {
 	storeName: string;
 	ownerId: number;
 	executeGetHandler: () => void;
+	handleSetDeleteState: ()=>void;
 }
 const OneProductComponent = (props: OneProductComponentProps) => {
 	const navigation = useNavigation();
-	const { productData, executeGetHandler } = props;
+	const { productData, executeGetHandler, handleDeleteOverlay } = props;
 	const ProductParams: Props = {
 		product: productData,
 		storeName: '경동빅마트',
 		ownerId: 1,
 		executeGetHandler: executeGetHandler,
+		handleSetDeleteState: handleDeleteOverlay,
 	};
 
 	return (

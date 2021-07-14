@@ -12,7 +12,7 @@ import { StackParamList } from '../stack-param-list/StackParamList';
 const Tab = createBottomTabNavigator();
 
 const BottomNav = (): JSX.Element => {
-	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
+	//const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
 	return (
 		// <NavigationContainer>
 		<Tab.Navigator
@@ -62,8 +62,7 @@ const BottomNav = (): JSX.Element => {
 		>
 			{/* 테스트를 위해 주석처리  <Tab.Screen name="바코드 스캔" component={ScannerScreen} /> */}
 			<Tab.Screen name="바코드 스캔" component={BarcodeRecognitionComplete} />
-			<Tab.Screen name="등록 목록" component={()=>{
-				return<ListScreen deleteState={route.params.deleteState} setDeleteState={route.params.setDeleteState}/>}} />
+			<Tab.Screen name="등록 목록" component={ListScreen} />
 		</Tab.Navigator>
 		// </NavigationContainer>
 	);

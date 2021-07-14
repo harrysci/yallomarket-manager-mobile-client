@@ -7,15 +7,8 @@ import styles from './style/style';
 
 
 const DeleteOverComponent=(props: deleteProps)=>{
-  const { deleteState, setDeleteState} =props;
   /*모달의 현재 state*/
-  const [overState,setOverState]=useState<boolean>(deleteState);
-  console.log("overState:",overState);
-  const handleDeleteOverlay=()=>{
-    setOverState(false);
-    /*상세 정보 페이지의 delete state도 변경*/
-    setDeleteState();
-  };
+  const { overState, handleDeleteOverlay}=props;
   return(
     <Overlay
 				isVisible={overState===true?true:false}

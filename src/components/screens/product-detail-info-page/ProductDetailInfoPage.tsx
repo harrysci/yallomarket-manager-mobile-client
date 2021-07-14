@@ -17,6 +17,7 @@ export interface ProductDetailInfoPageProps {
 	storeName: string;
 	ownerId: number;
 	executeGetHandler: () => void;
+	handleSetDeleteState: ()=> void;
 }
 
 /**
@@ -32,7 +33,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
-	const { product, storeName, ownerId, executeGetHandler } = route.params;
+	const { product, storeName, ownerId, executeGetHandler, handleSetDeleteState } = route.params;
 
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
 
@@ -46,15 +47,12 @@ const ProductDetailInfoPage = (): JSX.Element => {
 		setDeleteConfirmOverlayVisible(!deleteConfirmOverlayVisible);
 	};
 	/*메인에서 modal 상태가 바꼈을 시, 감지하는 함수*/
-	const handleSetDeleteState=()=>{
-		setDeleteState(!deleteState);
-	}
-	const [deleteState, setDeleteState]=useState<boolean>(false);
+	//const [deleteState, setDeleteState]=useState<boolean>(false);
 	/*메인에 보내는 params*/
-	const deleteStateParams:DeleteCompleteStackParams={
-		deleteState: deleteState,
-		setDeleteState: handleSetDeleteState,
-	}
+	// const deleteStateParams:DeleteCompleteStackParams={
+	// 	deleteState: deleteState,
+	// 	setDeleteState: handleSetDeleteState,
+	// }
 	// 상품 삭제 요청
 	const [{ data: deletedData, loading: deleteLoading, error: deleteError }, executeDelete] =
 		useAxios<any>(
@@ -279,9 +277,9 @@ const ProductDetailInfoPage = (): JSX.Element => {
 										 * 2. '바코드 등록 상품 목록' 으로 페이지 전환
 										 * 3. '상품정보 삭제 완료!' 모달 띄우기
 										 */
-										setDeleteState(true);
+										handleSetDeleteState();
 										executeGetHandler();
-										navigation.navigate('메인화면',deleteStateParams);
+										navigation.navigate('메인화면');
 									})
 									.catch(() => {
 										// 상품 삭제 에러 발생 시 '해당 상품을 삭제할 수 없습니다.' overlay 띄움.
