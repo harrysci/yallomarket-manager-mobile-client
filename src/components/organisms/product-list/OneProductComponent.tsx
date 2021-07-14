@@ -1,13 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Image } from 'react-native-elements/dist/image/Image';
+import { Overlay } from 'react-native-elements/dist/overlay/Overlay';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
 import styles from './style/style';
 
 export interface OneProductComponentProps {
 	productData: GetImageProductListRes;
 	executeGetHandler: () => void;
+	handleUpdateCompleteOverlay: () => void;
 }
 
 export interface Props {
@@ -15,15 +18,18 @@ export interface Props {
 	storeName: string;
 	ownerId: number;
 	executeGetHandler: () => void;
+	handleUpdateCompleteOverlay: () => void;
 }
 const OneProductComponent = (props: OneProductComponentProps) => {
 	const navigation = useNavigation();
 	const { productData, executeGetHandler } = props;
+
 	const ProductParams: Props = {
 		product: productData,
 		storeName: '경동빅마트',
 		ownerId: 1,
 		executeGetHandler: executeGetHandler,
+		handleUpdateCompleteOverlay: props.handleUpdateCompleteOverlay,
 	};
 
 	return (
