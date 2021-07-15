@@ -33,7 +33,7 @@ export default function ListScreen(): JSX.Element {
 	};
 
 	return (
-		<ScrollView style={styles.upContainer}>
+		<View style={styles.upContainer}>
 			<UpContainer />
 			<ProductListComponent
 				overState={overState}
@@ -90,6 +90,6 @@ export default function ListScreen(): JSX.Element {
 					<Text style={styles.deleteText}>상품 삭제 정보 삭제 완료!</Text>
 				</View>
 			</Overlay>
-		</ScrollView>
+		</View>
 	);
 }

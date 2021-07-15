@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
@@ -30,11 +30,18 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 			handleDeleteOverlay={props.handleDeleteOverlay}
 		/>
 	);
+
 	return (
 		<View style={{ backgroundColor: 'white', marginHorizontal: 17 }}>
 			{!getLoading && !getError && getData && (
-				<FlatList data={getData} renderItem={renderItem} />
+				<FlatList
+					data={getData}
+					renderItem={renderItem}
+					keyExtractor={item => String(item.productId)}
+				/>
 			)}
+
+			{getLoading && <ActivityIndicator size="large" />}
 		</View>
 	);
 };
