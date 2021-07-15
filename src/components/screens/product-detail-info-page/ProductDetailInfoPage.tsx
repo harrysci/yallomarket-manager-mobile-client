@@ -7,19 +7,8 @@ import { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
-import { DeleteCompleteStackParams } from '../../../navigations/stack-params/DeleteCompleteStackParams';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
-import { GetImageProductListRes } from '../home/dto/GetImageProductListDto';
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
-
-export interface ProductDetailInfoPageProps {
-	product: GetImageProductListRes;
-	storeName: string;
-	ownerId: number;
-	executeGetHandler: () => void;
-	handleSetDeleteState: ()=> void;
-	handleUpdateCompleteOverlay: () => void;
-}
 
 /**
  *
@@ -34,7 +23,14 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
-	const { product, storeName, ownerId, executeGetHandler, handleSetDeleteState,handleUpdateCompleteOverlay } = route.params;
+	const {
+		product,
+		storeName,
+		ownerId,
+		executeGetHandler,
+		handleSetDeleteState,
+		handleUpdateCompleteOverlay,
+	} = route.params;
 
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
 	const handleDeleteOverlay = () => {
@@ -45,13 +41,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const handleDeleteConfirmOverlay = () => {
 		setDeleteConfirmOverlayVisible(!deleteConfirmOverlayVisible);
 	};
-	/*메인에서 modal 상태가 바꼈을 시, 감지하는 함수*/
-	//const [deleteState, setDeleteState]=useState<boolean>(false);
-	/*메인에 보내는 params*/
-	// const deleteStateParams:DeleteCompleteStackParams={
-	// 	deleteState: deleteState,
-	// 	setDeleteState: handleSetDeleteState,
-	// }
+
 	// 상품 삭제 요청
 	const [{ data: deletedData, loading: deleteLoading, error: deleteError }, executeDelete] =
 		useAxios<any>(
@@ -324,8 +314,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 					</View>
 				</View>
 			</Overlay>
-
-			{/* <Overlay isVisible={} onBackdropPress={} overlayStyle={}> */}
 		</SafeAreaView>
 	);
 };

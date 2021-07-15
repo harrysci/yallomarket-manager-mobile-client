@@ -2,7 +2,6 @@ import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { TakePictureResponse } from 'react-native-camera';
 import { Button, Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';

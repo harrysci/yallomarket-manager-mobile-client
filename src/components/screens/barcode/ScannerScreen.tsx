@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import BarcodeScanner from '../../organisms/barcode/BarcodeScanner';
-// import {RNScanner} from '../../organisms/barcode/RNScanner';
 import { BarCodeReadEvent } from 'react-native-camera';
 import { styles } from '../../organisms/barcode/styles/styles';
 

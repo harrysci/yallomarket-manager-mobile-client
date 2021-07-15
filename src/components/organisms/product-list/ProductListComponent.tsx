@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ScrollView, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
@@ -31,7 +31,7 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 		/>
 	);
 	return (
-		 <View style={{backgroundColor:'white', marginHorizontal:17}}>
+		<View style={{ backgroundColor: 'white', marginHorizontal: 17 }}>
 			{!getLoading && !getError && getData && (
 				<FlatList data={getData} renderItem={renderItem} />
 			)}
