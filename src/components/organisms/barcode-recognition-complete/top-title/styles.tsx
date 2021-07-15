@@ -2,9 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
 	root: {
-		// width: 93,
-		flex: 1,
 		//  fontFamily: "AppleSDGothicNeo",
+		flex: 1,
 		fontSize: 21,
 		fontWeight: '600',
 		fontStyle: 'normal',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomNavStyles from './styles/BottomNavStyles';
 
@@ -57,6 +57,10 @@ const BottomNav = (): JSX.Element => {
 				activeTintColor: '#000000',
 				inactiveTintColor: '#B7B7B7',
 				style: BottomNavStyles.tabBar,
+				labelStyle:
+					Platform.OS === 'android'
+						? BottomNavStyles.androidLabelStyle
+						: BottomNavStyles.iosLabelStyle,
 			}}
 		>
 			<Tab.Screen name="바코드 스캔" component={ScannerScreen} />
