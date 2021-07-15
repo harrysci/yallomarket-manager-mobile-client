@@ -16,7 +16,12 @@ const ButtonGroup = (): JSX.Element => {
 		<View style={style.root}>
 			<Text style={style.text}>바코드 스캔 완료</Text>
 
-			<TouchableOpacity style={style.touchAreaReScan}>
+			<TouchableOpacity
+				style={style.touchAreaReScan}
+				onPress={() => {
+					navigation.navigate('바코드 스캔');
+				}}
+			>
 				<Text style={style.reScanText}>다시 스캔하기</Text>
 			</TouchableOpacity>
 

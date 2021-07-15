@@ -17,4 +17,5 @@ export type StackParamList = {
 	'2단계': any;
 	'상세 이미지 촬영': any;
 	'상세 이미지 확인': any;
+	'바코드 스캔': any;
 };

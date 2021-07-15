@@ -17,6 +17,7 @@ import ConfirmImage from './src/components/organisms/camera/ConfirmPhoto';
 import HowToDetailUpload from './src/components/screens/camera/HowToDetailUpload';
 import UploadDetailPhoto from './src/components/organisms/camera/UploadDetailPhoto';
 import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailPhoto';
+import { ScannerScreen } from './src/components/screens/barcode/ScannerScreen';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -41,6 +42,7 @@ const App = () => {
 						component={ProductDetailInfoPage}
 						options={{ headerShown: false }}
 					/>
+					<Stack.Screen name="바코드 스캔" component={ScannerScreen} />
 
 					<Stack.Screen
 						name="바코드 인식 완료"
