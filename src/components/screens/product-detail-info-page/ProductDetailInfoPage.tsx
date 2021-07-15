@@ -17,7 +17,7 @@ export interface ProductDetailInfoPageProps {
 	storeName: string;
 	ownerId: number;
 	executeGetHandler: () => void;
-	handleSetDeleteState: ()=> void;
+	handleSetDeleteState: () => void;
 	handleUpdateCompleteOverlay: () => void;
 }
 
@@ -34,7 +34,14 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
-	const { product, storeName, ownerId, executeGetHandler, handleSetDeleteState,handleUpdateCompleteOverlay } = route.params;
+	const {
+		product,
+		storeName,
+		ownerId,
+		executeGetHandler,
+		handleSetDeleteState,
+		handleUpdateCompleteOverlay,
+	} = route.params;
 
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
 	const handleDeleteOverlay = () => {

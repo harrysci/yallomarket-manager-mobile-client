@@ -5,18 +5,17 @@ import BottomNavStyles from './styles/BottomNavStyles';
 
 import ListScreen from '../../components/screens/home/product-list/ListScreen';
 import { ScannerScreen } from '../../components/screens/barcode/ScannerScreen';
-import BarcodeRecognitionComplete from '../../components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { StackParamList } from '../stack-param-list/StackParamList';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNav = (): JSX.Element => {
-	
+	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
+
 	return (
-		// <NavigationContainer>
 		<Tab.Navigator
-			
+			initialRouteName={route.params ? route.params.routeName : '바코드 스캔'}
 			screenOptions={({ route }) => ({
 				tabBarIcon: ({ focused }) => {
 					if (route.name === '바코드 스캔') {
@@ -60,11 +59,10 @@ const BottomNav = (): JSX.Element => {
 				style: BottomNavStyles.tabBar,
 			}}
 		>
-			{/* 테스트를 위해 주석처리  <Tab.Screen name="바코드 스캔" component={ScannerScreen} /> */}
-			<Tab.Screen name="바코드 스캔" component={BarcodeRecognitionComplete} />
+			<Tab.Screen name="바코드 스캔" component={ScannerScreen} />
+			{/* <Tab.Screen name="바코드 스캔" component={BarcodeRecognitionComplete} /> */}
 			<Tab.Screen name="등록 목록" component={ListScreen} />
 		</Tab.Navigator>
-		// </NavigationContainer>
 	);
 };
 
