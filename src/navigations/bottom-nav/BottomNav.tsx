@@ -6,13 +6,17 @@ import BottomNavStyles from './styles/BottomNavStyles';
 import ListScreen from '../../components/screens/home/product-list/ListScreen';
 import { ScannerScreen } from '../../components/screens/barcode/ScannerScreen';
 import BarcodeRecognitionComplete from '../../components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { StackParamList } from '../stack-param-list/StackParamList';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNav = (): JSX.Element => {
+	
 	return (
 		// <NavigationContainer>
 		<Tab.Navigator
+			
 			screenOptions={({ route }) => ({
 				tabBarIcon: ({ focused }) => {
 					if (route.name === '바코드 스캔') {

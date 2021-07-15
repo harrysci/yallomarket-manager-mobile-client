@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import { DeleteCompleteStackParams } from '../../../navigations/stack-params/DeleteCompleteStackParams';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
 import { GetImageProductListRes } from '../home/dto/GetImageProductListDto';
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
@@ -16,6 +17,8 @@ export interface ProductDetailInfoPageProps {
 	storeName: string;
 	ownerId: number;
 	executeGetHandler: () => void;
+	handleSetDeleteState: ()=> void;
+	handleUpdateCompleteOverlay: () => void;
 }
 
 /**
@@ -31,20 +34,24 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
-	const { product, storeName, ownerId, executeGetHandler } = route.params;
+	const { product, storeName, ownerId, executeGetHandler, handleSetDeleteState,handleUpdateCompleteOverlay } = route.params;
 
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
-
 	const handleDeleteOverlay = () => {
 		setDeleteOverlayVisibleVisible(!deleteOverlayVisible);
 	};
 
 	const [deleteConfirmOverlayVisible, setDeleteConfirmOverlayVisible] = useState<boolean>(false);
-
 	const handleDeleteConfirmOverlay = () => {
 		setDeleteConfirmOverlayVisible(!deleteConfirmOverlayVisible);
 	};
-
+	/*메인에서 modal 상태가 바꼈을 시, 감지하는 함수*/
+	//const [deleteState, setDeleteState]=useState<boolean>(false);
+	/*메인에 보내는 params*/
+	// const deleteStateParams:DeleteCompleteStackParams={
+	// 	deleteState: deleteState,
+	// 	setDeleteState: handleSetDeleteState,
+	// }
 	// 상품 삭제 요청
 	const [{ data: deletedData, loading: deleteLoading, error: deleteError }, executeDelete] =
 		useAxios<any>(
@@ -219,6 +226,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 									: product.weightedProductVolume,
 
 							executeGetHandler: executeGetHandler,
+							handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
 						};
 						navigation.navigate('상품 정보 입력', updateParams);
 					}}
@@ -269,6 +277,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 										 * 2. '바코드 등록 상품 목록' 으로 페이지 전환
 										 * 3. '상품정보 삭제 완료!' 모달 띄우기
 										 */
+										handleSetDeleteState();
 										executeGetHandler();
 										navigation.navigate('메인화면');
 									})
@@ -315,6 +324,8 @@ const ProductDetailInfoPage = (): JSX.Element => {
 					</View>
 				</View>
 			</Overlay>
+
+			{/* <Overlay isVisible={} onBackdropPress={} overlayStyle={}> */}
 		</SafeAreaView>
 	);
 };
