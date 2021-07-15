@@ -1,5 +1,9 @@
 apply plugin: "com.android.application"
 
+/* kotlin version 적용 및 apply */
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+
 import com.android.build.OutputFile
 
 /**
