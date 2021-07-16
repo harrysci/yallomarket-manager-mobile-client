@@ -28,6 +28,10 @@ const LIST_WIDTH = '87.5%';
  * @example 상품 정보 입력 페이지 stack param 예시
  * const routeParams: ProductInfoInputStackParams = {
 		mode: 'update',
+
+		ownerId?: number;
+		productId?: number;
+
 		initBarcode: '123123123123',
 		initProductName: '적양배추',
 		initCurrentPrice: 3120,
@@ -37,6 +41,10 @@ const LIST_WIDTH = '87.5%';
 		initProductOrigin: '부산광역시',
 		initOriginPrice: 4620,
 		initProductDescription: '개맛있는 적양배추',
+
+		representativeProductImage?: string; // 대표 이미지
+		detailProductImage?: string; // 상세 이미지
+		additionalProductImage?: string; // 추가 이미지
 	};
  */
 
