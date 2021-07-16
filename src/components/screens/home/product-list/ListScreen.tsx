@@ -36,7 +36,9 @@ export default function ListScreen(): JSX.Element {
 	return (
 		<View style={styles.upContainer}>
 				<UpContainer />
+				
 				<ProductListComponent overState={overState} handleDeleteOverlay={handleDeleteOverlay} handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}/>
+				
 				
 
 			<Overlay

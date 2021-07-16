@@ -1,8 +1,9 @@
 import React from 'react';
-import { FlatList, ScrollView, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
+import { ListItem } from 'react-native-elements';
 
 export interface ProductListComponentProps {
 	overState: boolean;
@@ -31,11 +32,11 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 		/>
 	);
 	return (
-		 <View style={{backgroundColor:'white', marginHorizontal:17}}>
+		 <SafeAreaView style={{backgroundColor:'white' ,flex:1 }}>
 			{!getLoading && !getError && getData && (
 				<FlatList data={getData} renderItem={renderItem} />
 			)}
-		</View>
+		</SafeAreaView>
 	);
 };
 export default ProductListComponent;

@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   item_container: {
     flexDirection: 'row',
     marginVertical: 8,
+    marginHorizontal :17,
   },
   image_container: {},
   detail_container: {
