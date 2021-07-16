@@ -27,7 +27,7 @@ export const ScannerScreen = (): JSX.Element => {
 				<Text style={styles.fontRight}>를 카메라로 스캔하세요</Text>
 			</View>
 
-			{/* 실 디바이스가 아닌 경우 이후 로직 테스트를 위한 버튼  */}
+			{/* 실 디바이스가 아닌 경우 바코드 인식 이후 로직 테스트를 위한 버튼  */}
 			<Button
 				title="바코드 인식 완료로 이동"
 				style={{
