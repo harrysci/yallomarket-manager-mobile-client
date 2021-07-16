@@ -176,20 +176,12 @@ function ProductInfoInput(): JSX.Element {
 						  };
 					executeGetHandler();
 
-					// const handleUpdateCompleteOverlay = route.params.handleUpdateCompleteOverlay
-					// 	? route.params.handleUpdateCompleteOverlay
-					// 	: () => {
-					// 			console.log('handleUpdateCompleteOverlay failed');
-					// 	  };
-
 					if (route.params.handleUpdateCompleteOverlay) {
 						route.params.handleUpdateCompleteOverlay();
 						navigation.navigate('메인화면', {
 							updateSuccess: true,
 						});
 					}
-
-					// handleUpdateCompleteOverlay();
 				})
 				.catch(err => {
 					console.log('executeUpdate failed');
@@ -243,7 +235,7 @@ function ProductInfoInput(): JSX.Element {
 			executeSaveProcessedProduct({
 				data: saveProcessedProductReq,
 			})
-				.then(res => {
+				.then(() => {
 					/* 저장 완료 후 로직 */
 					console.log('save success');
 				})
