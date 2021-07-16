@@ -37,7 +37,7 @@ const App = () => {
 					<Stack.Screen
 						name="메인화면"
 						component={BottomNav}
-						options={{ headerShown: false }}
+						options={{ headerShown: false, title: ' ' }}
 					/>
 					<Stack.Screen
 						name="상품 상세 정보"
@@ -50,7 +50,7 @@ const App = () => {
 						name="바코드 인식 완료"
 						component={BarcodeRecognitionComplete}
 						options={{
-							headerShown: true, // test 를 위해 header 를 보이게 함
+							headerShown: false, // test 를 위해 header 를 보이게 함
 						}}
 					/>
 					<Stack.Screen
@@ -58,6 +58,8 @@ const App = () => {
 						component={ProductInfoInput}
 						options={{
 							headerShown: true, // test 를 위해 header 를 보이게 함
+							title: '상품 정보입력',
+							headerBackTitle: ' ',
 						}}
 					/>
 					<Stack.Screen

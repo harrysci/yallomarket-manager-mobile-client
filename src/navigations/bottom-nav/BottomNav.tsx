@@ -5,8 +5,10 @@ import BottomNavStyles from './styles/BottomNavStyles';
 
 import ListScreen from '../../components/screens/home/product-list/ListScreen';
 import { ScannerScreen } from '../../components/screens/barcode/ScannerScreen';
+
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { StackParamList } from '../stack-param-list/StackParamList';
+// import BarcodeRecognitionComplete from '../../components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
 
 const Tab = createBottomTabNavigator();
 

@@ -296,7 +296,7 @@ function ProductInfoInput(): JSX.Element {
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
 			})
-				.then(res => {
+				.then(() => {
 					/* 저장 완료 후 로직 */
 					console.log('save success');
 				})

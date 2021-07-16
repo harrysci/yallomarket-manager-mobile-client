@@ -39,7 +39,7 @@ function BarcodeRecognitionComplete(): JSX.Element {
 
 	/* 상품 정보 핸들러 */
 	const [barcode, setBarcode] = React.useState<string>(
-		route.params && route.params.barcode ? route.params.barcode : '74484546437',
+		route.params && route.params.barcode ? route.params.barcode : '123123123123',
 	);
 
 	/* 바코드를 통한 상품 정보 조회 핸들러 */
