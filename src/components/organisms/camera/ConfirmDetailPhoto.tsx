@@ -80,6 +80,10 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 							/* 더미 데이터, 바코드 인식 완료후 인식된 바코드, 서버에 받은 카테고리로 변경 필요 */
 							initBarcode: '1123123',
 							initProductCategory: '저울상품',
+
+							/* 촬영한 상품 이미지 전달 */
+							representativeProductImage: imagePath?.imgPath,
+							detailProductImage: imagePath?.detailImgPath,
 						};
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}
