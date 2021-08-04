@@ -296,7 +296,6 @@ function ProductInfoInput(): JSX.Element {
 				additionalProductImage:
 					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
-			console.log(saveWeightedProductReq);
 
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
