@@ -142,7 +142,6 @@ export default function useEventTargetValue(defaultValue = ''): {
 		e.preventDefault();
 		const currency = e.nativeEvent.text;
 		const removeComma = currency.replace(/,/g, '');
-
 		setValue(inputCurrencyNumber(removeComma));
 	}
 

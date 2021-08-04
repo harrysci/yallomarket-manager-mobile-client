@@ -169,12 +169,12 @@ function ProductInfoInput(): JSX.Element {
 				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
-				productCurrentPrice: Number(currentPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
 				productCategory: category[selectedCategoryIndex],
 				productCreatedAt: new Date(openDateInput.value),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
-				productOriginPrice: Number(productOriginInput.value),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 			};
 
@@ -223,7 +223,6 @@ function ProductInfoInput(): JSX.Element {
 	 */
 	const saveProcessedProductButtonHandler = () => {
 		if (route.params.mode === 'regist') {
-			console.log(route.params.detailProductImage);
 			const saveProcessedProductReq: CreateBarcodeProcessedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
