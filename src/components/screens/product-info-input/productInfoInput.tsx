@@ -295,6 +295,7 @@ function ProductInfoInput(): JSX.Element {
 				additionalProductImage:
 					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
+			console.log(saveWeightedProductReq);
 
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
@@ -330,7 +331,7 @@ function ProductInfoInput(): JSX.Element {
 					isNecessary={true}
 					value={barcodeInput.value}
 					handleChange={barcodeInput.handleChange}
-					inputType="numeric"
+					inputType="any"
 				/>
 				<InputTextBoxWithLabel
 					title={'상품명'}
