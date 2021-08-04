@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, SafeAreaView } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
@@ -31,10 +31,15 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 			handleDeleteOverlay={props.handleDeleteOverlay}
 		/>
 	);
+
 	return (
-		 <SafeAreaView style={{backgroundColor:'white' ,flex:1 }}>
+		<SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
 			{!getLoading && !getError && getData && (
-				<FlatList data={getData} renderItem={renderItem} />
+				<FlatList
+					data={getData}
+					renderItem={renderItem}
+					keyExtractor={item => String(item.productId)}
+				/>
 			)}
 		</SafeAreaView>
 	);

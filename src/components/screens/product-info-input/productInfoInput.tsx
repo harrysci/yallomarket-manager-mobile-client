@@ -28,6 +28,10 @@ const LIST_WIDTH = '87.5%';
  * @example 상품 정보 입력 페이지 stack param 예시
  * const routeParams: ProductInfoInputStackParams = {
 		mode: 'update',
+
+		ownerId?: number;
+		productId?: number;
+
 		initBarcode: '123123123123',
 		initProductName: '적양배추',
 		initCurrentPrice: 3120,
@@ -37,6 +41,10 @@ const LIST_WIDTH = '87.5%';
 		initProductOrigin: '부산광역시',
 		initOriginPrice: 4620,
 		initProductDescription: '개맛있는 적양배추',
+
+		representativeProductImage?: string; // 대표 이미지
+		detailProductImage?: string; // 상세 이미지
+		additionalProductImage?: string; // 추가 이미지
 	};
  */
 
@@ -176,20 +184,12 @@ function ProductInfoInput(): JSX.Element {
 						  };
 					executeGetHandler();
 
-					// const handleUpdateCompleteOverlay = route.params.handleUpdateCompleteOverlay
-					// 	? route.params.handleUpdateCompleteOverlay
-					// 	: () => {
-					// 			console.log('handleUpdateCompleteOverlay failed');
-					// 	  };
-
 					if (route.params.handleUpdateCompleteOverlay) {
 						route.params.handleUpdateCompleteOverlay();
 						navigation.navigate('메인화면', {
 							updateSuccess: true,
 						});
 					}
-
-					// handleUpdateCompleteOverlay();
 				})
 				.catch(err => {
 					console.log('executeUpdate failed');
@@ -202,6 +202,7 @@ function ProductInfoInput(): JSX.Element {
 
 	/**
 	 * @name 가공상품_생성_axios
+	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
 	const [, executeSaveProcessedProduct] = useAxios<any>(
 		{
@@ -216,6 +217,7 @@ function ProductInfoInput(): JSX.Element {
 	 */
 	const saveProcessedProductButtonHandler = () => {
 		if (route.params.mode === 'regist') {
+			console.log(route.params.detailProductImage);
 			const saveProcessedProductReq: CreateBarcodeProcessedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
@@ -243,7 +245,7 @@ function ProductInfoInput(): JSX.Element {
 			executeSaveProcessedProduct({
 				data: saveProcessedProductReq,
 			})
-				.then(res => {
+				.then(() => {
 					/* 저장 완료 후 로직 */
 					console.log('save success');
 				})
@@ -255,6 +257,7 @@ function ProductInfoInput(): JSX.Element {
 
 	/**
 	 * @name 저울상품_생성_axios
+	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
 	const [, executeSaveWeightedProduct] = useAxios<any>(
 		{
@@ -296,7 +299,7 @@ function ProductInfoInput(): JSX.Element {
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
 			})
-				.then(res => {
+				.then(() => {
 					/* 저장 완료 후 로직 */
 					console.log('save success');
 				})

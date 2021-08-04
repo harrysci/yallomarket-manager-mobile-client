@@ -15,9 +15,10 @@ export interface ProductInfoInputStackParams {
 	initOpenData?: string;
 	initVolume?: string;
 
-	representativeProductImage?: string;
-	detailProductImage?: string;
-	additionalProductImage?: string;
+	/* 촬영된 상품 이미지 */
+	representativeProductImage?: string; // 대표 이미지
+	detailProductImage?: string; // 상세 이미지
+	additionalProductImage?: string; // 추가 이미지
 
 	executeGetHandler?: () => void;
 	handleUpdateCompleteOverlay?: () => void;
