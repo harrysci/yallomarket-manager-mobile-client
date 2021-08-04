@@ -13,20 +13,19 @@ import axios from './src/utils/axios';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import CameraUploadScreen from './src/components/screens/camera/CameraUploadScreen';
 import HowToUpload from './src/components/screens/camera/HowToUpload';
-import ConfirmImage from './src/components/organisms/camera/ConfirmPhoto';
+import ConfirmImage from './src/components/organisms/camera/ConfirmImage';
 import HowToDetailUpload from './src/components/screens/camera/HowToDetailUpload';
 import UploadDetailPhoto from './src/components/organisms/camera/UploadDetailPhoto';
-import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailPhoto';
+import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailImage';
 import { ScannerScreen } from './src/components/screens/barcode/ScannerScreen';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
 	...TransitionPresets.SlideFromRightIOS,
 };
+
 const Stack = createStackNavigator<StackParamList>();
-
 configure({ axios: axios.axiosInstance });
-
 const App = () => {
 	return (
 		<SafeAreaView style={styles.testContainer}>

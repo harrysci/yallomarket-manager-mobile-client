@@ -1,18 +1,12 @@
-import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { TakePictureResponse } from 'react-native-camera';
 import { Button, Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
-
-interface ImageProps {
-	imgPath: string;
-	detailImgPath: string;
-}
+import AsyncStorage from '@react-native-community/async-storage';
 
 /* 
 *****************************************************************
@@ -26,16 +20,23 @@ imagePath (object type)
 - imgPath : 대표이미지 base64 string
 *****************************************************************
 */
-export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
-	const { imgPath, detailImgPath } = prop;
-	const [imagePath, setPath] = useState<ImageProps>();
+export default function ConfirmDetailImage(): JSX.Element {
+	const [imagePath, setImgPath] = useState('');
+	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
-	const route = useRoute();
 
 	React.useEffect(() => {
-		setPath({
-			imgPath: route.params.param.imgPath,
-			detailImgPath: route.params.param.detailImgPath,
+		AsyncStorage.getItem('imgUrl', (err, res) => {
+			if (res) {
+				console.log('이미지 생성완료!');
+				setImgPath(res);
+			}
+		});
+		AsyncStorage.getItem('detailImgUrl', (err, res) => {
+			if (res) {
+				console.log('상세 이미지 생성완료!');
+				setDetailImgPath(res);
+			}
 		});
 	}, []);
 
@@ -45,7 +46,7 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 			<Image
 				style={styles.imageStyle}
 				source={{
-					uri: `data:image/jpeg;base64,${imagePath?.detailImgPath}`,
+					uri: `data:image/jpeg;base64,${detailPath}`,
 				}}
 			/>
 			<View style={styles.textBox}>
