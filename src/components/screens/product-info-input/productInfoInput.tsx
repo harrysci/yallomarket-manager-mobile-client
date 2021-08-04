@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { View, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
 /* 사용자 정의 organisms 컴포넌트 Import */
@@ -55,6 +55,7 @@ const LIST_WIDTH = '87.5%';
  */
 function ProductInfoInput(): JSX.Element {
 	const navigation = useNavigation();
+	const { inputCurrencyNumber } = useEventTargetValue();
 
 	/**
 	 * @name 네비게이션_route_param_핸들러
@@ -75,7 +76,9 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 판매가_핸들러
 	 */
 	const currentPriceInput = useEventTargetValue(
-		route.params.initCurrentPrice ? String(route.params.initCurrentPrice) : '',
+		route.params.initCurrentPrice
+			? inputCurrencyNumber(String(route.params.initCurrentPrice))
+			: '',
 	);
 
 	/**
@@ -129,7 +132,9 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 원가_핸들러
 	 */
 	const originPriceInput = useEventTargetValue(
-		route.params.initOriginPrice ? String(route.params.initOriginPrice) : '',
+		route.params.initOriginPrice
+			? inputCurrencyNumber(String(route.params.initOriginPrice))
+			: '',
 	);
 
 	/**
@@ -169,7 +174,7 @@ function ProductInfoInput(): JSX.Element {
 				productCreatedAt: new Date(openDateInput.value),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
-				productOriginPrice: Number(originPriceInput.value),
+				productOriginPrice: Number(productOriginInput.value),
 				productDescription: productDescription.value,
 			};
 
@@ -205,7 +210,7 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 가공상품_생성_axios
 	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
-	const [{ loading: saveProcessedProductLoading }, , executeSaveProcessedProduct] = useAxios<any>(
+	const [{ loading: saveProcessedProductLoading }, executeSaveProcessedProduct] = useAxios<any>(
 		{
 			method: 'POST',
 			url: `/product/createProcessedProduct/${Number(route.params.ownerId)}`,
@@ -346,7 +351,7 @@ function ProductInfoInput(): JSX.Element {
 					value={currentPriceInput.value}
 					handleChange={
 						currentPriceInput.handleChangeCurrencyNumber
-							? currentPriceInput.handleChange
+							? currentPriceInput.handleChangeCurrencyNumber
 							: currentPriceInput.handleChange
 					}
 					inputType="numeric"
@@ -362,7 +367,7 @@ function ProductInfoInput(): JSX.Element {
 					title={'얄로마켓 시스템 내 상품 게시일'}
 					isNecessary={true}
 					value={openDateInput.value}
-					handleChange={openDateInput.handleChange}
+					handleChange={openDateInput.handleChangeISODateNumber}
 					inputType="date"
 				/>
 				<InputTextBoxWithLabel
@@ -397,7 +402,7 @@ function ProductInfoInput(): JSX.Element {
 					value={originPriceInput.value}
 					handleChange={
 						originPriceInput.handleChangeCurrencyNumber
-							? originPriceInput.handleChange
+							? originPriceInput.handleChangeCurrencyNumber
 							: originPriceInput.handleChange
 					}
 					inputType="numeric"
