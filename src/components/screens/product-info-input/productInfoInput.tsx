@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
 /* 사용자 정의 organisms 컴포넌트 Import */
@@ -21,6 +21,7 @@ import { updateBarcodeProductInfoReq } from './dto/updateBarcodeProductInfoReq.d
 import moment from 'moment';
 import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
 import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
+import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
 
 const LIST_WIDTH = '87.5%';
 
@@ -204,7 +205,7 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 가공상품_생성_axios
 	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
-	const [, executeSaveProcessedProduct] = useAxios<any>(
+	const [{ loading: saveProcessedProductLoading }, , executeSaveProcessedProduct] = useAxios<any>(
 		{
 			method: 'POST',
 			url: `/product/createProcessedProduct/${Number(route.params.ownerId)}`,
@@ -259,7 +260,7 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 저울상품_생성_axios
 	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
-	const [, executeSaveWeightedProduct] = useAxios<any>(
+	const [{ loading: saveWeightedProductLoading }, executeSaveWeightedProduct] = useAxios<any>(
 		{
 			method: 'POST',
 			url: `/product/createWeightedProduct/${Number(route.params.ownerId)}`,
@@ -438,7 +439,13 @@ function ProductInfoInput(): JSX.Element {
 				/>
 			</View>
 
-			<ActivityIndicator animating={updateProductLoading} color="#fbd145" size="small" />
+			<YellowScreenCenterLoading
+				loading={
+					updateProductLoading ||
+					saveProcessedProductLoading ||
+					saveWeightedProductLoading
+				}
+			/>
 		</ScrollView>
 	);
 }
