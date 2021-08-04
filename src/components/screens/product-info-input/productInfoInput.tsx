@@ -286,8 +286,8 @@ function ProductInfoInput(): JSX.Element {
 				productOriginPrice: Number(originPriceInput.value),
 				productDescription: productDescription.value,
 
-				representativeProductImage: route.params.detailProductImage
-					? route.params.detailProductImage
+				representativeProductImage: route.params.representativeProductImage
+					? route.params.representativeProductImage
 					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 				detailProductImage: route.params.detailProductImage
 					? route.params.detailProductImage
