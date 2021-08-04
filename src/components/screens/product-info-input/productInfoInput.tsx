@@ -202,6 +202,7 @@ function ProductInfoInput(): JSX.Element {
 
 	/**
 	 * @name 가공상품_생성_axios
+	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
 	const [, executeSaveProcessedProduct] = useAxios<any>(
 		{
@@ -216,6 +217,7 @@ function ProductInfoInput(): JSX.Element {
 	 */
 	const saveProcessedProductButtonHandler = () => {
 		if (route.params.mode === 'regist') {
+			console.log(route.params.detailProductImage);
 			const saveProcessedProductReq: CreateBarcodeProcessedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
@@ -255,6 +257,7 @@ function ProductInfoInput(): JSX.Element {
 
 	/**
 	 * @name 저울상품_생성_axios
+	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
 	const [, executeSaveWeightedProduct] = useAxios<any>(
 		{
@@ -283,8 +286,8 @@ function ProductInfoInput(): JSX.Element {
 				productOriginPrice: Number(originPriceInput.value),
 				productDescription: productDescription.value,
 
-				representativeProductImage: route.params.representativeProductImage
-					? route.params.representativeProductImage
+				representativeProductImage: route.params.detailProductImage
+					? route.params.detailProductImage
 					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 				detailProductImage: route.params.detailProductImage
 					? route.params.detailProductImage
