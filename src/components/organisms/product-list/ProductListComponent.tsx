@@ -1,8 +1,9 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList, SafeAreaView } from 'react-native';
 import OneProductComponent from './OneProductComponent';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
+import { ListItem } from 'react-native-elements';
 
 export interface ProductListComponentProps {
 	overState: boolean;
@@ -32,7 +33,7 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 	);
 
 	return (
-		<View style={{ backgroundColor: 'white', marginHorizontal: 17 }}>
+		<SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
 			{!getLoading && !getError && getData && (
 				<FlatList
 					data={getData}
@@ -40,9 +41,7 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 					keyExtractor={item => String(item.productId)}
 				/>
 			)}
-
-			{getLoading && <ActivityIndicator size="large" />}
-		</View>
+		</SafeAreaView>
 	);
 };
 export default ProductListComponent;

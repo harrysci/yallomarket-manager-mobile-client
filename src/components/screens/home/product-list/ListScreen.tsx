@@ -35,6 +35,7 @@ export default function ListScreen(): JSX.Element {
 	return (
 		<View style={styles.upContainer}>
 			<UpContainer />
+
 			<ProductListComponent
 				overState={overState}
 				handleDeleteOverlay={handleDeleteOverlay}
@@ -90,6 +91,7 @@ export default function ListScreen(): JSX.Element {
 					<Text style={styles.deleteText}>상품 삭제 정보 삭제 완료!</Text>
 				</View>
 			</Overlay>
+			{/*  */}
 		</View>
 	);
 }

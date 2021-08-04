@@ -6,13 +6,15 @@ const styles = StyleSheet.create({
 		marginTop: 43,
 	},
 	title: {
-		//fontFamily: "AppleSDGothicNeo",
 		height: 25,
+		//fontFamily: "AppleSDGothicNeo",
 		fontSize: 21,
 		fontWeight: '600',
 		fontStyle: 'normal',
 		lineHeight: 25,
 		letterSpacing: -0.67,
+		//textAlign: 'left',
+		//justifyContent: 'center',
 		alignContent: 'center',
 		marginBottom: 26,
 	},
@@ -31,8 +33,8 @@ const styles = StyleSheet.create({
 		marginHorizontal: 17,
 	},
 	martname: {
-		//fontFamily: "AppleSDGothicNeo",
 		height: 15,
+		//fontFamily: "AppleSDGothicNeo",
 		fontSize: 12,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -48,18 +50,19 @@ const styles = StyleSheet.create({
 	item_container: {
 		flexDirection: 'row',
 		marginVertical: 8,
+		marginHorizontal: 17,
 	},
 	image_container: {},
 	detail_container: {
 		flexDirection: 'column',
 		marginLeft: 10,
 	},
-	last_container: {
+	last_containner: {
 		flexDirection: 'row',
 	},
 	barcode: {
-		//fontFamily: "AppleSDGothicNeo",
 		width: 139,
+		//fontFamily: "AppleSDGothicNeo",
 		fontSize: 11,
 		fontWeight: '500',
 		fontStyle: 'normal',
@@ -94,13 +97,14 @@ const styles = StyleSheet.create({
 	product_image: {
 		width: 107,
 		height: 90,
+		//backgroundColor:'#123424',
 		borderRadius: 5,
 	},
 	go_detail: {
-		//fontFamily: "AppleSDGothicNeo",
 		flexDirection: 'row',
 		width: 62,
 		opacity: 0.77,
+		//fontFamily: "AppleSDGothicNeo",
 		fontSize: 12,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -114,6 +118,39 @@ const styles = StyleSheet.create({
 		width: 20,
 		height: 20,
 	},
+	// deleteOver: {
+	//   position: 'absolute',
+	//   bottom: '15%',
+	// 	width: 326,
+	//   height: 60,
+	//   borderRadius: 30,
+	// 	//backgroundColor: 'transparent',
+	// 	elevation: 0,
+	// },
+	// deleteView:{
+	//   marginTop: 2,
+	//   flexDirection: 'row',
+	//   justifyContent: 'center',
+	//   alignItems: 'center',
+	// },
+	// deleteText:{
+	//   //width: 118,
+	//   //height: 32,
+	//   //fontFamily: "AppleSDGothicNeo",
+	//   fontSize: 16,
+	//   fontWeight: "600",
+	//   fontStyle: "normal",
+	//   //lineHeight: 19,
+	//   letterSpacing: -0.51,
+	//   textAlign: "center",
+	//   color: "#000000",
+	//   marginLeft: 6.2,
+	// },
+	// xbutton:{
+	//   position: 'absolute',
+	//   top : 4,
+	//   right : 15,
+	// }
 });
 
 export default styles;
