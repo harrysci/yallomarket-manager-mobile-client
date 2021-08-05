@@ -73,7 +73,8 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 						/* 법우님 최종등록 페이지로 연결 */
 						/* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
 
-						console.log(imagePath);
+						console.log('Detail Image\n', imagePath?.detailImgPath);
+						console.log('\n\n Image\n', imagePath?.imgPath);
 
 						/* 상품 정보 입력 (상품 등록 모드) navigation*/
 						const productInfoInputStackParams: ProductInfoInputStackParams = {
