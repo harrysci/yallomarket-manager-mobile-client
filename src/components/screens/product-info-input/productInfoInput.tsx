@@ -234,8 +234,8 @@ function ProductInfoInput(): JSX.Element {
 				productIsSoldout: !availableForSale,
 
 				// 매입처 DB 칼럼에 없음.
-				productCurrentPrice: Number(currentPriceInput.value),
-				productOriginPrice: Number(originPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 
 				representativeProductImage: route.params.representativeProductImage
@@ -288,8 +288,8 @@ function ProductInfoInput(): JSX.Element {
 				productIsSoldout: !availableForSale,
 
 				// 매입처 DB 칼럼에 없음.
-				productCurrentPrice: Number(currentPriceInput.value),
-				productOriginPrice: Number(originPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 
 				representativeProductImage: route.params.representativeProductImage
@@ -301,6 +301,8 @@ function ProductInfoInput(): JSX.Element {
 				additionalProductImage:
 					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
+
+			console.log(currentPriceInput.value, originPriceInput.value);
 
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
