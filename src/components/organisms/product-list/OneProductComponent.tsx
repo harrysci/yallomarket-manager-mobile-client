@@ -41,30 +41,6 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 				navigation.navigate('상품 상세 정보', ProductParams);
 			}}
 		>
-			{/* <View style={styles.image_container}>
-				<Image
-					style={styles.product_image}
-					source={{
-						uri: productData.representativeProductImage
-							? productData.representativeProductImage
-							: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA2MThfMTg1%2FMDAxNjIzOTQ2NjUxOTc0.wUfnn86EWZvVnac4gj5kvruZD3pflMQRxLNbRqC-jhYg.RPT3uPkhDvI-F_ApoizqYiy9tEW55ZP3jRwMUK9SNUUg.JPEG.ana_ad%2FKakaoTalk_20210608_104228055_03.jpg&type=ofullfill340_600',
-					}}
-				></Image>
-			</View>
-			<View style={styles.detail_container}>
-				<Text style={styles.barcode}>바코드 {productData.productBarcode}</Text>
-				<Text style={styles.product_name}>{productData.productName}</Text>
-				<View style={styles.last_container}>
-					<Text style={styles.product_price}>{productData.productCurrentPrice}원</Text>
-					<View style={styles.go_detail}>
-						<Text>상세보기</Text>
-						<Image
-							style={styles.go_detail_image}
-							source={require('../../../assets/icons/product-list/icon_forward.png')}
-						></Image>
-					</View>
-				</View>
-			</View> */}
 			<View style={styles.image_container}>
 				<Image
 					style={styles.product_image}
