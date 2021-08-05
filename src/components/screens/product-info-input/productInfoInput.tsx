@@ -104,8 +104,8 @@ function ProductInfoInput(): JSX.Element {
 	 */
 	const openDateInput = useEventTargetValue(
 		route.params.initOpenData
-			? moment(route.params.initOpenData).format('yyyy-MM-DD')
-			: moment(new Date()).format('yyyy-MM-DD'),
+			? moment(route.params.initOpenData).format('yyyy/MM/DD')
+			: moment(new Date()).format('yyyy/MM/DD'),
 	);
 
 	/**
