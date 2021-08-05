@@ -19,12 +19,12 @@ export default function ConfirmImage(): JSX.Element {
 		});
 	}, []);
 
-	return (
+	return imgPath ? (
 		<View style={styles.root}>
 			<Image
 				style={styles.imageStyle}
 				source={{
-					uri: `data:image/jpeg;base64,${imgPath}`,
+					uri: `${imgPath}`,
 				}}
 			/>
 			<View style={styles.textBox}>
@@ -55,5 +55,7 @@ export default function ConfirmImage(): JSX.Element {
 				/>
 			</View>
 		</View>
+	) : (
+		<View></View>
 	);
 }

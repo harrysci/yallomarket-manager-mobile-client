@@ -17,13 +17,12 @@ export default function UploadPhoto(): JSX.Element {
 				?.takePictureAsync({
 					quality: 1,
 					exif: true,
-					base64: true,
 				})
 				.then()
 				.catch(err => {
 					console.log(err);
 				});
-			AsyncStorage.setItem('imgUrl', data?.base64, () => {
+			AsyncStorage.setItem('imgUrl', data?.uri, () => {
 				console.log('이미지 저장 완료');
 			});
 			navigation.navigate('대표 이미지 확인');
@@ -31,8 +30,8 @@ export default function UploadPhoto(): JSX.Element {
 	};
 	return (
 		<View style={styles.root}>
-			<View>
-				<RNCamera ref={cameraRef} style={styles.cameraStyle} captureAudio={false} />
+			<View style={styles.cameraStyle}>
+				<RNCamera ref={cameraRef} style={styles.camera} captureAudio={false} />
 			</View>
 			<View style={styles.flexRow}>
 				<Text style={styles.font1}>등록할 상품의</Text>

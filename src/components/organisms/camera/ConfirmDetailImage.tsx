@@ -26,27 +26,20 @@ export default function ConfirmDetailImage(): JSX.Element {
 	const navigation = useNavigation();
 
 	React.useEffect(() => {
-		AsyncStorage.getItem('imgUrl', (err, res) => {
-			if (res) {
-				console.log('이미지 생성완료!');
-				setImgPath(res);
-			}
-		});
 		AsyncStorage.getItem('detailImgUrl', (err, res) => {
 			if (res) {
-				console.log('상세 이미지 생성완료!');
 				setDetailImgPath(res);
 			}
 		});
-	}, []);
+	}, [detailPath]);
 
 	// let path = require(imgPath);
-	return (
+	return detailPath ? (
 		<View style={styles.root}>
 			<Image
 				style={styles.imageStyle}
 				source={{
-					uri: `data:image/jpeg;base64,${detailPath}`,
+					uri: `${detailPath}`,
 				}}
 			/>
 			<View style={styles.textBox}>
@@ -88,5 +81,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 				/>
 			</View>
 		</View>
+	) : (
+		<View></View>
 	);
 }
