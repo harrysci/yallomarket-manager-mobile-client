@@ -11,6 +11,7 @@ import CategoryBottomSheet from '../../organisms/product-info-input/category-bot
 import CategoryOpenButtonWithLabel from '../../organisms/product-info-input/open-button-with-label/CategoryOpenButtonWithLabel';
 import FinishButton from '../../atoms/button/finish-or-update-button/FinishButton';
 import DividerWithInterval from '../../atoms/divider/divider-with-interval/DividerWithInterval';
+import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
 
 /* style 파일 Import */
 import productInfoStyle from './productInfoInput.style';
@@ -21,8 +22,8 @@ import { updateBarcodeProductInfoReq } from './dto/updateBarcodeProductInfoReq.d
 import moment from 'moment';
 import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
 import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
-import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
 
+/* screen Layout 상수값 */
 const LIST_WIDTH = '87.5%';
 
 /**
@@ -348,11 +349,7 @@ function ProductInfoInput(): JSX.Element {
 					title={'상품 현재 판매가'}
 					isNecessary={true}
 					value={currentPriceInput.value}
-					handleChange={
-						currentPriceInput.handleChangeCurrencyNumber
-							? currentPriceInput.handleChangeCurrencyNumber
-							: currentPriceInput.handleChange
-					}
+					handleChange={currentPriceInput.handleChangeCurrencyNumber}
 					inputType="numeric"
 					rightIconType="won"
 				/>
@@ -361,6 +358,7 @@ function ProductInfoInput(): JSX.Element {
 					isNecessary={true}
 					value={category[selectedCategoryIndex]}
 					handleOpen={() => setOpen(true)}
+					isSaveMode={route.params.mode === 'regist'}
 				/>
 				<InputTextBoxWithLabel
 					title={'얄로마켓 시스템 내 상품 게시일'}
@@ -399,11 +397,7 @@ function ProductInfoInput(): JSX.Element {
 					title={'상품 매입 원가'}
 					isNecessary={false}
 					value={originPriceInput.value}
-					handleChange={
-						originPriceInput.handleChangeCurrencyNumber
-							? originPriceInput.handleChangeCurrencyNumber
-							: originPriceInput.handleChange
-					}
+					handleChange={originPriceInput.handleChangeCurrencyNumber}
 					inputType="numeric"
 					rightIconType="won"
 				/>

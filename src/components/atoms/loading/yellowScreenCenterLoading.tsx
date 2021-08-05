@@ -14,10 +14,6 @@ const YellowScreenCenterLoading = (props: YellowScreenCenterLoadingProps) => {
 			color="#fbd145"
 			size="large"
 			style={{
-				position: 'absolute',
-				left: 0,
-				right: 0,
-				top: 0,
 				bottom: Dimensions.get('screen').height / 2,
 				alignItems: 'center',
 				justifyContent: 'flex-end',

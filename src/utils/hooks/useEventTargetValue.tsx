@@ -13,7 +13,7 @@ export default function useEventTargetValue(defaultValue = ''): {
 	setValue: (value: React.SetStateAction<string>) => void;
 	handleChangePhoneNumber?(e: string | React.ChangeEvent<HTMLInputElement>): void;
 	handleChangeISODateNumber(e: string | React.ChangeEvent<HTMLInputElement>): void;
-	handleChangeCurrencyNumber?(e: string | React.ChangeEvent<HTMLInputElement>): void;
+	handleChangeCurrencyNumber(e: string | React.ChangeEvent<HTMLInputElement>): void;
 	handleTextChange(e: string): void;
 	inputCurrencyNumber(currency: string): string;
 } {
