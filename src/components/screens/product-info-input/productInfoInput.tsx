@@ -423,6 +423,7 @@ function ProductInfoInput(): JSX.Element {
 							} else {
 								saveWeightedProductButtonHandler();
 							}
+							navigation.navigate('메인화면');
 						}
 					}}
 					isAvailable={
