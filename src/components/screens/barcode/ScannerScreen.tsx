@@ -9,8 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 export const ScannerScreen = (): JSX.Element => {
 	const [barcodeNum, setCodeInfo] = React.useState<string>();
 	const onBarcodeScan = (event: BarCodeReadEvent) => {
-		console.log('barcode on');
-		console.log('number : ' + barcodeNum);
 		setCodeInfo(event.data);
 	};
 
