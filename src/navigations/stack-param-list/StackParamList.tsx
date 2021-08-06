@@ -2,6 +2,8 @@ import { ProductInfoInputStackParams } from '../stack-params/ProductInfoInputSta
 import { BarcodeRecognitionCompleteStackParams } from '../stack-params/BarcodeRecognitionCompleteStackParams';
 import { MainPageStackParams } from '../stack-params/MainPageStackParams';
 import { ProductDetailInfoPageParams } from '../stack-params/ProductDetailInfoPageParams';
+import { FirstStepStackParam } from '../stack-params/FirstStepStackParams';
+import { RepresentativePhotoStackParams } from '../stack-params/RepresentativePhotoStackParams';
 
 export type StackParamList = {
 	테스트: any;
@@ -12,8 +14,8 @@ export type StackParamList = {
 	'바코드 인식 완료': BarcodeRecognitionCompleteStackParams;
 
 	/* 바코드 인식 및 사진 촬영 stack params */
-	'1단계': any;
-	'대표 이미지 촬영': any;
+	'1단계': FirstStepStackParam;
+	'대표 이미지 촬영': RepresentativePhotoStackParams;
 	'대표 이미지 확인': any;
 	'2단계': any;
 	'상세 이미지 촬영': any;

@@ -6,11 +6,15 @@ import { styles } from './styles/style';
 import { Text } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
+export interface UploadPhotoProps {
+	handleUploadOverlay: () => void;
+}
+
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
-export default function UploadPhoto(): JSX.Element {
+export default function UploadPhoto(props: UploadPhotoProps): JSX.Element {
 	const navigation = useNavigation();
 	const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
-
+	const { handleUploadOverlay } = props;
 	const takePhoto = async () => {
 		if (cameraRef) {
 			const data = await cameraRef.current?.takePictureAsync({
@@ -18,7 +22,9 @@ export default function UploadPhoto(): JSX.Element {
 				exif: true,
 				base64: true,
 			});
-			navigation.navigate('대표 이미지 확인', { param: { imagePath: data } });
+			navigation.navigate('대표 이미지 확인', {
+				param: { imagePath: data, handleUploadOverlay: handleUploadOverlay },
+			});
 		}
 	};
 	return (

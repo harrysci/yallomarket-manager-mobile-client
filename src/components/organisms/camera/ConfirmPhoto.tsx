@@ -10,9 +10,10 @@ import { useNavigation } from '@react-navigation/native';
 
 interface ImageProps {
 	imagePath: TakePictureResponse;
+	handleUploadOverlay: () => void;
 }
 export default function ConfirmImage(prop: ImageProps): JSX.Element {
-	const { imagePath } = prop;
+	const { imagePath, handleUploadOverlay } = prop;
 	const [imgPath, setPath] = useState('');
 	const navigation = useNavigation();
 	const route = useRoute();
@@ -53,7 +54,9 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
 					buttonStyle={styles.buttonStyle3}
 					onPress={() => {
 						/* screen 이동 */
-						navigation.navigate('2단계', { param: { imagePath: imgPath } });
+						navigation.navigate('2단계', {
+							param: { imagePath: imgPath, handleUploadOverlay: handleUploadOverlay },
+						});
 					}}
 				/>
 			</View>

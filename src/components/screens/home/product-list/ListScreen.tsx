@@ -17,12 +17,6 @@ export interface deleteProps {
 export default function ListScreen(): JSX.Element {
 	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
 
-	const [uploadOverlayVisible, setUploadCompleteOverlay] = useState<boolean>(false);
-	/*등록 handler*/
-	const handleUploadOverlay = () => {
-		setUploadCompleteOverlay(!uploadOverlayVisible);
-	};
-
 	const [overState, setOverState] = useState<boolean>(false);
 	/*삭제 handler*/
 	const handleDeleteOverlay = () => {
@@ -47,33 +41,6 @@ export default function ListScreen(): JSX.Element {
 				handleDeleteOverlay={handleDeleteOverlay}
 				handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}
 			/>
-			<Overlay
-				isVisible={uploadOverlayVisible}
-				onBackdropPress={handleUploadOverlay}
-				overlayStyle={styles.updateCompleteOverlay}
-			>
-				<View style={styles.updateCompleteContainer}>
-					<View style={styles.updateCompleteContainer}>
-						<TouchableOpacity
-							onPress={handleUploadOverlay}
-							style={styles.updateCompleteTouchableOpacity}
-						>
-							<Image
-								source={require('../../../../assets/images/product-list/4114.png')}
-								style={styles.updateCompleteExitImage}
-							/>
-						</TouchableOpacity>
-
-						<View style={styles.updateCompleteImageTextContainer}>
-							<Image
-								source={require('../../../../assets/images/product-list/299.png')}
-								style={styles.updateCompleteCheckImage}
-							/>
-							<Text style={styles.updateCompleteText}>상품정보 등록 완료!</Text>
-						</View>
-					</View>
-				</View>
-			</Overlay>
 			<Overlay
 				isVisible={updateCompleteOverlayVisible}
 				onBackdropPress={handleUpdateCompleteOverlay}
