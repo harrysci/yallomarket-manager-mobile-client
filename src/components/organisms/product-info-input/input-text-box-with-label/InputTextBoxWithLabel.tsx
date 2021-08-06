@@ -69,7 +69,7 @@ const InputTextBoxWithLabel = (props: InputTextBoxWithLabelProps) => {
 				errorMessage={
 					!reg.pattern.test(value.replace(/,/g, '')) && value.length > 0
 						? '입력값이 올바르지 않습니다.'
-						: ''
+						: undefined
 				}
 				rightIcon={handleRightIcon(rightIconType)}
 				containerStyle={{ paddingHorizontal: 0 }}

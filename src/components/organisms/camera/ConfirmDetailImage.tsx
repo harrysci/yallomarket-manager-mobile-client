@@ -68,6 +68,9 @@ export default function ConfirmDetailImage(): JSX.Element {
 						/* 법우님 최종등록 페이지로 연결 */
 						/* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
 
+						console.log('Detail Image\n', imagePath?.detailImgPath);
+						console.log('\n\n Image\n', imagePath?.imgPath);
+
 						/* 상품 정보 입력 (상품 등록 모드) navigation*/
 						const productInfoInputStackParams: ProductInfoInputStackParams = {
 							mode: 'regist',
@@ -75,6 +78,10 @@ export default function ConfirmDetailImage(): JSX.Element {
 							/* 더미 데이터, 바코드 인식 완료후 인식된 바코드, 서버에 받은 카테고리로 변경 필요 */
 							initBarcode: '1123123',
 							initProductCategory: '저울상품',
+
+							/* 촬영한 상품 이미지 전달 */
+							representativeProductImage: imagePath?.imgPath,
+							detailProductImage: imagePath?.detailImgPath,
 						};
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}

@@ -19,7 +19,9 @@ const ButtonGroup = (): JSX.Element => {
 			<TouchableOpacity
 				style={style.touchAreaReScan}
 				onPress={() => {
-					navigation.navigate('바코드 스캔');
+					navigation.goBack();
+					// navigation.
+					// console.log('dd');
 				}}
 			>
 				<Text style={style.reScanText}>다시 스캔하기</Text>

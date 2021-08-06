@@ -1,22 +1,25 @@
 import React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+
+import axios from './src/utils/axios';
+import { configure } from 'axios-hooks';
+
 import BottomNav from './src/navigations/bottom-nav/BottomNav';
-import ProductDetailInfoPage from './src/components/screens/product-detail-info-page/ProductDetailInfoPage';
+import { StackParamList } from './src/navigations/stack-param-list/StackParamList';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { StackParamList } from './src/navigations/stack-param-list/StackParamList';
-import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
 
 import BarcodeRecognitionComplete from './src/components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
-import { configure } from 'axios-hooks';
-import axios from './src/utils/axios';
 
-import { SafeAreaView, StyleSheet } from 'react-native';
 import CameraUploadScreen from './src/components/screens/camera/CameraUploadScreen';
 import HowToUpload from './src/components/screens/camera/HowToUpload';
 import ConfirmImage from './src/components/organisms/camera/ConfirmImage';
 import HowToDetailUpload from './src/components/screens/camera/HowToDetailUpload';
 import UploadDetailPhoto from './src/components/organisms/camera/UploadDetailPhoto';
 import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailImage';
+
+import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
+import ProductDetailInfoPage from './src/components/screens/product-detail-info-page/ProductDetailInfoPage';
 import { ScannerScreen } from './src/components/screens/barcode/ScannerScreen';
 
 /* IOS stack 이동 animation options */
@@ -28,13 +31,13 @@ const Stack = createStackNavigator<StackParamList>();
 configure({ axios: axios.axiosInstance });
 const App = () => {
 	return (
-		<SafeAreaView style={styles.testContainer}>
+		<SafeAreaView style={styles.container}>
 			<NavigationContainer>
 				<Stack.Navigator screenOptions={TransitionScreenOptions}>
 					<Stack.Screen
 						name="메인화면"
 						component={BottomNav}
-						options={{ headerShown: false }}
+						options={{ headerShown: false, title: ' ' }}
 					/>
 					<Stack.Screen
 						name="상품 상세 정보"
@@ -47,7 +50,7 @@ const App = () => {
 						name="바코드 인식 완료"
 						component={BarcodeRecognitionComplete}
 						options={{
-							headerShown: true, // test 를 위해 header 를 보이게 함
+							headerShown: false, // test 를 위해 header 를 보이게 함
 						}}
 					/>
 					<Stack.Screen
@@ -55,6 +58,8 @@ const App = () => {
 						component={ProductInfoInput}
 						options={{
 							headerShown: true, // test 를 위해 header 를 보이게 함
+							title: '상품 정보입력',
+							headerBackTitle: ' ',
 						}}
 					/>
 					<Stack.Screen
@@ -94,19 +99,10 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-	testContainer: {
+	container: {
 		flex: 1,
 		justifyContent: 'center',
 		backgroundColor: '#ffff',
-	},
-	testText: {
-		fontSize: 40,
-		textAlign: 'center',
-	},
-	headerStyle: {
-		fontSize: 22,
-		fontWeight: '600',
-		fontStyle: 'normal',
 	},
 });
 

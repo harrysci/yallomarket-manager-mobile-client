@@ -57,6 +57,7 @@ const CategoryBottomSheet = (props: CategoryBottomSheetProps): JSX.Element => {
 									isSelected={arr[selectedItemIndex] === eachCategory}
 									handleCategoryIndex={handleSelectedItemIndex}
 									currIndex={index}
+									key={eachCategory + String(index)}
 								/>
 							);
 						})}

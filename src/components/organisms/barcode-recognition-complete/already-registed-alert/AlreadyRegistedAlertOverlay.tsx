@@ -32,9 +32,15 @@ const AlreadyRegistedAlertOverlay = (props: AlreadyRegistedAlertOverlayProps): J
 					<TouchableOpacity style={style.lowerButton} onPress={() => handleOpen(false)}>
 						<Text style={style.text}>아니오</Text>
 					</TouchableOpacity>
+
 					<TouchableOpacity
 						style={style.lowerButton}
-						onPress={() => navigation.navigate('상품 상세 정보')}
+						onPress={() => {
+							navigation.replace('메인화면', {
+								updateSuccess: false,
+								routeName: '등록 목록',
+							});
+						}}
 					>
 						<Text style={style.text}>예</Text>
 					</TouchableOpacity>

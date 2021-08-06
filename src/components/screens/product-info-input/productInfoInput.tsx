@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
 /* 사용자 정의 organisms 컴포넌트 Import */
@@ -11,6 +11,8 @@ import CategoryBottomSheet from '../../organisms/product-info-input/category-bot
 import CategoryOpenButtonWithLabel from '../../organisms/product-info-input/open-button-with-label/CategoryOpenButtonWithLabel';
 import FinishButton from '../../atoms/button/finish-or-update-button/FinishButton';
 import DividerWithInterval from '../../atoms/divider/divider-with-interval/DividerWithInterval';
+import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
+import ErrorOverlay from '../../atoms/overlay/ErrorOverlay';
 
 /* style 파일 Import */
 import productInfoStyle from './productInfoInput.style';
@@ -22,12 +24,17 @@ import moment from 'moment';
 import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
 import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
 
+/* screen Layout 상수값 */
 const LIST_WIDTH = '87.5%';
 
 /**
  * @example 상품 정보 입력 페이지 stack param 예시
  * const routeParams: ProductInfoInputStackParams = {
 		mode: 'update',
+
+		ownerId?: number;
+		productId?: number;
+
 		initBarcode: '123123123123',
 		initProductName: '적양배추',
 		initCurrentPrice: 3120,
@@ -37,6 +44,10 @@ const LIST_WIDTH = '87.5%';
 		initProductOrigin: '부산광역시',
 		initOriginPrice: 4620,
 		initProductDescription: '개맛있는 적양배추',
+
+		representativeProductImage?: string; // 대표 이미지
+		detailProductImage?: string; // 상세 이미지
+		additionalProductImage?: string; // 추가 이미지
 	};
  */
 
@@ -46,6 +57,12 @@ const LIST_WIDTH = '87.5%';
  */
 function ProductInfoInput(): JSX.Element {
 	const navigation = useNavigation();
+	const { inputCurrencyNumber } = useEventTargetValue();
+
+	const [errorOverlayVisible, setErrorOverlayVisible] = React.useState(false);
+	const handleErrorOverlayVisible = (newState: boolean) => {
+		setErrorOverlayVisible(newState);
+	};
 
 	/**
 	 * @name 네비게이션_route_param_핸들러
@@ -66,7 +83,9 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 판매가_핸들러
 	 */
 	const currentPriceInput = useEventTargetValue(
-		route.params.initCurrentPrice ? String(route.params.initCurrentPrice) : '',
+		route.params.initCurrentPrice
+			? inputCurrencyNumber(String(route.params.initCurrentPrice))
+			: '',
 	);
 
 	/**
@@ -92,8 +111,8 @@ function ProductInfoInput(): JSX.Element {
 	 */
 	const openDateInput = useEventTargetValue(
 		route.params.initOpenData
-			? moment(route.params.initOpenData).format('yyyy-MM-DD')
-			: moment(new Date()).format('yyyy-MM-DD'),
+			? moment(route.params.initOpenData).format('yyyy/MM/DD')
+			: moment(new Date()).format('yyyy/MM/DD'),
 	);
 
 	/**
@@ -120,7 +139,9 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 원가_핸들러
 	 */
 	const originPriceInput = useEventTargetValue(
-		route.params.initOriginPrice ? String(route.params.initOriginPrice) : '',
+		route.params.initOriginPrice
+			? inputCurrencyNumber(String(route.params.initOriginPrice))
+			: '',
 	);
 
 	/**
@@ -155,12 +176,12 @@ function ProductInfoInput(): JSX.Element {
 				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
-				productCurrentPrice: Number(currentPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
 				productCategory: category[selectedCategoryIndex],
 				productCreatedAt: new Date(openDateInput.value),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
-				productOriginPrice: Number(originPriceInput.value),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 			};
 
@@ -176,20 +197,12 @@ function ProductInfoInput(): JSX.Element {
 						  };
 					executeGetHandler();
 
-					// const handleUpdateCompleteOverlay = route.params.handleUpdateCompleteOverlay
-					// 	? route.params.handleUpdateCompleteOverlay
-					// 	: () => {
-					// 			console.log('handleUpdateCompleteOverlay failed');
-					// 	  };
-
 					if (route.params.handleUpdateCompleteOverlay) {
 						route.params.handleUpdateCompleteOverlay();
 						navigation.navigate('메인화면', {
 							updateSuccess: true,
 						});
 					}
-
-					// handleUpdateCompleteOverlay();
 				})
 				.catch(err => {
 					console.log('executeUpdate failed');
@@ -202,8 +215,9 @@ function ProductInfoInput(): JSX.Element {
 
 	/**
 	 * @name 가공상품_생성_axios
+	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
-	const [, executeSaveProcessedProduct] = useAxios<any>(
+	const [{ loading: saveProcessedProductLoading }, executeSaveProcessedProduct] = useAxios<any>(
 		{
 			method: 'POST',
 			url: `/product/createProcessedProduct/${Number(route.params.ownerId)}`,
@@ -226,8 +240,8 @@ function ProductInfoInput(): JSX.Element {
 				productIsSoldout: !availableForSale,
 
 				// 매입처 DB 칼럼에 없음.
-				productCurrentPrice: Number(currentPriceInput.value),
-				productOriginPrice: Number(originPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 
 				representativeProductImage: route.params.representativeProductImage
@@ -243,20 +257,22 @@ function ProductInfoInput(): JSX.Element {
 			executeSaveProcessedProduct({
 				data: saveProcessedProductReq,
 			})
-				.then(res => {
+				.then(() => {
 					/* 저장 완료 후 로직 */
 					console.log('save success');
 				})
 				.catch(() => {
 					/* 저장 에러 발생 후 로직 */
+					setErrorOverlayVisible(true);
 				});
 		}
 	};
 
 	/**
 	 * @name 저울상품_생성_axios
+	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
-	const [, executeSaveWeightedProduct] = useAxios<any>(
+	const [{ loading: saveWeightedProductLoading }, executeSaveWeightedProduct] = useAxios<any>(
 		{
 			method: 'POST',
 			url: `/product/createWeightedProduct/${Number(route.params.ownerId)}`,
@@ -279,8 +295,8 @@ function ProductInfoInput(): JSX.Element {
 				productIsSoldout: !availableForSale,
 
 				// 매입처 DB 칼럼에 없음.
-				productCurrentPrice: Number(currentPriceInput.value),
-				productOriginPrice: Number(originPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 
 				representativeProductImage: route.params.representativeProductImage
@@ -296,12 +312,13 @@ function ProductInfoInput(): JSX.Element {
 			executeSaveWeightedProduct({
 				data: saveWeightedProductReq,
 			})
-				.then(res => {
+				.then(() => {
 					/* 저장 완료 후 로직 */
 					console.log('save success');
 				})
 				.catch(() => {
 					/* 저장 에러 발생 후 로직 */
+					setErrorOverlayVisible(true);
 				});
 		}
 	};
@@ -320,6 +337,8 @@ function ProductInfoInput(): JSX.Element {
 				handleCategoryIndex={handleCategoryIndex}
 			/>
 
+			<ErrorOverlay visible={errorOverlayVisible} toggleOverlay={handleErrorOverlayVisible} />
+
 			{/* 각 상품 정보 입력창 컴포넌트 */}
 			<View style={{ width: LIST_WIDTH, marginTop: 45 }}>
 				<InputTextBoxWithLabel
@@ -327,7 +346,7 @@ function ProductInfoInput(): JSX.Element {
 					isNecessary={true}
 					value={barcodeInput.value}
 					handleChange={barcodeInput.handleChange}
-					inputType="numeric"
+					inputType="any"
 				/>
 				<InputTextBoxWithLabel
 					title={'상품명'}
@@ -340,11 +359,7 @@ function ProductInfoInput(): JSX.Element {
 					title={'상품 현재 판매가'}
 					isNecessary={true}
 					value={currentPriceInput.value}
-					handleChange={
-						currentPriceInput.handleChangeCurrencyNumber
-							? currentPriceInput.handleChange
-							: currentPriceInput.handleChange
-					}
+					handleChange={currentPriceInput.handleChangeCurrencyNumber}
 					inputType="numeric"
 					rightIconType="won"
 				/>
@@ -353,12 +368,13 @@ function ProductInfoInput(): JSX.Element {
 					isNecessary={true}
 					value={category[selectedCategoryIndex]}
 					handleOpen={() => setOpen(true)}
+					isSaveMode={route.params.mode === 'regist'}
 				/>
 				<InputTextBoxWithLabel
 					title={'얄로마켓 시스템 내 상품 게시일'}
 					isNecessary={true}
 					value={openDateInput.value}
-					handleChange={openDateInput.handleChange}
+					handleChange={openDateInput.handleChangeISODateNumber}
 					inputType="date"
 				/>
 				<InputTextBoxWithLabel
@@ -391,11 +407,7 @@ function ProductInfoInput(): JSX.Element {
 					title={'상품 매입 원가'}
 					isNecessary={false}
 					value={originPriceInput.value}
-					handleChange={
-						originPriceInput.handleChangeCurrencyNumber
-							? originPriceInput.handleChange
-							: originPriceInput.handleChange
-					}
+					handleChange={originPriceInput.handleChangeCurrencyNumber}
 					inputType="numeric"
 					rightIconType="won"
 				/>
@@ -434,7 +446,13 @@ function ProductInfoInput(): JSX.Element {
 				/>
 			</View>
 
-			<ActivityIndicator animating={updateProductLoading} color="#fbd145" size="small" />
+			<YellowScreenCenterLoading
+				loading={
+					updateProductLoading ||
+					saveProcessedProductLoading ||
+					saveWeightedProductLoading
+				}
+			/>
 		</ScrollView>
 	);
 }
