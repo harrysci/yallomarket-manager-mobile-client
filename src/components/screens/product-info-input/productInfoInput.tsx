@@ -57,12 +57,14 @@ const LIST_WIDTH = '87.5%';
 function ProductInfoInput(): JSX.Element {
 	const navigation = useNavigation();
 	const { inputCurrencyNumber } = useEventTargetValue();
-
 	/**
 	 * @name 네비게이션_route_param_핸들러
 	 */
 	const route = useRoute<RouteProp<StackParamList, '상품 정보 입력'>>();
-
+	/**
+	 * @name 상품_등록_overlay
+	 */
+	const handleUploadCompleteOverlay = () => {};
 	/**
 	 * @name 상품_코드_핸들러
 	 */
@@ -422,6 +424,9 @@ function ProductInfoInput(): JSX.Element {
 								saveProcessedProductButtonHandler();
 							} else {
 								saveWeightedProductButtonHandler();
+							}
+							if (route.params.handleUploadOverlay) {
+								route.params.handleUploadOverlay();
 							}
 							navigation.navigate('메인화면');
 						}

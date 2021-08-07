@@ -11,6 +11,7 @@ import { ProductInfoInputStackParams } from '../../../navigations/stack-params/P
 interface ImageProps {
 	imgPath: string;
 	detailImgPath: string;
+	handleUploadOverlay: () => void;
 }
 
 /* 
@@ -26,7 +27,7 @@ imagePath (object type)
 *****************************************************************
 */
 export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
-	const { imgPath, detailImgPath } = prop;
+	const { imgPath, detailImgPath, handleUploadOverlay } = prop;
 	const [imagePath, setPath] = useState<ImageProps>();
 	const navigation = useNavigation();
 	const route = useRoute();
@@ -87,6 +88,8 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 							/* 촬영한 상품 이미지 전달 */
 							representativeProductImage: imagePath?.imgPath,
 							detailProductImage: imagePath?.detailImgPath,
+
+							handleUploadOverlay: handleUploadOverlay,
 						};
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}

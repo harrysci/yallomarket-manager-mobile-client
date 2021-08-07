@@ -8,10 +8,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 interface DetailPhotoProps {
 	ImgPath: any;
+	handleUploadOverlay: () => void;
 }
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
 export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
-	const { ImgPath } = data;
+	const { ImgPath, handleUploadOverlay } = data;
 	const navigation = useNavigation();
 	const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
 	const route = useRoute();
@@ -27,6 +28,7 @@ export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
 				param: {
 					imagePath: route.params.param.ImgPath,
 					detailImgPath: data?.base64,
+					handleUploadOverlay: handleUploadOverlay,
 				},
 			});
 		}
