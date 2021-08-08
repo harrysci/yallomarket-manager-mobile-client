@@ -431,14 +431,17 @@ function ProductInfoInput(): JSX.Element {
 						if (route.params.mode === 'update') {
 							updateProductInfoButtonHandler();
 						} else {
+							if (route.params.handleUploadOverlay) {
+								route.params.handleUploadOverlay();
+								console.log('확인');
+							}
+
 							if (category[selectedCategoryIndex] === '가공상품') {
 								saveProcessedProductButtonHandler();
 							} else {
 								saveWeightedProductButtonHandler();
 							}
-							if (route.params.handleUploadOverlay) {
-								route.params.handleUploadOverlay();
-							}
+
 							navigation.navigate('메인화면');
 						}
 					}}

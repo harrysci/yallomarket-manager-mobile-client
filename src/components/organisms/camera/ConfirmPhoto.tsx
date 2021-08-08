@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -7,6 +7,7 @@ import { Button, Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 interface ImageProps {
 	imagePath: TakePictureResponse;
@@ -16,10 +17,10 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
 	const { imagePath, handleUploadOverlay } = prop;
 	const [imgPath, setPath] = useState('');
 	const navigation = useNavigation();
-	const route = useRoute();
+	const route = useRoute<RouteProp<StackParamList, '대표 이미지 확인'>>();
 
 	React.useEffect(() => {
-		setPath(route.params.param.imagePath.base64);
+		//setPath(route.params.param.imagePath.base64);
 	}, []);
 
 	// let path = require(imgPath);
@@ -55,7 +56,8 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
 					onPress={() => {
 						/* screen 이동 */
 						navigation.navigate('2단계', {
-							param: { imagePath: imgPath, handleUploadOverlay: handleUploadOverlay },
+							//imagePath: route.params.imgPath,
+							handleUploadOverlay: route.params.handleUploadOverlay,
 						});
 					}}
 				/>

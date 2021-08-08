@@ -4,7 +4,8 @@ import { RNCamera } from 'react-native-camera';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { styles } from './styles/style';
 import { Text } from 'react-native-elements';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 interface DetailPhotoProps {
 	ImgPath: any;
@@ -15,7 +16,7 @@ export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
 	const { ImgPath, handleUploadOverlay } = data;
 	const navigation = useNavigation();
 	const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
-	const route = useRoute();
+	const route = useRoute<RouteProp<StackParamList, '상세 이미지 촬영'>>();
 	const takePhoto = async () => {
 		if (cameraRef) {
 			const data = await cameraRef.current?.takePictureAsync({
@@ -25,11 +26,9 @@ export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
 			});
 			//console.log(route.params.param.ImgPath, data);
 			navigation.navigate('상세 이미지 확인', {
-				param: {
-					imagePath: route.params.param.ImgPath,
-					detailImgPath: data?.base64,
-					handleUploadOverlay: handleUploadOverlay,
-				},
+				imagePath: route.params.ImgPath,
+				detailImgPath: data?.base64,
+				handleUploadOverlay: route.params.handleUploadOverlay,
 			});
 		}
 	};

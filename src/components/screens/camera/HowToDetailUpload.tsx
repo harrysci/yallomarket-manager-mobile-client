@@ -3,11 +3,12 @@ import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { Image } from 'react-native-elements/dist/image/Image';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from './styles/styles';
 import { useState } from 'react';
 import { TakePictureResponse } from 'react-native-camera';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 interface SecondStepProps {
 	imagePath: TakePictureResponse;
 	handleUploadOverlay: () => void;
@@ -21,11 +22,11 @@ export default function HowToDetailUpload(props: SecondStepProps): JSX.Element {
 	const navigation = useNavigation();
 
 	const [ImgPath, setDetailPath] = useState();
-	const route = useRoute();
+	const route = useRoute<RouteProp<StackParamList, '2단계'>>();
 
 	React.useEffect(() => {
 		/* 대표이미지 사진데이터 전달완료 */
-		setDetailPath(route.params.param.imagePath);
+		//setDetailPath(route.params.param.imagePath);
 	});
 	return (
 		<View style={styles.root}>
@@ -70,10 +71,8 @@ export default function HowToDetailUpload(props: SecondStepProps): JSX.Element {
 						onPress={() => {
 							/* screen 이동 */
 							navigation.navigate('상세 이미지 촬영', {
-								param: {
-									ImgPath: ImgPath,
-									handleUploadOverlay: handleUploadOverlay,
-								},
+								ImgPath: ImgPath,
+								handleUploadOverlay: route.params.handleUploadOverlay,
 							});
 						}}
 					/>

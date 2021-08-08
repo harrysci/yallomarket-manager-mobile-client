@@ -22,9 +22,7 @@ export default function UploadPhoto(props: UploadPhotoProps): JSX.Element {
 				exif: true,
 				base64: true,
 			});
-			navigation.navigate('대표 이미지 확인', {
-				param: { imagePath: data, handleUploadOverlay: handleUploadOverlay },
-			});
+			navigation.navigate('대표 이미지 확인', { handleUploadOverlay: handleUploadOverlay });
 		}
 	};
 	return (

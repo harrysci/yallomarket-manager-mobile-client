@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -7,6 +7,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 interface ImageProps {
 	imgPath: string;
@@ -30,13 +31,13 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 	const { imgPath, detailImgPath, handleUploadOverlay } = prop;
 	const [imagePath, setPath] = useState<ImageProps>();
 	const navigation = useNavigation();
-	const route = useRoute();
+	const route = useRoute<RouteProp<StackParamList, '상세 이미지 확인'>>();
 
 	React.useEffect(() => {
-		setPath({
-			imgPath: route.params.param.imgPath,
-			detailImgPath: route.params.param.detailImgPath,
-		});
+		// setPath({
+		// 	imgPath: route.params.param.imgPath,
+		// 	detailImgPath: route.params.param.detailImgPath,
+		// });
 	}, []);
 
 	// let path = require(imgPath);
@@ -89,7 +90,7 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 							representativeProductImage: imagePath?.imgPath,
 							detailProductImage: imagePath?.detailImgPath,
 
-							handleUploadOverlay: handleUploadOverlay,
+							handleUploadOverlay: route.params.handleUploadOverlay,
 						};
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}
