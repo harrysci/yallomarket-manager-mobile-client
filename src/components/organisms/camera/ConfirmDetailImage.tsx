@@ -26,7 +26,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 	const [imagePath, setImgPath] = useState('');
 	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
-
+	const route = useRoute<RouteProp<StackParamList, '상세 이미지 확인'>>();
 	React.useEffect(() => {
 		AsyncStorage.getItem('detailImgUrl', (err, res) => {
 			if (res) {
