@@ -2,14 +2,20 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
 	root: {
-		flex: 1,
+		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
 		backgroundColor: '#ffff',
 	},
+	camera: {
+		flex: 1,
+		display: 'flex',
+		height: '100%',
+		width: '100%',
+	},
 	cameraStyle: {
 		width: '100%',
-		height: 288,
+		height: '40%',
 		marginTop: 135,
 	},
 	imageStyle: {
@@ -107,11 +113,13 @@ export const styles = StyleSheet.create({
 		color: '#000000',
 	},
 	buttonBox: {
+		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginTop: 118,
 	},
 	buttonBox2: {
+		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginTop: 16,

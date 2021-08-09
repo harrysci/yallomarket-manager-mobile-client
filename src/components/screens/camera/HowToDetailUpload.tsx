@@ -7,15 +7,9 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from './styles/styles';
 import { useState } from 'react';
-import { TakePictureResponse } from 'react-native-camera';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
-interface SecondStepProps {
-	imagePath: TakePictureResponse;
-	handleUploadOverlay: () => void;
-}
 
-export default function HowToDetailUpload(props: SecondStepProps): JSX.Element {
-	const { imagePath, handleUploadOverlay } = props;
+export default function HowToDetailUpload(): JSX.Element {
 	const ImagePath = require('../../../assets/images/drawable-hdpi/adobe_stock_301721923.jpg');
 	const ImagePath2 = require('../../../assets/images/background/drawable-hdpi/2019.png');
 	const ImagePath3 = require('../../../assets/images/focus/drawable-hdpi/4165.png');
@@ -73,6 +67,7 @@ export default function HowToDetailUpload(props: SecondStepProps): JSX.Element {
 							navigation.navigate('상세 이미지 촬영', {
 								ImgPath: ImgPath,
 								handleUploadOverlay: route.params.handleUploadOverlay,
+								param: { ImgPath: '' },
 							});
 						}}
 					/>

@@ -8,12 +8,7 @@ import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
-
-interface ImageProps {
-	imgPath: string;
-	detailImgPath: string;
-	handleUploadOverlay: () => void;
-}
+import AsyncStorage from '@react-native-community/async-storage';
 
 /* 
 *****************************************************************
@@ -27,26 +22,26 @@ imagePath (object type)
 - imgPath : 대표이미지 base64 string
 *****************************************************************
 */
-export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
-	const { imgPath, detailImgPath, handleUploadOverlay } = prop;
-	const [imagePath, setPath] = useState<ImageProps>();
+export default function ConfirmDetailImage(): JSX.Element {
+	const [imagePath, setImgPath] = useState('');
+	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
-	const route = useRoute<RouteProp<StackParamList, '상세 이미지 확인'>>();
 
 	React.useEffect(() => {
-		// setPath({
-		// 	imgPath: route.params.param.imgPath,
-		// 	detailImgPath: route.params.param.detailImgPath,
-		// });
-	}, []);
+		AsyncStorage.getItem('detailImgUrl', (err, res) => {
+			if (res) {
+				setDetailImgPath(res);
+			}
+		});
+	}, [detailPath]);
 
 	// let path = require(imgPath);
-	return (
+	return detailPath ? (
 		<View style={styles.root}>
 			<Image
 				style={styles.imageStyle}
 				source={{
-					uri: `data:image/jpeg;base64,${imagePath?.detailImgPath}`,
+					uri: `${detailPath}`,
 				}}
 			/>
 			<View style={styles.textBox}>
@@ -97,5 +92,7 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 				/>
 			</View>
 		</View>
+	) : (
+		<View></View>
 	);
 }

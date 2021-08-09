@@ -2,34 +2,31 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { TakePictureResponse } from 'react-native-camera';
 import { Button, Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import AsyncStorage from '@react-native-community/async-storage';
 
-interface ImageProps {
-	imagePath: TakePictureResponse;
-	handleUploadOverlay: () => void;
-}
-export default function ConfirmImage(prop: ImageProps): JSX.Element {
-	const { imagePath, handleUploadOverlay } = prop;
-	const [imgPath, setPath] = useState('');
+export default function ConfirmImage(): JSX.Element {
 	const navigation = useNavigation();
+	const [imgPath, setImgPath] = useState('');
 	const route = useRoute<RouteProp<StackParamList, '대표 이미지 확인'>>();
-
 	React.useEffect(() => {
-		//setPath(route.params.param.imagePath.base64);
+		AsyncStorage.getItem('imgUrl', (err, result) => {
+			if (result) {
+				setImgPath(result);
+			}
+		});
 	}, []);
 
-	// let path = require(imgPath);
-	return (
+	return imgPath ? (
 		<View style={styles.root}>
 			<Image
 				style={styles.imageStyle}
 				source={{
-					uri: `data:image/jpeg;base64,${imgPath}`,
+					uri: `${imgPath}`,
 				}}
 			/>
 			<View style={styles.textBox}>
@@ -63,5 +60,7 @@ export default function ConfirmImage(prop: ImageProps): JSX.Element {
 				/>
 			</View>
 		</View>
+	) : (
+		<View></View>
 	);
 }
