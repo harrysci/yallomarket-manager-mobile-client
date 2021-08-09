@@ -23,6 +23,10 @@ import { updateBarcodeProductInfoReq } from './dto/updateBarcodeProductInfoReq.d
 import moment from 'moment';
 import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
 import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
+import { Button } from 'react-native-elements';
+
+/* async storage Import */
+import AsyncStorage from '@react-native-community/async-storage';
 
 /* screen Layout 상수값 */
 const LIST_WIDTH = '87.5%';
@@ -213,6 +217,39 @@ function ProductInfoInput(): JSX.Element {
 		}
 	};
 
+	const handleGetImgFromAsyncStorage = async (
+		obj: CreateBarcodeProcessedProductReq | CreateBarcodeWeightedProductReq | any,
+	) => {
+		type ImageFile = {
+			uri: string | null;
+			type: 'image/jpg';
+			name: 'repImage.jpg' | 'detailImage.jpg';
+		};
+		const repImgUrl = await AsyncStorage.getItem('imgUrl');
+		const detailImgUrl = await AsyncStorage.getItem('detailImgUrl');
+
+		const formData = new FormData();
+
+		const repImageFile: ImageFile = {
+			uri: repImgUrl,
+			type: 'image/jpg',
+			name: 'repImage.jpg',
+		};
+
+		const detailImageFile: ImageFile = {
+			uri: detailImgUrl,
+			type: 'image/jpg',
+			name: 'detailImage.jpg',
+		};
+
+		formData.append('images', repImageFile);
+		formData.append('images', detailImageFile);
+
+		Object.keys(obj).forEach(key => formData.append(key, obj[key]));
+
+		return formData;
+	};
+
 	/**
 	 * @name 가공상품_생성_axios
 	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
@@ -228,14 +265,14 @@ function ProductInfoInput(): JSX.Element {
 	/**
 	 * @name 가공상품_생성_axios_요청_핸들러
 	 */
-	const saveProcessedProductButtonHandler = () => {
+	const saveProcessedProductButtonHandler = async () => {
 		if (route.params.mode === 'regist') {
 			const saveProcessedProductReq: CreateBarcodeProcessedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
 
 				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
-				productCreatedAt: new Date(),
+				productCreatedAt: new Date().toISOString(),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
 
@@ -243,19 +280,14 @@ function ProductInfoInput(): JSX.Element {
 				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
 				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
-
-				representativeProductImage: route.params.representativeProductImage
-					? route.params.representativeProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				detailProductImage: route.params.detailProductImage
-					? route.params.detailProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				additionalProductImage:
-					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
 
+			const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+				saveProcessedProductReq,
+			);
+
 			executeSaveProcessedProduct({
-				data: saveProcessedProductReq,
+				data: formDataWithImagesFile,
 			})
 				.then(() => {
 					/* 저장 완료 후 로직 */
@@ -283,14 +315,14 @@ function ProductInfoInput(): JSX.Element {
 	/**
 	 * @name 저울상품_생성_axios_요청_핸들러
 	 */
-	const saveWeightedProductButtonHandler = () => {
+	const saveWeightedProductButtonHandler = async () => {
 		if (route.params.mode === 'regist') {
 			const saveWeightedProductReq: CreateBarcodeWeightedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
 
 				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
-				productCreatedAt: new Date(),
+				productCreatedAt: new Date().toISOString(),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
 
@@ -298,19 +330,14 @@ function ProductInfoInput(): JSX.Element {
 				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
 				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
-
-				representativeProductImage: route.params.representativeProductImage
-					? route.params.representativeProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				detailProductImage: route.params.detailProductImage
-					? route.params.detailProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				additionalProductImage:
-					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
 
+			const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+				saveWeightedProductReq,
+			);
+
 			executeSaveWeightedProduct({
-				data: saveWeightedProductReq,
+				data: formDataWithImagesFile,
 			})
 				.then(() => {
 					/* 저장 완료 후 로직 */
@@ -341,6 +368,8 @@ function ProductInfoInput(): JSX.Element {
 
 			{/* 각 상품 정보 입력창 컴포넌트 */}
 			<View style={{ width: LIST_WIDTH, marginTop: 45 }}>
+				<Button title="img async test" onPress={() => handleGetImgFromAsyncStorage()} />
+
 				<InputTextBoxWithLabel
 					title={'바코드'}
 					isNecessary={true}
