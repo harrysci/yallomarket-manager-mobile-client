@@ -92,7 +92,7 @@ function BarcodeRecognitionComplete(): JSX.Element {
 				/>
 
 				{/* 버튼 섹션 */}
-				<ButtonGroup />
+				<ButtonGroup handleUploadOverlay={route.params.handleUploadOverlay} />
 
 				{/* 이미 등록된 상품 Overlay */}
 				<AlreadyRegistedAlertOverlay

@@ -1,3 +1,4 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -6,6 +7,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import AsyncStorage from '@react-native-community/async-storage';
 
 /* 
@@ -24,7 +26,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 	const [imagePath, setImgPath] = useState('');
 	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
-
+	const route = useRoute<RouteProp<StackParamList, '상세 이미지 확인'>>();
 	React.useEffect(() => {
 		AsyncStorage.getItem('detailImgUrl', (err, res) => {
 			if (res) {
@@ -82,6 +84,8 @@ export default function ConfirmDetailImage(): JSX.Element {
 							/* 촬영한 상품 이미지 전달 */
 							representativeProductImage: imagePath?.imgPath,
 							detailProductImage: imagePath?.detailImgPath,
+
+							handleUploadOverlay: route.params.handleUploadOverlay,
 						};
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}

@@ -4,18 +4,20 @@ import { RNCamera } from 'react-native-camera';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { styles } from './styles/style';
 import { Text } from 'react-native-elements';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import AsyncStorage from '@react-native-community/async-storage';
 
 interface DetailPhotoProps {
 	ImgPath: any;
+	handleUploadOverlay: () => void;
 }
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
 export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
-	const { ImgPath } = data;
+	const { ImgPath, handleUploadOverlay } = data;
 	const navigation = useNavigation();
 	const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
-	const route = useRoute();
+	const route = useRoute<RouteProp<StackParamList, '상세 이미지 촬영'>>();
 	const takePhoto = async () => {
 		if (cameraRef) {
 			const data = await cameraRef.current?.takePictureAsync({
@@ -23,10 +25,15 @@ export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
 				exif: true,
 			});
 			//console.log(route.params.param.ImgPath, data);
+
 			AsyncStorage.setItem('detailImgUrl', data?.uri, () => {
 				console.log('상세 이미지 저장 완료!');
 			});
-			navigation.navigate('상세 이미지 확인');
+			navigation.navigate('상세 이미지 확인', {
+				imagePath: route.params.ImgPath,
+				detailImgPath: data?.base64,
+				handleUploadOverlay: route.params.handleUploadOverlay,
+			});
 		}
 	};
 	return (
