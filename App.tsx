@@ -29,6 +29,7 @@ const TransitionScreenOptions = {
 
 const Stack = createStackNavigator<StackParamList>();
 configure({ axios: axios.axiosInstance });
+
 const App = () => {
 	return (
 		<SafeAreaView style={styles.container}>

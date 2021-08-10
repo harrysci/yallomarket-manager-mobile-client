@@ -1,9 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+
+import { useNavigation } from '@react-navigation/native';
+import { LogBox } from 'react-native';
+
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Image } from 'react-native-elements/dist/image/Image';
+import { ProductDetailInfoPageParams } from '../../../navigations/stack-params/ProductDetailInfoPageParams';
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
+
 import styles from './style/style';
+
+LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']); // Ignore log notification by message
 
 export interface OneProductComponentProps {
 	productData: GetImageProductListRes;
@@ -12,33 +19,25 @@ export interface OneProductComponentProps {
 	handleUpdateCompleteOverlay: () => void;
 }
 
-export interface Props {
-	product: GetImageProductListRes;
-	storeName: string;
-	ownerId: number;
-	executeGetHandler: () => void;
-	handleSetDeleteState: () => void;
-	handleUpdateCompleteOverlay: () => void;
-}
-
 const OneProductComponent = (props: OneProductComponentProps) => {
 	const navigation = useNavigation();
-	const { productData, executeGetHandler, handleDeleteOverlay } = props;
+	const { productData, executeGetHandler, handleDeleteOverlay, handleUpdateCompleteOverlay } =
+		props;
 
-	const ProductParams: Props = {
+	const productParams: ProductDetailInfoPageParams = {
 		product: productData,
 		storeName: '경동빅마트',
 		ownerId: 1,
 		executeGetHandler: executeGetHandler,
 		handleSetDeleteState: handleDeleteOverlay,
-		handleUpdateCompleteOverlay: props.handleUpdateCompleteOverlay,
+		handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
 	};
 
 	return (
 		<TouchableOpacity
 			style={styles.item_container}
 			onPress={() => {
-				navigation.navigate('상품 상세 정보', ProductParams);
+				navigation.navigate('상품 상세 정보', productParams);
 			}}
 		>
 			<View style={styles.image_container}>

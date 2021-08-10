@@ -215,6 +215,9 @@ const ProductDetailInfoPage = (): JSX.Element => {
 								executeGetHandler: executeGetHandler,
 								handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
 							};
+
+							console.log(updateParams);
+
 							navigation.navigate('상품 정보 입력', updateParams);
 						}}
 					/>

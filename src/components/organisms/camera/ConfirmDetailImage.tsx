@@ -21,7 +21,7 @@ imagePath (object type)
 *****************************************************************
 */
 export default function ConfirmDetailImage(): JSX.Element {
-	const [imagePath, setImgPath] = useState('');
+	// const [imagePath, setImgPath] = useState('');
 	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
 
@@ -65,11 +65,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 					buttonStyle={styles.buttonStyle3}
 					onPress={() => {
 						/* screen 이동 */
-						/* 법우님 최종등록 페이지로 연결 */
 						/* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
-
-						console.log('Detail Image\n', imagePath?.detailImgPath);
-						console.log('\n\n Image\n', imagePath?.imgPath);
 
 						/* 상품 정보 입력 (상품 등록 모드) navigation*/
 						const productInfoInputStackParams: ProductInfoInputStackParams = {
@@ -79,9 +75,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 							initBarcode: '1123123',
 							initProductCategory: '저울상품',
 
-							/* 촬영한 상품 이미지 전달 */
-							representativeProductImage: imagePath?.imgPath,
-							detailProductImage: imagePath?.detailImgPath,
+							/* 촬영한 상품 이미지 전달 -> Asnyc Storage 로 전달 */
 						};
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}

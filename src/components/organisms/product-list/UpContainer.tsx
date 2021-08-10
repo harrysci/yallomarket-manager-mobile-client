@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import styles from './style/style';
+
 const UpContainer = () => {
 	return (
 		<View style={styles.up}>

@@ -22,7 +22,7 @@ export default function UploadPhoto(): JSX.Element {
 				.catch(err => {
 					console.log(err);
 				});
-			AsyncStorage.setItem('imgUrl', data?.uri, () => {
+			AsyncStorage.setItem('imgUrl', data ? data.uri : '', () => {
 				console.log('이미지 저장 완료');
 			});
 			navigation.navigate('대표 이미지 확인');
