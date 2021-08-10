@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	root1: { backgroundColor: '#ffff', flex: 1 },
+	root1: { backgroundColor: '#ffff' },
 	root: {
+		flex: 1,
 		display: 'flex',
 		flexDirection: 'column',
-		flex: 1,
 		backgroundColor: '#ffff',
 	},
 	yellowText: {

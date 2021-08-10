@@ -7,19 +7,15 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from './styles/styles';
 import { useState } from 'react';
+
 export default function HowToDetailUpload(): JSX.Element {
 	const ImagePath = require('../../../assets/images/drawable-hdpi/adobe_stock_301721923.jpg');
 	const ImagePath2 = require('../../../assets/images/background/drawable-hdpi/2019.png');
 	const ImagePath3 = require('../../../assets/images/focus/drawable-hdpi/4165.png');
 	const navigation = useNavigation();
 
-	const [ImgPath, setDetailPath] = useState();
 	const route = useRoute();
 
-	React.useEffect(() => {
-		/* 대표이미지 사진데이터 전달완료 */
-		setDetailPath(route.params.param.imagePath);
-	});
 	return (
 		<View style={styles.root}>
 			<View style={styles.flexBox1}>
@@ -63,7 +59,7 @@ export default function HowToDetailUpload(): JSX.Element {
 						onPress={() => {
 							/* screen 이동 */
 							navigation.navigate('상세 이미지 촬영', {
-								param: { ImgPath: ImgPath },
+								param: { ImgPath: '' },
 							});
 						}}
 					/>
