@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const ProductDetailInfoPageStyles = StyleSheet.create({
+	top: {
+		flex: 1,
+		backgroundColor: 'white',
+	},
 	container: {
 		flex: 1,
 		width: '87.2%',
