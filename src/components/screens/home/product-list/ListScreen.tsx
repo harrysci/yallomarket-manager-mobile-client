@@ -41,7 +41,6 @@ export default function ListScreen(): JSX.Element {
 				handleDeleteOverlay={handleDeleteOverlay}
 				handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}
 			/>
-
 			<Overlay
 				isVisible={updateCompleteOverlayVisible}
 				onBackdropPress={handleUpdateCompleteOverlay}

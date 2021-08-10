@@ -11,6 +11,7 @@ export interface CategoryOpenButtonWithLabelProps {
 	isNecessary: boolean;
 	value: string;
 	handleOpen: () => void;
+	isSaveMode: boolean;
 }
 
 /**
@@ -19,7 +20,7 @@ export interface CategoryOpenButtonWithLabelProps {
  * @returns JSX.Element
  */
 const CategoryOpenButtonWithLabel = (props: CategoryOpenButtonWithLabelProps): JSX.Element => {
-	const { title, isNecessary, value, handleOpen } = props;
+	const { title, isNecessary, value, handleOpen, isSaveMode } = props;
 
 	return (
 		<View style={style.root}>
@@ -33,6 +34,19 @@ const CategoryOpenButtonWithLabel = (props: CategoryOpenButtonWithLabelProps): J
 					style={style.image}
 				/>
 			</TouchableOpacity>
+
+			{!isSaveMode && (
+				<Text
+					style={{
+						fontSize: 12,
+						color: 'red',
+						marginTop: 4,
+						marginLeft: 2,
+					}}
+				>
+					이미 등록된 상품의 카테고리는 수정 할 수 없습니다.
+				</Text>
+			)}
 		</View>
 	);
 };

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		marginLeft: 10,
 	},
-	last_containner: {
+	last_container: {
 		flexDirection: 'row',
 	},
 	barcode: {
