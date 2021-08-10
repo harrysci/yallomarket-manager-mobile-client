@@ -71,10 +71,7 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 네비게이션_route_param_핸들러
 	 */
 	const route = useRoute<RouteProp<StackParamList, '상품 정보 입력'>>();
-	/**
-	 * @name 상품_등록_overlay
-	 */
-	const handleUploadCompleteOverlay = () => {};
+
 	/**
 	 * @name 상품_코드_핸들러
 	 */
@@ -308,7 +305,9 @@ function ProductInfoInput(): JSX.Element {
 				})
 					.then(() => {
 						/* 저장 완료 후 로직 */
-						console.log('save success');
+						if (route.params.handleUploadOverlay) {
+							route.params.handleUploadOverlay();
+						}
 					})
 					.catch(() => {
 						/* 저장 에러 발생 후 로직 */
@@ -362,7 +361,9 @@ function ProductInfoInput(): JSX.Element {
 				})
 					.then(() => {
 						/* 저장 완료 후 로직 */
-						console.log('save success');
+						if (route.params.handleUploadOverlay) {
+							route.params.handleUploadOverlay();
+						}
 					})
 					.catch(() => {
 						/* 저장 에러 발생 후 로직 */
@@ -475,19 +476,14 @@ function ProductInfoInput(): JSX.Element {
 				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
-					callBack={() => {
+					callBack={async () => {
 						if (route.params.mode === 'update') {
 							updateProductInfoButtonHandler();
 						} else {
-							if (route.params.handleUploadOverlay) {
-								route.params.handleUploadOverlay();
-								console.log('확인');
-							}
-
 							if (category[selectedCategoryIndex] === '가공상품') {
-								saveProcessedProductButtonHandler();
+								await saveProcessedProductButtonHandler();
 							} else {
-								saveWeightedProductButtonHandler();
+								await saveWeightedProductButtonHandler();
 							}
 
 							navigation.navigate('메인화면');

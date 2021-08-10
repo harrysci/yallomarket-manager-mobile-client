@@ -29,7 +29,6 @@ export default function useImage(): any {
 
 	function handleImgState(value: ImageDataProps) {
 		setUri(value);
-		console.log('uriiiii', value);
 	}
 
 	return { imguri, handleImgState, setUri };

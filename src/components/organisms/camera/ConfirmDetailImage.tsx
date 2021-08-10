@@ -27,6 +27,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
 	const route = useRoute<RouteProp<StackParamList, '상세 이미지 확인'>>();
+
 	React.useEffect(() => {
 		AsyncStorage.getItem('detailImgUrl', (err, res) => {
 			if (res) {
@@ -78,7 +79,9 @@ export default function ConfirmDetailImage(): JSX.Element {
 							initProductCategory: '저울상품',
 
 							/* 촬영한 상품 이미지 전달 -> Asnyc Storage 로 전달 */
+							handleUploadOverlay: route.params.handleUploadOverlay,
 						};
+
 						navigation.navigate('상품 정보 입력', productInfoInputStackParams);
 					}}
 				/>

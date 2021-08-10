@@ -13,13 +13,17 @@ export const ScannerScreen = (): JSX.Element => {
 	const onBarcodeScan = (event: BarCodeReadEvent) => {
 		setCodeInfo(event.data);
 	};
+
 	const navigation = useNavigation();
+
 	/*assets/images/product-list/4114.png    assets/images/product-list/299.png*/
 	const [uploadOverlayVisible, setUploadCompleteOverlay] = React.useState<boolean>(false);
+
 	/*등록 handler*/
 	const handleUploadOverlay = () => {
 		setUploadCompleteOverlay(!uploadOverlayVisible);
 	};
+
 	return (
 		<View style={styles.capture}>
 			<View style={styles.scannerStyle}>
@@ -47,7 +51,7 @@ export const ScannerScreen = (): JSX.Element => {
 			/>
 			<Overlay
 				isVisible={uploadOverlayVisible}
-				onBackdropPress={handleUploadOverlay}
+				onBackdropPress={() => handleUploadOverlay()}
 				overlayStyle={styles.updateCompleteOverlay}
 			>
 				<View style={styles.updateCompleteContainer}>
