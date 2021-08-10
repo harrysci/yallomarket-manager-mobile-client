@@ -5,13 +5,16 @@ import { Text } from 'react-native-elements';
 
 import style from './styles';
 
+export interface handleUploadOverlayProps {
+	handleUploadOverlay: () => void;
+}
 /**
  * @name 바코드_스캔완료_상품등록하기_컴포넌트
  * @returns JSX.Element
  */
-const ButtonGroup = (): JSX.Element => {
+const ButtonGroup = (props: handleUploadOverlayProps): JSX.Element => {
 	const navigation = useNavigation();
-
+	const { handleUploadOverlay } = props;
 	return (
 		<View style={style.root}>
 			<Text style={style.text}>바코드 스캔 완료</Text>
@@ -30,7 +33,7 @@ const ButtonGroup = (): JSX.Element => {
 			<TouchableOpacity
 				style={style.touchAreaSave}
 				onPress={() => {
-					navigation.navigate('1단계');
+					navigation.navigate('1단계', { handleUploadOverlay: handleUploadOverlay });
 				}}
 			>
 				<Text style={style.saveText}>상품 등록하기</Text>

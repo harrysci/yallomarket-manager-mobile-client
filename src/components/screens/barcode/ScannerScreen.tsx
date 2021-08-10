@@ -1,19 +1,25 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import BarcodeScanner from '../../organisms/barcode/BarcodeScanner';
 import { BarCodeReadEvent } from 'react-native-camera';
 import { styles } from '../../organisms/barcode/styles/styles';
 import { Button } from 'react-native-elements/dist/buttons/Button';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { Overlay } from 'react-native-elements';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 export const ScannerScreen = (): JSX.Element => {
 	const [barcodeNum, setCodeInfo] = React.useState<string>();
 	const onBarcodeScan = (event: BarCodeReadEvent) => {
 		setCodeInfo(event.data);
 	};
-
 	const navigation = useNavigation();
-
+	/*assets/images/product-list/4114.png    assets/images/product-list/299.png*/
+	const [uploadOverlayVisible, setUploadCompleteOverlay] = React.useState<boolean>(false);
+	/*등록 handler*/
+	const handleUploadOverlay = () => {
+		setUploadCompleteOverlay(!uploadOverlayVisible);
+	};
 	return (
 		<View style={styles.capture}>
 			<View style={styles.scannerStyle}>
@@ -35,9 +41,37 @@ export const ScannerScreen = (): JSX.Element => {
 				onPress={() =>
 					navigation.navigate('바코드 인식 완료', {
 						barcode: '7777777',
+						handleUploadOverlay,
 					})
 				}
 			/>
+			<Overlay
+				isVisible={uploadOverlayVisible}
+				onBackdropPress={handleUploadOverlay}
+				overlayStyle={styles.updateCompleteOverlay}
+			>
+				<View style={styles.updateCompleteContainer}>
+					<View style={styles.updateCompleteContainer}>
+						<TouchableOpacity
+							onPress={handleUploadOverlay}
+							style={styles.updateCompleteTouchableOpacity}
+						>
+							<Image
+								source={require('../../../assets/images/product-list/4114.png')}
+								style={styles.updateCompleteExitImage}
+							/>
+						</TouchableOpacity>
+
+						<View style={styles.updateCompleteImageTextContainer}>
+							<Image
+								source={require('../../../assets/images/product-list/299.png')}
+								style={styles.updateCompleteCheckImage}
+							/>
+							<Text style={styles.updateCompleteText}>상품정보 등록 완료!</Text>
+						</View>
+					</View>
+				</View>
+			</Overlay>
 		</View>
 	);
 };

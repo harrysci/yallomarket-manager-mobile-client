@@ -4,14 +4,15 @@ import { RNCamera } from 'react-native-camera';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import { styles } from './styles/style';
 import { Text } from 'react-native-elements';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import AsyncStorage from '@react-native-community/async-storage';
 
 /* 대표 이미지 촬영후 등록하는 메커니즘 */
 export default function UploadDetailPhoto(): JSX.Element {
 	const navigation = useNavigation();
 	const cameraRef = React.useRef<RNCamera>(null); // useRef로 camera를 위한 ref를 하나 만들어주고
-	// const route = useRoute();
+	const route = useRoute<RouteProp<StackParamList, '상세 이미지 촬영'>>();
 
 	const takePhoto = async () => {
 		if (cameraRef) {
@@ -23,9 +24,15 @@ export default function UploadDetailPhoto(): JSX.Element {
 			AsyncStorage.setItem('detailImgUrl', data ? data.uri : '', () => {
 				console.log('상세 이미지 저장 완료!');
 			});
-			navigation.navigate('상세 이미지 확인');
+
+			navigation.navigate('상세 이미지 확인', {
+				imagePath: route.params.ImgPath,
+				detailImgPath: data?.base64,
+				handleUploadOverlay: route.params.handleUploadOverlay,
+			});
 		}
 	};
+
 	return (
 		<View style={styles.root}>
 			<View style={styles.cameraStyle}>
