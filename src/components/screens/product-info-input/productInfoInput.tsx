@@ -23,7 +23,6 @@ import { updateBarcodeProductInfoReq } from './dto/updateBarcodeProductInfoReq.d
 import moment from 'moment';
 import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
 import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
-import { Button } from 'react-native-elements';
 
 /* async storage Import */
 import AsyncStorage from '@react-native-community/async-storage';
@@ -217,34 +216,48 @@ function ProductInfoInput(): JSX.Element {
 		}
 	};
 
+	/**
+	 * @name 이미지파일추가_Form_data_생성_핸들러
+	 * @param obj 서버로 저장요청 할 데이터 Object
+	 * @returns axios form data 형태로 포맷팅된 데이터 (image files 포함)
+	 */
 	const handleGetImgFromAsyncStorage = async (
 		obj: CreateBarcodeProcessedProductReq | CreateBarcodeWeightedProductReq | any,
 	) => {
+		/* 이미지 파일의 형태 */
 		type ImageFile = {
 			uri: string | null;
 			type: 'image/jpg';
 			name: 'repImage.jpg' | 'detailImage.jpg';
 		};
+		/* async storage 로 부터 이미지 파일 cache 추출 */
 		const repImgUrl = await AsyncStorage.getItem('imgUrl');
 		const detailImgUrl = await AsyncStorage.getItem('detailImgUrl');
 
+		if (!repImgUrl || !detailImgUrl || repImgUrl.length <= 0 || detailImgUrl.length <= 0) {
+			throw new Error();
+		}
+
+		/* form data 생성 */
 		const formData = new FormData();
 
+		/* 이미지 파일로 변환 */
 		const repImageFile: ImageFile = {
 			uri: repImgUrl,
 			type: 'image/jpg',
 			name: 'repImage.jpg',
 		};
-
 		const detailImageFile: ImageFile = {
 			uri: detailImgUrl,
 			type: 'image/jpg',
 			name: 'detailImage.jpg',
 		};
 
+		/* 이미지 파일 form data 에 Multer File Blob Array 로 추가 */
 		formData.append('images', repImageFile);
 		formData.append('images', detailImageFile);
 
+		/* 이미지를 제외한 기존 입력 데이터를 추가 */
 		Object.keys(obj).forEach(key => formData.append(key, obj[key]));
 
 		return formData;
@@ -282,21 +295,25 @@ function ProductInfoInput(): JSX.Element {
 				productDescription: productDescription.value,
 			};
 
-			const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
-				saveProcessedProductReq,
-			);
+			try {
+				const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+					saveProcessedProductReq,
+				);
 
-			executeSaveProcessedProduct({
-				data: formDataWithImagesFile,
-			})
-				.then(() => {
-					/* 저장 완료 후 로직 */
-					console.log('save success');
+				executeSaveProcessedProduct({
+					data: formDataWithImagesFile,
 				})
-				.catch(() => {
-					/* 저장 에러 발생 후 로직 */
-					setErrorOverlayVisible(true);
-				});
+					.then(() => {
+						/* 저장 완료 후 로직 */
+						console.log('save success');
+					})
+					.catch(() => {
+						/* 저장 에러 발생 후 로직 */
+						setErrorOverlayVisible(true);
+					});
+			} catch {
+				handleErrorOverlayVisible(true);
+			}
 		}
 	};
 
@@ -332,21 +349,25 @@ function ProductInfoInput(): JSX.Element {
 				productDescription: productDescription.value,
 			};
 
-			const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
-				saveWeightedProductReq,
-			);
+			try {
+				const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+					saveWeightedProductReq,
+				);
 
-			executeSaveWeightedProduct({
-				data: formDataWithImagesFile,
-			})
-				.then(() => {
-					/* 저장 완료 후 로직 */
-					console.log('save success');
+				executeSaveWeightedProduct({
+					data: formDataWithImagesFile,
 				})
-				.catch(() => {
-					/* 저장 에러 발생 후 로직 */
-					setErrorOverlayVisible(true);
-				});
+					.then(() => {
+						/* 저장 완료 후 로직 */
+						console.log('save success');
+					})
+					.catch(() => {
+						/* 저장 에러 발생 후 로직 */
+						setErrorOverlayVisible(true);
+					});
+			} catch {
+				handleErrorOverlayVisible(true);
+			}
 		}
 	};
 
@@ -368,8 +389,6 @@ function ProductInfoInput(): JSX.Element {
 
 			{/* 각 상품 정보 입력창 컴포넌트 */}
 			<View style={{ width: LIST_WIDTH, marginTop: 45 }}>
-				<Button title="img async test" onPress={() => handleGetImgFromAsyncStorage()} />
-
 				<InputTextBoxWithLabel
 					title={'바코드'}
 					isNecessary={true}
