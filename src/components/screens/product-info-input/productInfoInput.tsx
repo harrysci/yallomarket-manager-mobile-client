@@ -24,6 +24,9 @@ import moment from 'moment';
 import { CreateBarcodeProcessedProductReq } from './dto/CreateBarcodeProcessedProductReq.dto';
 import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProductReq.dto';
 
+/* async storage Import */
+import AsyncStorage from '@react-native-community/async-storage';
+
 /* screen Layout 상수값 */
 const LIST_WIDTH = '87.5%';
 
@@ -214,6 +217,53 @@ function ProductInfoInput(): JSX.Element {
 	};
 
 	/**
+	 * @name 이미지파일추가_Form_data_생성_핸들러
+	 * @param obj 서버로 저장요청 할 데이터 Object
+	 * @returns axios form data 형태로 포맷팅된 데이터 (image files 포함)
+	 */
+	const handleGetImgFromAsyncStorage = async (
+		obj: CreateBarcodeProcessedProductReq | CreateBarcodeWeightedProductReq | any,
+	) => {
+		/* 이미지 파일의 형태 */
+		type ImageFile = {
+			uri: string | null;
+			type: 'image/jpg';
+			name: 'repImage.jpg' | 'detailImage.jpg';
+		};
+		/* async storage 로 부터 이미지 파일 cache 추출 */
+		const repImgUrl = await AsyncStorage.getItem('imgUrl');
+		const detailImgUrl = await AsyncStorage.getItem('detailImgUrl');
+
+		if (!repImgUrl || !detailImgUrl || repImgUrl.length <= 0 || detailImgUrl.length <= 0) {
+			throw new Error();
+		}
+
+		/* form data 생성 */
+		const formData = new FormData();
+
+		/* 이미지 파일로 변환 */
+		const repImageFile: ImageFile = {
+			uri: repImgUrl,
+			type: 'image/jpg',
+			name: 'repImage.jpg',
+		};
+		const detailImageFile: ImageFile = {
+			uri: detailImgUrl,
+			type: 'image/jpg',
+			name: 'detailImage.jpg',
+		};
+
+		/* 이미지 파일 form data 에 Multer File Blob Array 로 추가 */
+		formData.append('images', repImageFile);
+		formData.append('images', detailImageFile);
+
+		/* 이미지를 제외한 기존 입력 데이터를 추가 */
+		Object.keys(obj).forEach(key => formData.append(key, obj[key]));
+
+		return formData;
+	};
+
+	/**
 	 * @name 가공상품_생성_axios
 	 * ownerId 가 더미인 상태, context 를 통해 받아오도록 수정
 	 */
@@ -228,14 +278,14 @@ function ProductInfoInput(): JSX.Element {
 	/**
 	 * @name 가공상품_생성_axios_요청_핸들러
 	 */
-	const saveProcessedProductButtonHandler = () => {
+	const saveProcessedProductButtonHandler = async () => {
 		if (route.params.mode === 'regist') {
 			const saveProcessedProductReq: CreateBarcodeProcessedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
 
 				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
-				productCreatedAt: new Date(),
+				productCreatedAt: new Date().toISOString(),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
 
@@ -243,28 +293,27 @@ function ProductInfoInput(): JSX.Element {
 				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
 				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
-
-				representativeProductImage: route.params.representativeProductImage
-					? route.params.representativeProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				detailProductImage: route.params.detailProductImage
-					? route.params.detailProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				additionalProductImage:
-					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
 
-			executeSaveProcessedProduct({
-				data: saveProcessedProductReq,
-			})
-				.then(() => {
-					/* 저장 완료 후 로직 */
-					console.log('save success');
+			try {
+				const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+					saveProcessedProductReq,
+				);
+
+				executeSaveProcessedProduct({
+					data: formDataWithImagesFile,
 				})
-				.catch(() => {
-					/* 저장 에러 발생 후 로직 */
-					setErrorOverlayVisible(true);
-				});
+					.then(() => {
+						/* 저장 완료 후 로직 */
+						console.log('save success');
+					})
+					.catch(() => {
+						/* 저장 에러 발생 후 로직 */
+						setErrorOverlayVisible(true);
+					});
+			} catch {
+				handleErrorOverlayVisible(true);
+			}
 		}
 	};
 
@@ -283,14 +332,14 @@ function ProductInfoInput(): JSX.Element {
 	/**
 	 * @name 저울상품_생성_axios_요청_핸들러
 	 */
-	const saveWeightedProductButtonHandler = () => {
+	const saveWeightedProductButtonHandler = async () => {
 		if (route.params.mode === 'regist') {
 			const saveWeightedProductReq: CreateBarcodeWeightedProductReq = {
 				productBarcode: barcodeInput.value,
 				productName: productNameInput.value,
 
 				productIsProcessed: selectedCategoryIndex === 1 ? true : false,
-				productCreatedAt: new Date(),
+				productCreatedAt: new Date().toISOString(),
 				productVolume: volumeInput.value,
 				productIsSoldout: !availableForSale,
 
@@ -298,28 +347,27 @@ function ProductInfoInput(): JSX.Element {
 				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
 				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
-
-				representativeProductImage: route.params.representativeProductImage
-					? route.params.representativeProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				detailProductImage: route.params.detailProductImage
-					? route.params.detailProductImage
-					: 'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
-				additionalProductImage:
-					'https://yallomarket-image-storage.s3.ap-northeast-2.amazonaws.com/product/representative/apple.png',
 			};
 
-			executeSaveWeightedProduct({
-				data: saveWeightedProductReq,
-			})
-				.then(() => {
-					/* 저장 완료 후 로직 */
-					console.log('save success');
+			try {
+				const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+					saveWeightedProductReq,
+				);
+
+				executeSaveWeightedProduct({
+					data: formDataWithImagesFile,
 				})
-				.catch(() => {
-					/* 저장 에러 발생 후 로직 */
-					setErrorOverlayVisible(true);
-				});
+					.then(() => {
+						/* 저장 완료 후 로직 */
+						console.log('save success');
+					})
+					.catch(() => {
+						/* 저장 에러 발생 후 로직 */
+						setErrorOverlayVisible(true);
+					});
+			} catch {
+				handleErrorOverlayVisible(true);
+			}
 		}
 	};
 

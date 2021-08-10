@@ -19,6 +19,7 @@ PODS:
   - GoogleMLKit/TextRecognition (2.2.0):
     - GoogleMLKit/MLKitCore
     - MLKitTextRecognition (~> 1.3.0)
+<<<<<<< HEAD
   - GoogleToolboxForMac/DebugUtils (2.3.1):
     - GoogleToolboxForMac/Defines (= 2.3.1)
   - GoogleToolboxForMac/Defines (2.3.1)
@@ -31,6 +32,20 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.3.1)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.1)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.3.1)"
+=======
+  - GoogleToolboxForMac/DebugUtils (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - GoogleToolboxForMac/Defines (2.3.2)
+  - GoogleToolboxForMac/Logger (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.2)":
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
+>>>>>>> ca5e0b4d9a64c82b66293829cb7439f391e12fc8
   - GoogleUtilities/Environment (7.5.0):
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.5.0):
@@ -270,6 +285,11 @@ PODS:
     - React-Core
   - react-native-cameraroll (4.0.4):
     - React-Core
+<<<<<<< HEAD
+=======
+  - react-native-image-base64 (0.1.4):
+    - React
+>>>>>>> ca5e0b4d9a64c82b66293829cb7439f391e12fc8
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - React-perflogger (0.64.1)
@@ -401,6 +421,10 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
+<<<<<<< HEAD
+=======
+  - react-native-image-base64 (from `../node_modules/react-native-image-base64`)
+>>>>>>> ca5e0b4d9a64c82b66293829cb7439f391e12fc8
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -475,6 +499,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-cameraroll:
     :path: "../node_modules/@react-native-community/cameraroll"
+<<<<<<< HEAD
+=======
+  react-native-image-base64:
+    :path: "../node_modules/react-native-image-base64"
+>>>>>>> ca5e0b4d9a64c82b66293829cb7439f391e12fc8
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -522,11 +551,19 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
+<<<<<<< HEAD
   FBReactNativeSpec: f76c8ea5f62ffc1bdb05e443bfda0a7be5e44e0b
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleMLKit: 85ffdc9641d05311c76dbba5bbf93059087be12f
   GoogleToolboxForMac: 471e0c05d39506e50e6398f46fa9a12ae0efeff9
+=======
+  FBReactNativeSpec: 2e5e116e01f005933a4f29d7bca43f54b4c3d1b8
+  glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
+  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
+  GoogleMLKit: 85ffdc9641d05311c76dbba5bbf93059087be12f
+  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
+>>>>>>> ca5e0b4d9a64c82b66293829cb7439f391e12fc8
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
   GoogleUtilitiesComponents: a69c0b3b369ba443e988141e75ef49d9010b1c80
   GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
@@ -550,6 +587,10 @@ SPEC CHECKSUMS:
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
   react-native-camera: b8cc03e2feec0c04403d0998e37cf519d8fd4c6f
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
+<<<<<<< HEAD
+=======
+  react-native-image-base64: 2ff9ac788639c87a91361ab6652cc95e871b1e54
+>>>>>>> ca5e0b4d9a64c82b66293829cb7439f391e12fc8
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   React-perflogger: aad6d4b4a267936b3667260d1f649b6f6069a675
   React-RCTActionSheet: fc376be462c9c8d6ad82c0905442fd77f82a9d2a
