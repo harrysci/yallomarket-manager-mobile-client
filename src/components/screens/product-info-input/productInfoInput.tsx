@@ -12,6 +12,7 @@ import CategoryOpenButtonWithLabel from '../../organisms/product-info-input/open
 import FinishButton from '../../atoms/button/finish-or-update-button/FinishButton';
 import DividerWithInterval from '../../atoms/divider/divider-with-interval/DividerWithInterval';
 import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
+import ErrorOverlay from '../../atoms/overlay/ErrorOverlay';
 
 /* style 파일 Import */
 import productInfoStyle from './productInfoInput.style';
@@ -57,6 +58,11 @@ const LIST_WIDTH = '87.5%';
 function ProductInfoInput(): JSX.Element {
 	const navigation = useNavigation();
 	const { inputCurrencyNumber } = useEventTargetValue();
+
+	const [errorOverlayVisible, setErrorOverlayVisible] = React.useState(false);
+	const handleErrorOverlayVisible = (newState: boolean) => {
+		setErrorOverlayVisible(newState);
+	};
 
 	/**
 	 * @name 네비게이션_route_param_핸들러
@@ -234,8 +240,8 @@ function ProductInfoInput(): JSX.Element {
 				productIsSoldout: !availableForSale,
 
 				// 매입처 DB 칼럼에 없음.
-				productCurrentPrice: Number(currentPriceInput.value),
-				productOriginPrice: Number(originPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 
 				representativeProductImage: route.params.representativeProductImage
@@ -257,6 +263,7 @@ function ProductInfoInput(): JSX.Element {
 				})
 				.catch(() => {
 					/* 저장 에러 발생 후 로직 */
+					setErrorOverlayVisible(true);
 				});
 		}
 	};
@@ -288,8 +295,8 @@ function ProductInfoInput(): JSX.Element {
 				productIsSoldout: !availableForSale,
 
 				// 매입처 DB 칼럼에 없음.
-				productCurrentPrice: Number(currentPriceInput.value),
-				productOriginPrice: Number(originPriceInput.value),
+				productCurrentPrice: Number(currentPriceInput.value.replace(/,/g, '')),
+				productOriginPrice: Number(originPriceInput.value.replace(/,/g, '')),
 				productDescription: productDescription.value,
 
 				representativeProductImage: route.params.representativeProductImage
@@ -311,6 +318,7 @@ function ProductInfoInput(): JSX.Element {
 				})
 				.catch(() => {
 					/* 저장 에러 발생 후 로직 */
+					setErrorOverlayVisible(true);
 				});
 		}
 	};
@@ -328,6 +336,8 @@ function ProductInfoInput(): JSX.Element {
 				categoryArray={category}
 				handleCategoryIndex={handleCategoryIndex}
 			/>
+
+			<ErrorOverlay visible={errorOverlayVisible} toggleOverlay={handleErrorOverlayVisible} />
 
 			{/* 각 상품 정보 입력창 컴포넌트 */}
 			<View style={{ width: LIST_WIDTH, marginTop: 45 }}>
