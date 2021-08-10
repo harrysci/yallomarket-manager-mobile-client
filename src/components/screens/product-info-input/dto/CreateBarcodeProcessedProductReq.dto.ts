@@ -22,7 +22,7 @@ export interface CreateBarcodeProcessedProductReq {
 
 	productIsProcessed: boolean;
 
-	productCreatedAt: Date;
+	productCreatedAt: string;
 
 	productVolume: string;
 
@@ -34,9 +34,9 @@ export interface CreateBarcodeProcessedProductReq {
 
 	productDescription: string;
 
-	representativeProductImage: string;
+	representativeProductImage?: string;
 
-	detailProductImage: string;
+	detailProductImage?: string;
 
-	additionalProductImage: string;
+	additionalProductImage?: string;
 }
