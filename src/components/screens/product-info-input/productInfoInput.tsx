@@ -258,7 +258,7 @@ function ProductInfoInput(): JSX.Element {
 		formData.append('images', detailImageFile);
 
 		/* 이미지를 제외한 기존 입력 데이터를 추가 */
-		Object.keys(obj).forEach(key => formData.append(key, obj[key]));
+		formData.append('productData', JSON.stringify(obj));
 
 		return formData;
 	};
