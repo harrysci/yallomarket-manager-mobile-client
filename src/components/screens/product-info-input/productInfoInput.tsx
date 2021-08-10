@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
@@ -71,7 +71,10 @@ function ProductInfoInput(): JSX.Element {
 	 * @name 네비게이션_route_param_핸들러
 	 */
 	const route = useRoute<RouteProp<StackParamList, '상품 정보 입력'>>();
-
+	/**
+	 * @name 상품_등록_overlay
+	 */
+	const handleUploadCompleteOverlay = () => {};
 	/**
 	 * @name 상품_코드_핸들러
 	 */
@@ -476,11 +479,18 @@ function ProductInfoInput(): JSX.Element {
 						if (route.params.mode === 'update') {
 							updateProductInfoButtonHandler();
 						} else {
+							if (route.params.handleUploadOverlay) {
+								route.params.handleUploadOverlay();
+								console.log('확인');
+							}
+
 							if (category[selectedCategoryIndex] === '가공상품') {
 								saveProcessedProductButtonHandler();
 							} else {
 								saveWeightedProductButtonHandler();
 							}
+
+							navigation.navigate('메인화면');
 						}
 					}}
 					isAvailable={

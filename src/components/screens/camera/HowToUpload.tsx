@@ -3,9 +3,10 @@ import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { Image } from 'react-native-elements/dist/image/Image';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from './styles/styles';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 export default function HowToUpload(): JSX.Element {
 	const ImagePath = require('../../../assets/images/drawable-hdpi/adobe_stock_301721923.jpg');
@@ -13,7 +14,7 @@ export default function HowToUpload(): JSX.Element {
 	const ImagePath3 = require('../../../assets/images/focus/drawable-hdpi/4165.png');
 
 	const navigation = useNavigation();
-
+	const route = useRoute<RouteProp<StackParamList, '1단계'>>();
 	return (
 		<View style={styles.root}>
 			<View style={styles.flexBox1}>
@@ -55,7 +56,9 @@ export default function HowToUpload(): JSX.Element {
 						buttonStyle={styles.buttonStyle}
 						onPress={() => {
 							/* screen 이동 */
-							navigation.navigate('대표 이미지 촬영');
+							navigation.navigate('대표 이미지 촬영', {
+								handleUploadOverlay: route.params.handleUploadOverlay,
+							});
 						}}
 					/>
 				</View>
