@@ -9,26 +9,26 @@ import { StackParamList } from './src/navigations/stack-param-list/StackParamLis
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
-import ConfirmImage from './src/components/organisms/camera/ConfirmPhoto';
+import BarcodeRecognitionComplete from './src/components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
+
+import CameraUploadScreen from './src/components/screens/camera/CameraUploadScreen';
+import HowToUpload from './src/components/screens/camera/HowToUpload';
+import ConfirmImage from './src/components/organisms/camera/ConfirmImage';
+import HowToDetailUpload from './src/components/screens/camera/HowToDetailUpload';
 import UploadDetailPhoto from './src/components/organisms/camera/UploadDetailPhoto';
-import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailPhoto';
+import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailImage';
 
 import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
 import ProductDetailInfoPage from './src/components/screens/product-detail-info-page/ProductDetailInfoPage';
-import BarcodeRecognitionComplete from './src/components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
-import HowToDetailUpload from './src/components/screens/camera/HowToDetailUpload';
-import CameraUploadScreen from './src/components/screens/camera/CameraUploadScreen';
-import HowToUpload from './src/components/screens/camera/HowToUpload';
 import { ScannerScreen } from './src/components/screens/barcode/ScannerScreen';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
 	...TransitionPresets.SlideFromRightIOS,
 };
+
 const Stack = createStackNavigator<StackParamList>();
-
 configure({ axios: axios.axiosInstance });
-
 const App = () => {
 	return (
 		<SafeAreaView style={styles.container}>

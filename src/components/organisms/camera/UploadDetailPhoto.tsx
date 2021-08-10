@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements/dist/buttons/Button';
 import { styles } from './styles/style';
 import { Text } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 interface DetailPhotoProps {
 	ImgPath: any;
@@ -20,21 +21,18 @@ export default function UploadDetailPhoto(data: DetailPhotoProps): JSX.Element {
 			const data = await cameraRef.current?.takePictureAsync({
 				quality: 1,
 				exif: true,
-				base64: true,
 			});
 			//console.log(route.params.param.ImgPath, data);
-			navigation.navigate('상세 이미지 확인', {
-				param: {
-					imagePath: route.params.param.ImgPath,
-					detailImgPath: data?.base64,
-				},
+			AsyncStorage.setItem('detailImgUrl', data?.uri, () => {
+				console.log('상세 이미지 저장 완료!');
 			});
+			navigation.navigate('상세 이미지 확인');
 		}
 	};
 	return (
 		<View style={styles.root}>
-			<View>
-				<RNCamera ref={cameraRef} style={styles.cameraStyle} captureAudio={false} />
+			<View style={styles.cameraStyle}>
+				<RNCamera ref={cameraRef} style={styles.camera} captureAudio={false} />
 			</View>
 			<View style={styles.flexRow}>
 				<Text style={styles.font1}>등록할 상품의</Text>

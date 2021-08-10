@@ -1,4 +1,3 @@
-import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -7,11 +6,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
 import { useNavigation } from '@react-navigation/native';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
-
-interface ImageProps {
-	imgPath: string;
-	detailImgPath: string;
-}
+import AsyncStorage from '@react-native-community/async-storage';
 
 /* 
 *****************************************************************
@@ -25,26 +20,26 @@ imagePath (object type)
 - imgPath : 대표이미지 base64 string
 *****************************************************************
 */
-export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
-	const { imgPath, detailImgPath } = prop;
-	const [imagePath, setPath] = useState<ImageProps>();
+export default function ConfirmDetailImage(): JSX.Element {
+	const [imagePath, setImgPath] = useState('');
+	const [detailPath, setDetailImgPath] = useState('');
 	const navigation = useNavigation();
-	const route = useRoute();
 
 	React.useEffect(() => {
-		setPath({
-			imgPath: route.params.param.imgPath,
-			detailImgPath: route.params.param.detailImgPath,
+		AsyncStorage.getItem('detailImgUrl', (err, res) => {
+			if (res) {
+				setDetailImgPath(res);
+			}
 		});
-	}, []);
+	}, [detailPath]);
 
 	// let path = require(imgPath);
-	return (
+	return detailPath ? (
 		<View style={styles.root}>
 			<Image
 				style={styles.imageStyle}
 				source={{
-					uri: `data:image/jpeg;base64,${imagePath?.detailImgPath}`,
+					uri: `${detailPath}`,
 				}}
 			/>
 			<View style={styles.textBox}>
@@ -73,7 +68,8 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 						/* 법우님 최종등록 페이지로 연결 */
 						/* imagePath : {detailImgPath => 상세이미지, ImgPath=> 대표이미지} */
 
-						console.log(imagePath);
+						console.log('Detail Image\n', imagePath?.detailImgPath);
+						console.log('\n\n Image\n', imagePath?.imgPath);
 
 						/* 상품 정보 입력 (상품 등록 모드) navigation*/
 						const productInfoInputStackParams: ProductInfoInputStackParams = {
@@ -92,5 +88,7 @@ export default function ConfirmDetailImage(prop: ImageProps): JSX.Element {
 				/>
 			</View>
 		</View>
+	) : (
+		<View></View>
 	);
 }
