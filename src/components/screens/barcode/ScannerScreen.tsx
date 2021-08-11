@@ -49,6 +49,7 @@ export const ScannerScreen = (): JSX.Element => {
 					})
 				}
 			/>
+
 			<Overlay
 				isVisible={uploadOverlayVisible}
 				onBackdropPress={() => handleUploadOverlay()}

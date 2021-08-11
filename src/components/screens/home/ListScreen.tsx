@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Overlay } from 'react-native-elements/dist/overlay/Overlay';
-import { StackParamList } from '../../../../navigations/stack-param-list/StackParamList';
-import ProductListComponent from '../../../organisms/product-list/ProductListComponent';
-import UpContainer from '../../../organisms/product-list/UpContainer';
+import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+import ProductListComponent from '../../organisms/product-list/ProductListComponent';
+import UpContainer from '../../organisms/product-list/UpContainer';
 import styles from './style';
 
 export interface deleteProps {
@@ -34,13 +34,17 @@ export default function ListScreen(): JSX.Element {
 
 	return (
 		<View style={styles.upContainer}>
+			{/* 상단 컨테이너 섹션 */}
 			<UpContainer />
 
+			{/* 상품 리스트 섹션 */}
 			<ProductListComponent
 				overState={overState}
 				handleDeleteOverlay={handleDeleteOverlay}
 				handleUpdateCompleteOverlay={handleUpdateCompleteOverlay}
 			/>
+
+			{/* 수정 완료 오버레이 */}
 			<Overlay
 				isVisible={updateCompleteOverlayVisible}
 				onBackdropPress={handleUpdateCompleteOverlay}
@@ -53,14 +57,14 @@ export default function ListScreen(): JSX.Element {
 							style={styles.updateCompleteTouchableOpacity}
 						>
 							<Image
-								source={require('../../../../assets/images/product-list/4114.png')}
+								source={require('../../../assets/images/product-list/4114.png')}
 								style={styles.updateCompleteExitImage}
 							/>
 						</TouchableOpacity>
 
 						<View style={styles.updateCompleteImageTextContainer}>
 							<Image
-								source={require('../../../../assets/images/product-list/299.png')}
+								source={require('../../../assets/images/product-list/299.png')}
 								style={styles.updateCompleteCheckImage}
 							/>
 							<Text style={styles.updateCompleteText}>상품정보 수정 완료!</Text>
@@ -69,28 +73,34 @@ export default function ListScreen(): JSX.Element {
 				</View>
 			</Overlay>
 
-			{/*  */}
+			{/* 삭제 완료 오버레이 */}
 			<Overlay
 				isVisible={overState === true ? true : false}
 				onBackdropPress={handleDeleteOverlay}
-				overlayStyle={styles.deleteOver}
+				overlayStyle={styles.updateCompleteOverlay}
 			>
-				<TouchableOpacity style={styles.xbutton} onPress={handleDeleteOverlay}>
-					<Image
-						style={{ width: 16, height: 16 }}
-						source={require('../../../../assets/images/product-list/xbutton.png')}
-					/>
-				</TouchableOpacity>
+				<View style={styles.updateCompleteContainer}>
+					<View style={styles.updateCompleteContainer}>
+						<TouchableOpacity
+							onPress={handleDeleteOverlay}
+							style={styles.updateCompleteTouchableOpacity}
+						>
+							<Image
+								source={require('../../../assets/images/product-list/4114.png')}
+								style={styles.updateCompleteExitImage}
+							/>
+						</TouchableOpacity>
 
-				<View style={styles.deleteView}>
-					<Image
-						source={require('../../../../assets/images/product-list/deletecheck.png')}
-						style={{ width: 32, height: 32 }}
-					/>
-					<Text style={styles.deleteText}>상품 삭제 정보 삭제 완료!</Text>
+						<View style={styles.updateCompleteImageTextContainer}>
+							<Image
+								source={require('../../../assets/images/product-list/299.png')}
+								style={styles.updateCompleteCheckImage}
+							/>
+							<Text style={styles.updateCompleteText}>상품 삭제 정보 삭제 완료!</Text>
+						</View>
+					</View>
 				</View>
 			</Overlay>
-			{/*  */}
 		</View>
 	);
 }

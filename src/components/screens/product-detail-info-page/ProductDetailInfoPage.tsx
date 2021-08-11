@@ -8,6 +8,7 @@ import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from '
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
+import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
 
 const ProductDetailInfoPage = (): JSX.Element => {
@@ -38,7 +39,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 		useAxios<any>(
 			{
 				method: 'DELETE',
-				url: `http://localhost:5000/product/deleteProductData/${ownerId}/${product.productBarcode}`,
+				url: `/product/deleteProductData/${ownerId}/${product.productBarcode}`,
 			},
 			{ manual: true },
 		);

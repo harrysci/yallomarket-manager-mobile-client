@@ -3,7 +3,7 @@ import { Image, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomNavStyles from './styles/BottomNavStyles';
 
-import ListScreen from '../../components/screens/home/product-list/ListScreen';
+import ListScreen from '../../components/screens/home/ListScreen';
 import { ScannerScreen } from '../../components/screens/barcode/ScannerScreen';
 
 import { RouteProp, useRoute } from '@react-navigation/native';
