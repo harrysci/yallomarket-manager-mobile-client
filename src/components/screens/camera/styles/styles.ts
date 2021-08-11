@@ -60,7 +60,6 @@ export const styles = StyleSheet.create({
 		marginLeft: '24.6%',
 	},
 	guidefont1: {
-		width: 28,
 		height: 16,
 		fontSize: 13,
 		fontWeight: '600',
@@ -72,7 +71,6 @@ export const styles = StyleSheet.create({
 		marginRight: '4%',
 	},
 	guidefont2: {
-		width: 136,
 		height: 25,
 		fontSize: 21,
 		fontWeight: '600',
