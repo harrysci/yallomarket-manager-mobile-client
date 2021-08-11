@@ -4,9 +4,8 @@ import BarcodeScanner from '../../organisms/barcode/BarcodeScanner';
 import { BarCodeReadEvent } from 'react-native-camera';
 import { styles } from '../../organisms/barcode/styles/styles';
 import { Button } from 'react-native-elements/dist/buttons/Button';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Overlay } from 'react-native-elements';
-import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 
 export const ScannerScreen = (): JSX.Element => {
 	const [barcodeNum, setCodeInfo] = React.useState<string>();
