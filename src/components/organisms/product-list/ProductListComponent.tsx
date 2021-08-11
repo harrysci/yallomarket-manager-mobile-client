@@ -11,6 +11,7 @@ export interface ProductListComponentProps {
 	handleUpdateCompleteOverlay: () => void;
 	handleDeleteOverlay: () => void;
 }
+
 export interface SectionListProps {
 	title: Date;
 	getData: GetImageProductListRes[] | undefined;
@@ -27,6 +28,11 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 	const executeGetHandler = () => {
 		executeGet();
 	};
+
+	React.useEffect(() => {
+		executeGetHandler();
+	}, []);
+
 	/*상품 게시일 Array 생성*/
 	const sectionList = getData?.map(each => moment(each.productCreatedAt).format('YYYY/ MM/ DD'));
 

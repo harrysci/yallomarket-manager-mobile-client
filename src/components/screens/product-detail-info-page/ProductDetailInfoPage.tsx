@@ -3,12 +3,13 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import useAxios from 'axios-hooks';
 import moment from 'moment';
 import React from 'react';
+
 import { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
-import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
+
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
 
 const ProductDetailInfoPage = (): JSX.Element => {
