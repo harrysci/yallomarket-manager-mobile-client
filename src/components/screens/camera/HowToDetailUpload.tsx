@@ -41,18 +41,18 @@ export default function HowToDetailUpload(): JSX.Element {
 				</View>
 
 				<View style={styles.flexRow}>
-					<Text style={styles.font1}>상품 상세</Text>
-					<Text style={styles.font2}>정보를 보여주는</Text>
+					<Text style={styles.font2}>상품 상세 </Text>
+					<Text style={styles.font2}>정보를 보여주는 </Text>
 					<Text style={styles.font3}>상세 이미지</Text>
-					<Text style={styles.font1}>입니다.</Text>
+					<Text style={styles.font1}> 입니다.</Text>
 				</View>
 				<View style={styles.flexRow2}>
 					<Text style={styles.font1}>위의 사진과 같이 </Text>
-					<Text style={styles.font3}>사각형 프레임에 상세 정보 내용이</Text>
+					<Text style={styles.font3}>사각형 프레임에 상세정보 내용이</Text>
 				</View>
 				<View style={styles.flexRow2}>
 					<Text style={styles.font3}>들어오도록</Text>
-					<Text style={styles.font1}>촬영해 주세요.</Text>
+					<Text style={styles.font1}> 촬영해 주세요.</Text>
 				</View>
 			</View>
 			<View style={styles.flexBox1}>
