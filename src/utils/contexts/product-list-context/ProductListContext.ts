@@ -41,7 +41,6 @@ export function useProductList(): ProductListContextValue {
 	const reloadProductList = React.useCallback(
 		async (callback?: any) => {
 			executeGet().then(() => {
-				console.log('reload ...');
 				if (callback) {
 					callback();
 				}
