@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import BarcodeScanner from '../../organisms/barcode/BarcodeScanner';
 import { BarCodeReadEvent } from 'react-native-camera';
 import { styles } from '../../organisms/barcode/styles/styles';
-import { Button } from 'react-native-elements/dist/buttons/Button';
-import { useNavigation } from '@react-navigation/native';
+// import { Button } from 'react-native-elements/dist/buttons/Button';
+// import { useNavigation } from '@react-navigation/native';
 import { Overlay } from 'react-native-elements';
 
 export const ScannerScreen = (): JSX.Element => {
@@ -13,7 +13,7 @@ export const ScannerScreen = (): JSX.Element => {
 		setCodeInfo(event.data);
 	};
 
-	const navigation = useNavigation();
+	// const navigation = useNavigation();
 
 	/*assets/images/product-list/4114.png    assets/images/product-list/299.png*/
 	const [uploadOverlayVisible, setUploadCompleteOverlay] = React.useState<boolean>(false);
@@ -35,7 +35,7 @@ export const ScannerScreen = (): JSX.Element => {
 			</View>
 
 			{/* 실 디바이스가 아닌 경우 바코드 인식 이후 로직 테스트를 위한 버튼  */}
-			<Button
+			{/* <Button
 				title="바코드 인식 완료로 이동"
 				style={{
 					backgroundColor: 'red',
@@ -47,7 +47,7 @@ export const ScannerScreen = (): JSX.Element => {
 						handleUploadOverlay,
 					})
 				}
-			/>
+			/> */}
 
 			<Overlay
 				isVisible={uploadOverlayVisible}
