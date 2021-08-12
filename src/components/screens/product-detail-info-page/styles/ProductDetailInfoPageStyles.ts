@@ -10,11 +10,15 @@ const ProductDetailInfoPageStyles = StyleSheet.create({
 		width: '87.2%',
 		alignSelf: 'center',
 	},
-	titleContainer: {
+	titleTextButtonContainer: {
 		height: '10%',
-		flexDirection: 'row',
+		flexDirection: 'row-reverse',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+	},
+	titleContainer: {
+		flex: 1,
+		alignItems: 'center',
 	},
 	imageContainer: {
 		height: '18.6%',
@@ -44,6 +48,10 @@ const ProductDetailInfoPageStyles = StyleSheet.create({
 		letterSpacing: -0.67,
 		textAlign: 'left',
 		color: '#000000',
+	},
+	exitButton: {
+		position: 'absolute',
+		zIndex: 1,
 	},
 	productImage: {
 		width: '100%',

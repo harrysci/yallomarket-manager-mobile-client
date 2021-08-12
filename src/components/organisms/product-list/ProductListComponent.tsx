@@ -61,10 +61,14 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 							<Text style={styles.createdDateString}>{title}</Text>
 						</View>
 					)}
+					renderSectionFooter={({ section: { title } }) => (
+						<View style={styles.sectionListFooter} />
+					)}
 					stickySectionHeadersEnabled={false}
 				/>
 			)}
 		</SafeAreaView>
 	);
 };
+
 export default ProductListComponent;
