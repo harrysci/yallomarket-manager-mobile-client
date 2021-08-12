@@ -4,7 +4,7 @@ export interface ProductDetailInfoPageParams {
 	product: GetImageProductListRes;
 	storeName: string;
 	ownerId: number;
-	executeGetHandler: () => void;
+	executeGetHandler?: () => void;
 	handleSetDeleteState: () => void;
 	handleUpdateCompleteOverlay: () => void;
 }

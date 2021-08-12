@@ -5,6 +5,7 @@ import useAxios from 'axios-hooks';
 
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
 import moment from 'moment';
+import ProductListContext from '../../../utils/contexts/product-list-context/ProductListContext';
 
 export interface ProductListComponentProps {
 	overState: boolean;
@@ -18,19 +19,20 @@ export interface SectionListProps {
 }
 
 const ProductListComponent = (props: ProductListComponentProps) => {
-	const [{ data: getData, loading: getLoading, error: getError }, executeGet] = useAxios<
-		GetImageProductListRes[]
-	>({
-		method: 'GET',
-		url: '/product/getProductList/1',
-	});
+	// const [{ data: getData, loading: getLoading, error: getError }, executeGet] = useAxios<
+	// 	GetImageProductListRes[]
+	// >({
+	// 	method: 'GET',
+	// 	url: '/product/getProductList/1',
+	// });
 
-	const executeGetHandler = () => {
-		executeGet();
-	};
+	// const executeGetHandler = () => {
+	// 	executeGet();
+	// };
 
+	const { getData, executeGetHandler } = React.useContext(ProductListContext);
 	React.useEffect(() => {
-		executeGetHandler();
+		if (executeGetHandler) executeGetHandler(null);
 	}, []);
 
 	/*상품 게시일 Array 생성*/
@@ -51,7 +53,7 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 	const renderItem = ({ item }: { item: GetImageProductListRes }) => (
 		<OneProductComponent
 			productData={item}
-			executeGetHandler={executeGetHandler}
+			// executeGetHandler={executeGetHandler}
 			handleUpdateCompleteOverlay={props.handleUpdateCompleteOverlay}
 			handleDeleteOverlay={props.handleDeleteOverlay}
 		/>
@@ -59,7 +61,7 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 
 	return (
 		<SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-			{!getLoading && !getError && getData && (
+			{getData && (
 				<SectionList
 					sections={sectionData}
 					renderItem={renderItem}

@@ -14,7 +14,7 @@ LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']
 
 export interface OneProductComponentProps {
 	productData: GetImageProductListRes;
-	executeGetHandler: () => void;
+	executeGetHandler?: () => void;
 	handleDeleteOverlay: () => void;
 	handleUpdateCompleteOverlay: () => void;
 }
@@ -28,7 +28,7 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 		product: productData,
 		storeName: '경동빅마,트',
 		ownerId: 1,
-		executeGetHandler: executeGetHandler,
+		// executeGetHandler: executeGetHandler,
 		handleSetDeleteState: handleDeleteOverlay,
 		handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
 	};

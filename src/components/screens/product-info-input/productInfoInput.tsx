@@ -26,6 +26,7 @@ import { CreateBarcodeWeightedProductReq } from './dto/CreateBarcodeWeightedProd
 
 /* async storage Import */
 import AsyncStorage from '@react-native-community/async-storage';
+import { useProductList } from '../../../utils/contexts/product-list-context/ProductListContext';
 
 /* screen Layout 상수값 */
 const LIST_WIDTH = '87.5%';
@@ -59,6 +60,8 @@ const LIST_WIDTH = '87.5%';
  * @returns JSX.Element
  */
 function ProductInfoInput(): JSX.Element {
+	const { getData, executeGetHandler } = useProductList();
+
 	const navigation = useNavigation();
 	const { inputCurrencyNumber } = useEventTargetValue();
 
@@ -193,12 +196,12 @@ function ProductInfoInput(): JSX.Element {
 				data: updateProductDataReq,
 			})
 				.then(() => {
-					const executeGetHandler = route.params.executeGetHandler
-						? route.params.executeGetHandler
-						: () => {
-								console.log('executeGetHandler failed');
-						  };
-					executeGetHandler();
+					// const executeGetHandler = route.params.executeGetHandler
+					// 	? route.params.executeGetHandler
+					// 	: () => {
+					// 			console.log('executeGetHandler failed');
+					// 	  };
+					// executeGetHandler();
 
 					if (route.params.handleUpdateCompleteOverlay) {
 						route.params.handleUpdateCompleteOverlay();
@@ -295,27 +298,28 @@ function ProductInfoInput(): JSX.Element {
 				productDescription: productDescription.value,
 			};
 
-			try {
-				const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
-					saveProcessedProductReq,
-				);
+			// try {
+			const formDataWithImagesFile = await handleGetImgFromAsyncStorage(
+				saveProcessedProductReq,
+			);
 
-				executeSaveProcessedProduct({
-					data: formDataWithImagesFile,
+			executeSaveProcessedProduct({
+				data: formDataWithImagesFile,
+			})
+				.then(() => {
+					/* 저장 완료 후 로직 */
+					if (route.params.handleUploadOverlay) {
+						route.params.handleUploadOverlay();
+					}
 				})
-					.then(() => {
-						/* 저장 완료 후 로직 */
-						if (route.params.handleUploadOverlay) {
-							route.params.handleUploadOverlay();
-						}
-					})
-					.catch(() => {
-						/* 저장 에러 발생 후 로직 */
-						setErrorOverlayVisible(true);
-					});
-			} catch {
-				handleErrorOverlayVisible(true);
-			}
+				.catch(() => {
+					/* 저장 에러 발생 후 로직 */
+					setErrorOverlayVisible(true);
+				});
+			// }
+			// catch {
+			// 	handleErrorOverlayVisible(true);
+			// }
 		}
 	};
 
@@ -476,17 +480,23 @@ function ProductInfoInput(): JSX.Element {
 				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
-					callBack={async () => {
+					callBack={() => {
 						if (route.params.mode === 'update') {
 							updateProductInfoButtonHandler();
 						} else {
 							if (category[selectedCategoryIndex] === '가공상품') {
-								await saveProcessedProductButtonHandler();
+								saveProcessedProductButtonHandler().then(() => {
+									navigation.navigate('메인화면');
+								});
+								// if (executeGetHandler)
+								// await executeGetHandler(navigation.navigate('메인화면'));
 							} else {
-								await saveWeightedProductButtonHandler();
-							}
+								saveWeightedProductButtonHandler().then(() => {
+									navigation.navigate('메인화면');
+								});
 
-							navigation.navigate('메인화면');
+								// await executeGetHandler(navigation.navigate('메인화면'));
+							}
 						}
 					}}
 					isAvailable={
