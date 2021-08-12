@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 
 import { useState } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { SafeAreaView, View, Image, TouchableOpacity } from 'react-native';
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';

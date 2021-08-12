@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
 	},
 	item_container: {
 		flexDirection: 'row',
-		marginVertical: 8,
 		marginHorizontal: 17,
+		marginBottom: 16,
 	},
 	image_container: {},
 	detail_container: {
@@ -63,6 +63,13 @@ const styles = StyleSheet.create({
 	last_container: {
 		flexDirection: 'row',
 		flex: 1,
+	},
+	sectionListFooter: {
+		width: '100%',
+		height: 8,
+		opacity: 0.48,
+		backgroundColor: '#efefef',
+		marginBottom: 16,
 	},
 	barcode: {
 		//fontFamily: "AppleSDGothicNeo",
@@ -128,6 +135,7 @@ const styles = StyleSheet.create({
 	createdDateContainer: {
 		flexDirection: 'row',
 		marginHorizontal: 17,
+		marginBottom: 5,
 	},
 	createdDateText: {
 		fontSize: 9,
