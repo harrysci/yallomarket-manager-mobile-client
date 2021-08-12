@@ -1,17 +1,22 @@
 import React from 'react';
 import useAxios from 'axios-hooks';
 import { GetImageProductListRes } from '../../../components/screens/home/dto/GetImageProductListDto';
+import { AxiosError } from 'axios';
 
 export interface ProductListContextValue {
-	getData: GetImageProductListRes[] | undefined;
-	executeGetHandler?: (callback: any) => Promise<any>;
+	data: GetImageProductListRes[] | undefined;
+	loading: boolean;
+	error: AxiosError<any> | undefined;
+	reload?: (callback?: any) => Promise<any>;
 }
 
 export const defaultProductList = undefined;
 
 const ProductListContext = React.createContext<ProductListContextValue>({
-	getData: defaultProductList,
-	executeGetHandler: undefined,
+	data: defaultProductList,
+	loading: false,
+	error: undefined,
+	reload: undefined,
 });
 
 export function useProductList(): ProductListContextValue {
@@ -25,28 +30,25 @@ export function useProductList(): ProductListContextValue {
 		{ manual: true },
 	);
 
+	/* use hook did mounted */
 	React.useEffect(() => {
 		executeGet();
 	}, []);
 
-	const executeGetHandler = (callback: any) => {
-		console.log('context reload');
-		executeGet().then(res => {
-			if (res.data) {
-				console.log('aa', res.data.length);
-				if (callback) callback();
+	/* reload function with callback, 콜백 타입 제네릭 수정 필요 */
+	const reloadProductList = async (callback?: any) => {
+		executeGet().then(() => {
+			if (callback) {
+				callback();
 			}
 		});
 	};
 
-	const reloadProductList = async (callback: any) => {
-		await executeGet();
-		console.log(getLoading);
-	};
-
 	return {
-		getData: getData,
-		executeGetHandler: reloadProductList,
+		data: getData,
+		loading: getLoading,
+		error: getError,
+		reload: reloadProductList,
 	};
 }
 

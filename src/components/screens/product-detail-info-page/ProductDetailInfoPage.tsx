@@ -9,6 +9,7 @@ import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from '
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
+import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
 
 import ProductDetailInfoPageStyles from './styles/ProductDetailInfoPageStyles';
 
@@ -16,14 +17,8 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	const navigation = useNavigation();
 
 	const route = useRoute<RouteProp<StackParamList, '상품 상세 정보'>>();
-	const {
-		product,
-		storeName,
-		ownerId,
-		executeGetHandler,
-		handleSetDeleteState,
-		handleUpdateCompleteOverlay,
-	} = route.params;
+	const { product, storeName, ownerId, handleSetDeleteState, handleUpdateCompleteOverlay } =
+		route.params;
 
 	const [deleteOverlayVisible, setDeleteOverlayVisibleVisible] = useState<boolean>(false);
 	const handleDeleteOverlay = () => {
@@ -214,7 +209,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 										? product.processedProductVolume
 										: product.weightedProductVolume,
 
-								executeGetHandler: executeGetHandler,
 								handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
 							};
 
@@ -268,7 +262,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 											 * 3. '상품정보 삭제 완료!' 모달 띄우기
 											 */
 											handleSetDeleteState();
-											executeGetHandler();
 											navigation.navigate('메인화면');
 										})
 										.catch(() => {
@@ -281,13 +274,6 @@ const ProductDetailInfoPage = (): JSX.Element => {
 							/>
 						</View>
 					</View>
-
-					{/* 삭제 중 로딩 컴포넌트 */}
-					{deleteLoading && (
-						<View style={ProductDetailInfoPageStyles.loadingComponentContainer}>
-							<ActivityIndicator size="large" color="#f7d02f" />
-						</View>
-					)}
 				</Overlay>
 				{/* '해당 상품을 삭제할 수 없습니다.' overlay */}
 				<Overlay
@@ -315,6 +301,9 @@ const ProductDetailInfoPage = (): JSX.Element => {
 					</View>
 				</Overlay>
 			</View>
+
+			{/* 삭제 중 로딩 컴포넌트 */}
+			<YellowScreenCenterLoading loading={deleteLoading} />
 		</SafeAreaView>
 	);
 };

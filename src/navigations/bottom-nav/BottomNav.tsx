@@ -17,11 +17,10 @@ const Tab = createBottomTabNavigator();
 
 const BottomNav = (): JSX.Element => {
 	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
-
-	const { getData, executeGetHandler } = useProductList();
+	const { data, loading, error, reload } = useProductList();
 
 	return (
-		<ProductListContext.Provider value={{ getData, executeGetHandler }}>
+		<ProductListContext.Provider value={{ data, loading, error, reload }}>
 			<Tab.Navigator
 				initialRouteName={route.params ? route.params.routeName : '바코드 스캔'}
 				screenOptions={({ route }) => ({
@@ -77,10 +76,9 @@ const BottomNav = (): JSX.Element => {
 					name="등록 목록"
 					component={ListScreen}
 					listeners={{
-						tabPress: e => {
-							if (executeGetHandler) {
-								console.log('press');
-								executeGetHandler(null);
+						tabPress: () => {
+							if (reload) {
+								reload();
 							}
 						},
 					}}

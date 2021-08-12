@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
 import { Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { Overlay } from 'react-native-elements/dist/overlay/Overlay';
-import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
+
 import ProductListComponent from '../../organisms/product-list/ProductListComponent';
 import UpContainer from '../../organisms/product-list/UpContainer';
+import YellowScreenCenterLoading from '../../atoms/loading/yellowScreenCenterLoading';
+
 import styles from './style';
+
+import ProductListContext from '../../../utils/contexts/product-list-context/ProductListContext';
 
 export interface deleteProps {
 	overState: boolean;
@@ -15,13 +18,14 @@ export interface deleteProps {
 }
 
 export default function ListScreen(): JSX.Element {
-	const route = useRoute<RouteProp<StackParamList, '메인화면'>>();
+	const { reload, loading } = React.useContext(ProductListContext);
 
 	const [overState, setOverState] = useState<boolean>(false);
 	/*삭제 handler*/
 	const handleDeleteOverlay = () => {
 		setOverState(!overState);
 		/*상세 정보 페이지의 delete state도 변경*/
+		if (reload) reload();
 	};
 
 	const [updateCompleteOverlayVisible, setUpdateCompleteOverlayVisible] =
@@ -30,6 +34,8 @@ export default function ListScreen(): JSX.Element {
 	/*수정 handler*/
 	const handleUpdateCompleteOverlay = () => {
 		setUpdateCompleteOverlayVisible(!updateCompleteOverlayVisible);
+
+		if (reload) reload();
 	};
 
 	return (
@@ -101,6 +107,8 @@ export default function ListScreen(): JSX.Element {
 					</View>
 				</View>
 			</Overlay>
+
+			<YellowScreenCenterLoading loading={loading} />
 		</View>
 	);
 }

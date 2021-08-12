@@ -22,7 +22,7 @@ const axiosInstance = axios.create({
 
 	/* Develope Mode (local api server endpoint 사용) */
 	baseURL: Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000',
-	timeout: 3600,
+	timeout: 9000,
 });
 
 const setAxiosHeaders = (key: string, accessToken: string | null): void => {
