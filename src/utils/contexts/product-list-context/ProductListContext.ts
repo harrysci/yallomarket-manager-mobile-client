@@ -20,12 +20,14 @@ const ProductListContext = React.createContext<ProductListContextValue>({
 });
 
 export function useProductList(): ProductListContextValue {
+	const storeId = 1; // dummy store id
+
 	const [{ data: getData, loading: getLoading, error: getError }, executeGet] = useAxios<
 		GetImageProductListRes[]
 	>(
 		{
 			method: 'GET',
-			url: '/product/getProductList/1',
+			url: `/product/getProductList/${storeId}`,
 		},
 		{ manual: true },
 	);
@@ -36,13 +38,16 @@ export function useProductList(): ProductListContextValue {
 	}, []);
 
 	/* reload function with callback, 콜백 타입 제네릭 수정 필요 */
-	const reloadProductList = async (callback?: any) => {
-		executeGet().then(() => {
-			if (callback) {
-				callback();
-			}
-		});
-	};
+	const reloadProductList = React.useCallback(
+		async (callback?: any) => {
+			executeGet().then(() => {
+				if (callback) {
+					callback();
+				}
+			});
+		},
+		[executeGet, getData],
+	);
 
 	return {
 		data: getData,

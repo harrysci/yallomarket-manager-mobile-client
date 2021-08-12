@@ -28,7 +28,7 @@ export default function UploadPhoto(props: UploadPhotoProps): JSX.Element {
 					console.log(err);
 				});
 			AsyncStorage.setItem('imgUrl', data ? data.uri : '', () => {
-				console.log('이미지 저장 완료');
+				// console.log('이미지 저장 완료');
 			});
 			navigation.navigate('대표 이미지 확인', { handleUploadOverlay: handleUploadOverlay });
 		}
