@@ -303,7 +303,7 @@ const ProductDetailInfoPage = (): JSX.Element => {
 			</View>
 
 			{/* 삭제 중 로딩 컴포넌트 */}
-			<YellowScreenCenterLoading loading={deleteLoading} />
+			{deleteLoading && <YellowScreenCenterLoading loading={deleteLoading} />}
 		</SafeAreaView>
 	);
 };
