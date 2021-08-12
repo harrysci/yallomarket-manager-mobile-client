@@ -24,7 +24,7 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 
 	const productParams: ProductDetailInfoPageParams = {
 		product: productData,
-		storeName: '경동빅마,트',
+		storeName: '경동빅마트',
 		ownerId: 1,
 		handleSetDeleteState: handleDeleteOverlay,
 		handleUpdateCompleteOverlay: handleUpdateCompleteOverlay,
@@ -49,15 +49,21 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 			</View>
 			<View style={styles.detail_container}>
 				<Text style={styles.barcode}>바코드 {productData.productBarcode}</Text>
+
 				<Text style={styles.product_name}>{productData.productName}</Text>
+
 				<View style={styles.last_container}>
-					<Text style={styles.product_price}>{productData.productCurrentPrice}원</Text>
+					<View style={styles.priceContainer}>
+						<Text style={styles.product_price}>
+							{productData.productCurrentPrice}원
+						</Text>
+					</View>
 					<View style={styles.go_detail}>
-						<Text>상세보기</Text>
+						<Text style={styles.go_detail_text}>상세보기</Text>
 						<Image
 							style={styles.go_detail_image}
 							source={require('../../../assets/icons/product-list/icon_forward.png')}
-						></Image>
+						/>
 					</View>
 				</View>
 			</View>

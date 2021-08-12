@@ -39,7 +39,7 @@ export default function UploadDetailPhoto(): JSX.Element {
 				<RNCamera ref={cameraRef} style={styles.camera} captureAudio={false} />
 			</View>
 			<View style={styles.flexRow}>
-				<Text style={styles.font1}>등록할 상품의</Text>
+				<Text style={styles.font1}>등록할 상품의 </Text>
 				<Text style={styles.font3}>상세 이미지를</Text>
 				<Text style={styles.font1}> 촬영해 주세요.</Text>
 			</View>

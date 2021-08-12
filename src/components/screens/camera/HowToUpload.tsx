@@ -35,9 +35,9 @@ export default function HowToUpload(): JSX.Element {
 
 				<View style={styles.flexRow}>
 					<Text style={styles.font1}>상품 목록에서</Text>
-					<Text style={styles.font2}>가장 먼저보이는</Text>
+					<Text style={styles.font2}> 가장 먼저 보이는 </Text>
 					<Text style={styles.font3}>대표 이미지</Text>
-					<Text style={styles.font1}>입니다.</Text>
+					<Text style={styles.font1}> 입니다.</Text>
 				</View>
 				<View style={styles.flexRow2}>
 					<Text style={styles.font1}>위의 사진과 같이 </Text>

@@ -4,6 +4,7 @@ import OneProductComponent from './OneProductComponent';
 
 import { GetImageProductListRes } from '../../screens/home/dto/GetImageProductListDto';
 import moment from 'moment';
+import styles from './style/style';
 
 import ProductListContext from '../../../utils/contexts/product-list-context/ProductListContext';
 
@@ -48,18 +49,19 @@ const ProductListComponent = (props: ProductListComponentProps) => {
 	);
 
 	return (
-		<SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
+		<SafeAreaView style={styles.productListComponentContainer}>
 			{data && !loading && !error && (
 				<SectionList
 					sections={sectionData}
 					renderItem={renderItem}
 					keyExtractor={item => String(item.productId)}
 					renderSectionHeader={({ section: { title } }) => (
-						<View style={{ marginHorizontal: 17, flexDirection: 'row' }}>
-							<Text style={{ fontSize: 9 }}>상품 게시일 </Text>
-							<Text style={{ fontSize: 9, fontWeight: '600' }}>{title}</Text>
+						<View style={styles.createdDateContainer}>
+							<Text style={styles.createdDateText}>상품 게시일 </Text>
+							<Text style={styles.createdDateString}>{title}</Text>
 						</View>
 					)}
+					stickySectionHeadersEnabled={false}
 				/>
 			)}
 		</SafeAreaView>
