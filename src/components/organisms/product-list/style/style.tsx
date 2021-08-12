@@ -6,17 +6,19 @@ const styles = StyleSheet.create({
 		marginTop: 43,
 	},
 	title: {
-		height: 25,
 		//fontFamily: "AppleSDGothicNeo",
+		height: 25,
 		fontSize: 21,
 		fontWeight: '600',
 		fontStyle: 'normal',
 		lineHeight: 25,
 		letterSpacing: -0.67,
-		//textAlign: 'left',
-		//justifyContent: 'center',
 		alignContent: 'center',
 		marginBottom: 26,
+	},
+	productListComponentContainer: {
+		backgroundColor: 'white',
+		flex: 1,
 	},
 	middleContainer: {
 		width: '100%',
@@ -33,8 +35,8 @@ const styles = StyleSheet.create({
 		marginHorizontal: 17,
 	},
 	martname: {
-		height: 15,
 		//fontFamily: "AppleSDGothicNeo",
+		height: 15,
 		fontSize: 12,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -54,15 +56,17 @@ const styles = StyleSheet.create({
 	},
 	image_container: {},
 	detail_container: {
+		width: '100%',
 		flexDirection: 'column',
 		marginLeft: 10,
 	},
 	last_container: {
 		flexDirection: 'row',
+		flex: 1,
 	},
 	barcode: {
-		width: 139,
 		//fontFamily: "AppleSDGothicNeo",
+		width: '100%',
 		fontSize: 11,
 		fontWeight: '500',
 		fontStyle: 'normal',
@@ -84,7 +88,6 @@ const styles = StyleSheet.create({
 		marginBottom: 15,
 	},
 	product_price: {
-		width: 72,
 		fontSize: 17,
 		fontWeight: '600',
 		fontStyle: 'normal',
@@ -97,14 +100,15 @@ const styles = StyleSheet.create({
 	product_image: {
 		width: 107,
 		height: 90,
-		//backgroundColor:'#123424',
 		borderRadius: 5,
 	},
 	go_detail: {
 		flexDirection: 'row',
-		width: 62,
-		opacity: 0.77,
+		alignItems: 'center',
+	},
+	go_detail_text: {
 		//fontFamily: "AppleSDGothicNeo",
+		opacity: 0.77,
 		fontSize: 12,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
@@ -112,45 +116,26 @@ const styles = StyleSheet.create({
 		letterSpacing: -0.29,
 		textAlign: 'left',
 		color: '#000000',
-		alignItems: 'center',
 	},
 	go_detail_image: {
 		width: 20,
 		height: 20,
 	},
-	// deleteOver: {
-	//   position: 'absolute',
-	//   bottom: '15%',
-	// 	width: 326,
-	//   height: 60,
-	//   borderRadius: 30,
-	// 	//backgroundColor: 'transparent',
-	// 	elevation: 0,
-	// },
-	// deleteView:{
-	//   marginTop: 2,
-	//   flexDirection: 'row',
-	//   justifyContent: 'center',
-	//   alignItems: 'center',
-	// },
-	// deleteText:{
-	//   //width: 118,
-	//   //height: 32,
-	//   //fontFamily: "AppleSDGothicNeo",
-	//   fontSize: 16,
-	//   fontWeight: "600",
-	//   fontStyle: "normal",
-	//   //lineHeight: 19,
-	//   letterSpacing: -0.51,
-	//   textAlign: "center",
-	//   color: "#000000",
-	//   marginLeft: 6.2,
-	// },
-	// xbutton:{
-	//   position: 'absolute',
-	//   top : 4,
-	//   right : 15,
-	// }
+
+	priceContainer: {
+		width: '50%',
+	},
+	createdDateContainer: {
+		flexDirection: 'row',
+		marginHorizontal: 17,
+	},
+	createdDateText: {
+		fontSize: 9,
+	},
+	createdDateString: {
+		fontSize: 9,
+		fontWeight: '600',
+	},
 });
 
 export default styles;
