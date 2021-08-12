@@ -22,7 +22,7 @@ export default function UploadDetailPhoto(): JSX.Element {
 			});
 
 			AsyncStorage.setItem('detailImgUrl', data ? data.uri : '', () => {
-				console.log('상세 이미지 저장 완료!');
+				// console.log('상세 이미지 저장 완료!');
 			});
 
 			navigation.navigate('상세 이미지 확인', {

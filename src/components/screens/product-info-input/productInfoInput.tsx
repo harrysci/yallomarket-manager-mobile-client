@@ -199,7 +199,7 @@ function ProductInfoInput(): JSX.Element {
 					}
 				})
 				.catch(err => {
-					console.log('executeUpdate failed');
+					// console.log('executeUpdate failed');
 					console.log(err);
 				});
 		} else {
