@@ -26,7 +26,7 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 
 	const productParams: ProductDetailInfoPageParams = {
 		product: productData,
-		storeName: '경동빅마,트',
+		storeName: '경동빅마트',
 		ownerId: 1,
 		executeGetHandler: executeGetHandler,
 		handleSetDeleteState: handleDeleteOverlay,
