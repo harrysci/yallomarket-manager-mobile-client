@@ -21,6 +21,7 @@ export default function ListScreen(): JSX.Element {
 	const { reload, loading } = React.useContext(ProductListContext);
 
 	const [overState, setOverState] = useState<boolean>(false);
+
 	/*삭제 handler*/
 	const handleDeleteOverlay = () => {
 		setOverState(!overState);
@@ -108,7 +109,7 @@ export default function ListScreen(): JSX.Element {
 				</View>
 			</Overlay>
 
-			<YellowScreenCenterLoading loading={loading} />
+			{loading && <YellowScreenCenterLoading loading={loading} />}
 		</View>
 	);
 }
