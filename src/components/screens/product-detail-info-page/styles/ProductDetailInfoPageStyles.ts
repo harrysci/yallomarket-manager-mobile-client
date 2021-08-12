@@ -123,8 +123,8 @@ const ProductDetailInfoPageStyles = StyleSheet.create({
 		marginBottom: 15,
 	},
 	detailTitleText: {
-		width: '33%',
 		// fontFamily: 'AppleSDGothicNeo',
+		width: '33%',
 		fontSize: 15,
 		fontWeight: '500',
 		fontStyle: 'normal',
@@ -136,9 +136,9 @@ const ProductDetailInfoPageStyles = StyleSheet.create({
 		marginRight: '7%',
 	},
 	detailInformationText: {
-		width: 138,
-		height: 21,
 		// fontFamily: 'AppleSDGothicNeo',
+		flex: 1,
+		height: 21,
 		fontSize: 18,
 		fontWeight: '500',
 		fontStyle: 'normal',
