@@ -43,12 +43,15 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	return (
 		<SafeAreaView style={ProductDetailInfoPageStyles.top}>
 			<View style={ProductDetailInfoPageStyles.container}>
-				<View style={ProductDetailInfoPageStyles.titleContainer}>
-					<Text style={ProductDetailInfoPageStyles.titleText}>상품 정보</Text>
+				<View style={ProductDetailInfoPageStyles.titleTextButtonContainer}>
+					<View style={ProductDetailInfoPageStyles.titleContainer}>
+						<Text style={ProductDetailInfoPageStyles.titleText}>상품 정보</Text>
+					</View>
 					<TouchableOpacity
 						onPress={() => {
 							navigation.goBack();
 						}}
+						style={ProductDetailInfoPageStyles.exitButton}
 					>
 						<Image source={require('../../atoms/product-detail-info-page/exit.png')} />
 					</TouchableOpacity>
