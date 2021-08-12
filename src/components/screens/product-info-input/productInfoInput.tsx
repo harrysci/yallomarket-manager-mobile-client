@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useState } from 'react';
+import React from 'react';
 import { View, ScrollView } from 'react-native';
 import useEventTargetValue from '../../../utils/hooks/useEventTargetValue';
 
@@ -193,18 +193,9 @@ function ProductInfoInput(): JSX.Element {
 				data: updateProductDataReq,
 			})
 				.then(() => {
-					const executeGetHandler = route.params.executeGetHandler
-						? route.params.executeGetHandler
-						: () => {
-								console.log('executeGetHandler failed');
-						  };
-					executeGetHandler();
-
 					if (route.params.handleUpdateCompleteOverlay) {
 						route.params.handleUpdateCompleteOverlay();
-						navigation.navigate('메인화면', {
-							updateSuccess: true,
-						});
+						navigation.navigate('메인화면');
 					}
 				})
 				.catch(err => {
@@ -307,6 +298,7 @@ function ProductInfoInput(): JSX.Element {
 						/* 저장 완료 후 로직 */
 						if (route.params.handleUploadOverlay) {
 							route.params.handleUploadOverlay();
+							navigation.navigate('메인화면');
 						}
 					})
 					.catch(() => {
@@ -363,6 +355,7 @@ function ProductInfoInput(): JSX.Element {
 						/* 저장 완료 후 로직 */
 						if (route.params.handleUploadOverlay) {
 							route.params.handleUploadOverlay();
+							navigation.navigate('메인화면');
 						}
 					})
 					.catch(() => {
@@ -476,17 +469,15 @@ function ProductInfoInput(): JSX.Element {
 				{/* 등록하기/수정하기 버튼 컴포넌트 */}
 				<FinishButton
 					title={route.params.mode === 'regist' ? '등록하기' : '수정하기'}
-					callBack={async () => {
+					callBack={() => {
 						if (route.params.mode === 'update') {
 							updateProductInfoButtonHandler();
 						} else {
 							if (category[selectedCategoryIndex] === '가공상품') {
-								await saveProcessedProductButtonHandler();
+								saveProcessedProductButtonHandler();
 							} else {
-								await saveWeightedProductButtonHandler();
+								saveWeightedProductButtonHandler();
 							}
-
-							navigation.navigate('메인화면');
 						}
 					}}
 					isAvailable={
