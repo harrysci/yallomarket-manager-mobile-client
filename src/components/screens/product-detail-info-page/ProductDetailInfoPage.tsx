@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 
 import { useState } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { SafeAreaView, View, Image, TouchableOpacity } from 'react-native';
 import { Text, Button, Overlay, Divider } from 'react-native-elements';
 import { StackParamList } from '../../../navigations/stack-param-list/StackParamList';
 import { ProductInfoInputStackParams } from '../../../navigations/stack-params/ProductInfoInputStackParams';
@@ -43,12 +43,15 @@ const ProductDetailInfoPage = (): JSX.Element => {
 	return (
 		<SafeAreaView style={ProductDetailInfoPageStyles.top}>
 			<View style={ProductDetailInfoPageStyles.container}>
-				<View style={ProductDetailInfoPageStyles.titleContainer}>
-					<Text style={ProductDetailInfoPageStyles.titleText}>상품 정보</Text>
+				<View style={ProductDetailInfoPageStyles.titleTextButtonContainer}>
+					<View style={ProductDetailInfoPageStyles.titleContainer}>
+						<Text style={ProductDetailInfoPageStyles.titleText}>상품 정보</Text>
+					</View>
 					<TouchableOpacity
 						onPress={() => {
 							navigation.goBack();
 						}}
+						style={ProductDetailInfoPageStyles.exitButton}
 					>
 						<Image source={require('../../atoms/product-detail-info-page/exit.png')} />
 					</TouchableOpacity>
