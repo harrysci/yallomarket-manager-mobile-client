@@ -26,7 +26,11 @@ export const ScannerScreen = (): JSX.Element => {
 	return (
 		<View style={styles.capture}>
 			<View style={styles.scannerStyle}>
-				<BarcodeScanner onBarcodeScan={onBarcodeScan} barcodeNum={barcodeNum} />
+				<BarcodeScanner
+					onBarcodeScan={onBarcodeScan}
+					barcodeNum={barcodeNum}
+					handleUploadOverlay={handleUploadOverlay}
+				/>
 			</View>
 
 			<View style={styles.InfoText}>
@@ -35,7 +39,7 @@ export const ScannerScreen = (): JSX.Element => {
 			</View>
 
 			{/* 실 디바이스가 아닌 경우 바코드 인식 이후 로직 테스트를 위한 버튼  */}
-			<Button
+			{/* <Button
 				title="바코드 인식 완료로 이동"
 				style={{
 					backgroundColor: 'red',
@@ -47,7 +51,7 @@ export const ScannerScreen = (): JSX.Element => {
 						handleUploadOverlay,
 					})
 				}
-			/>
+			/> */}
 
 			<Overlay
 				isVisible={uploadOverlayVisible}

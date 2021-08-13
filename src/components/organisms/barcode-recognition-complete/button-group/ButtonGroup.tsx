@@ -23,8 +23,6 @@ const ButtonGroup = (props: handleUploadOverlayProps): JSX.Element => {
 				style={style.touchAreaReScan}
 				onPress={() => {
 					navigation.goBack();
-					// navigation.
-					// console.log('dd');
 				}}
 			>
 				<Text style={style.reScanText}>다시 스캔하기</Text>
