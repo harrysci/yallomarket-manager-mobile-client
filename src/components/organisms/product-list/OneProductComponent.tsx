@@ -55,7 +55,11 @@ const OneProductComponent = (props: OneProductComponentProps) => {
 				<View style={styles.last_container}>
 					<View style={styles.priceContainer}>
 						<Text style={styles.product_price}>
-							{productData.productCurrentPrice}원
+							{String(productData.productCurrentPrice).replace(
+								/\B(?=(\d{3})+(?!\d))/g,
+								',',
+							)}
+							원
 						</Text>
 					</View>
 					<View style={styles.go_detail}>
