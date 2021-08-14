@@ -7,16 +7,27 @@ export const styles = StyleSheet.create({
 		flexDirection: 'column',
 		backgroundColor: '#ffff',
 	},
+	androidRoot: {
+		width: '100%',
+		height: '100%',
+		flexDirection: 'column',
+		backgroundColor: '#ffff',
+		justifyContent: 'center',
+		marginTop: 10,
+	},
 	camera: {
 		flex: 1,
 		display: 'flex',
-		height: '100%',
 		width: '100%',
+		height: '100%',
 	},
 	cameraStyle: {
 		width: '100%',
 		height: '40%',
 		marginTop: 135,
+	},
+	androidCameraStyle: {
+		height: '35%',
 	},
 	imageStyle: {
 		marginTop: 135,
@@ -57,6 +68,13 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 		display: 'flex',
 		flexDirection: 'row',
+	},
+	androidFlexRow: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		display: 'flex',
+		flexDirection: 'row',
+		marginTop: 100,
 	},
 	font1: {
 		height: 23,
@@ -118,10 +136,20 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginTop: 118,
 	},
+	androidButtonBox: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 118,
+	},
 	buttonBox2: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginTop: 16,
+	},
+	androidButtonBox2: {
+		flex: 1,
+		alignItems: 'center',
 	},
 });
