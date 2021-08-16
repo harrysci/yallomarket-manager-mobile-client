@@ -17,10 +17,11 @@ barcodeNum : 바코드 정보
 interface barcodeProps {
 	onBarcodeScan: (data: BarCodeReadEvent) => void;
 	barcodeNum?: string;
+	handleUploadOverlay: () => void;
 }
 
 export default function BarcodeScanner(BarcodeProps: barcodeProps): JSX.Element {
-	const { onBarcodeScan, barcodeNum } = BarcodeProps;
+	const { onBarcodeScan, barcodeNum, handleUploadOverlay } = BarcodeProps;
 	const ref = useRef<RNCamera>(null);
 	const navigation = useNavigation();
 
@@ -36,7 +37,7 @@ export default function BarcodeScanner(BarcodeProps: barcodeProps): JSX.Element 
 
 					/*이곳에서 page전환 연결, barcodeNum의 데이터를 Param으로 전달.*/
 					/* 네비게이션 테스트 */
-					// navigation.navigate('1단계');
+					navigation.navigate('1단계', { handleUploadOverlay: handleUploadOverlay });
 				}}
 				autoFocus={RNCamera.Constants.AutoFocus.on}
 			/>

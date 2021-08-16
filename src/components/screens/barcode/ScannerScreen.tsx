@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import BarcodeScanner from '../../organisms/barcode/BarcodeScanner';
 import { BarCodeReadEvent } from 'react-native-camera';
 import { styles } from '../../organisms/barcode/styles/styles';
-// import { Button } from 'react-native-elements/dist/buttons/Button';
-// import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-elements/dist/buttons/Button';
+import { useNavigation } from '@react-navigation/native';
 import { Overlay } from 'react-native-elements';
 
 export const ScannerScreen = (): JSX.Element => {
@@ -13,7 +13,7 @@ export const ScannerScreen = (): JSX.Element => {
 		setCodeInfo(event.data);
 	};
 
-	// const navigation = useNavigation();
+	const navigation = useNavigation();
 
 	/*assets/images/product-list/4114.png    assets/images/product-list/299.png*/
 	const [uploadOverlayVisible, setUploadCompleteOverlay] = React.useState<boolean>(false);
@@ -26,15 +26,17 @@ export const ScannerScreen = (): JSX.Element => {
 	return (
 		<View style={styles.capture}>
 			<View style={styles.scannerStyle}>
-				<BarcodeScanner onBarcodeScan={onBarcodeScan} barcodeNum={barcodeNum} />
+				<BarcodeScanner
+					onBarcodeScan={onBarcodeScan}
+					barcodeNum={barcodeNum}
+					handleUploadOverlay={handleUploadOverlay}
+				/>
 			</View>
-
 			<View style={styles.InfoText}>
 				<Text style={styles.font}>등록할 상품의 바코드</Text>
 				<Text style={styles.fontRight}>를 카메라로 스캔하세요</Text>
 			</View>
-
-			{/* 실 디바이스가 아닌 경우 바코드 인식 이후 로직 테스트를 위한 버튼  */}
+			{/* 실 디바이스가 아닌 경우 바코드 인식 이후 로직 테스트를 위한 버튼 */}
 			{/* <Button
 				title="바코드 인식 완료로 이동"
 				style={{
@@ -48,7 +50,6 @@ export const ScannerScreen = (): JSX.Element => {
 					})
 				}
 			/> */}
-
 			<Overlay
 				isVisible={uploadOverlayVisible}
 				onBackdropPress={() => handleUploadOverlay()}
