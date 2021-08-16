@@ -1,7 +1,7 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { styles } from './styles/style';
@@ -45,10 +45,12 @@ export default function ConfirmDetailImage(): JSX.Element {
 					uri: `${detailPath}`,
 				}}
 			/>
+
 			<View style={styles.textBox}>
 				<Text style={styles.textStyle}>상세 이미지 촬영완료</Text>
 			</View>
-			<View style={styles.buttonBox}>
+
+			<View style={Platform.OS === 'ios' ? styles.buttonBox : styles.androidButtonBox}>
 				<Button
 					type="outline"
 					title="다시 촬영하기"
@@ -60,7 +62,7 @@ export default function ConfirmDetailImage(): JSX.Element {
 					}}
 				/>
 			</View>
-			<View style={styles.buttonBox2}>
+			<View style={Platform.OS === 'ios' ? styles.buttonBox2 : styles.androidButtonBox2}>
 				<Button
 					type="outline"
 					title="상세 이미지 등록하기"
