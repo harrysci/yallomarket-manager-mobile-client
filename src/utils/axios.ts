@@ -18,7 +18,7 @@ const postData: PostRequestData = {
 
 const axiosInstance = axios.create({
 	/* Product Mode (ec2 api server endpoint 사용) */
-	baseURL: 'http://18.118.222.24:5000',
+	baseURL: 'http://18.219.151.100:5000',
 
 	/* Develope Mode (local api server endpoint 사용) */
 	// baseURL: Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000',
