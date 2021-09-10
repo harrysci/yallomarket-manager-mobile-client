@@ -1,12 +1,20 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackParamList } from '../../../../navigations/stack-param-list/StackParamList';
+import { OrderChildRes, OrderParentRes } from '../order-list/OrderList';
 import styles from './styles';
 
+export interface OrderDetailStackParams {
+	orderParentId: number | undefined;
+}
+
 export default function OrderDetail(): JSX.Element {
+	const route = useRoute<RouteProp<StackParamList, '주문 상세 내역'>>();
 	const EachProduct = () => {
 		return (
 			<View style={styles.eachRoot}>

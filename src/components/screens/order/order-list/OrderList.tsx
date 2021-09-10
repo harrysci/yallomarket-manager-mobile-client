@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Platform, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
@@ -8,7 +8,9 @@ import styles from './styles';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Overlay } from 'react-native-elements/dist/overlay/Overlay';
 import { useNavigation } from '@react-navigation/core';
-
+import useAxios from 'axios-hooks';
+import moment from 'moment';
+import { OrderDetailStackParams } from '../order-detail/OrderDetail';
 export interface OrderItemProps {
 	isProgress: boolean;
 	time: number;
@@ -20,9 +22,56 @@ export interface PickUpTimeOverlayProps {
 	pickUpTime: number;
 	handleOpen: (state: boolean) => void;
 	handlePickUpTime: (isUp: number) => void;
+	orderParentId: number | undefined;
+}
+export interface OrderParentRes {
+	order_parent_id: number;
+
+	order_number: string;
+
+	order_created_at: Date;
+
+	order_status: number;
+
+	order_total_price: number;
+
+	order_is_pickup: boolean;
+
+	store_id: number;
+
+	order_completed_at: Date;
+
+	order_pay_method: string;
+
+	store_name: string;
+}
+
+export interface OrderChildRes {
+	order_id: number;
+	order_number: string; // 주문 번호
+	order_product_name: string; // 주문 상품명
+	order_unit_price: number; // 상품 한 개의 가격
+	order_quantity: number; // 주문 수량
 }
 
 export default function OrderList(): JSX.Element {
+	const list = [
+		{
+			order_parent_id: 'number',
+			order_number: 'string', // 주문 번호
+			order_created_at: 'Date', // 주문 생성 일시
+			order_status: 'number',
+			order_total_price: 'number', // 주문 총액
+
+			order_is_pickup: 'boolean',
+			store_id: 'number', // 점포 id
+
+			order_completed_at: 'Date',
+			order_pay_method: 'string', // 결제 방식
+
+			store_name: 'string',
+		},
+	];
 	const naviagtion = useNavigation();
 	const [pickUpModal, setPickUpModal] = React.useState(false);
 	const handlePickUpModal = (st: boolean) => {
@@ -33,14 +82,48 @@ export default function OrderList(): JSX.Element {
 	const handlePickUpTime = (isUp: number) => {
 		setPickUpTime(isUp);
 	};
+	const [{ data: orderParentData, loading: orderParentLoading }, executeOrderParent] = useAxios<
+		OrderParentRes[]
+	>(
+		{
+			method: 'GET',
+			url: '/order/get',
+		},
+		{ manual: true },
+	);
+	//const [orderListData, setListData] = useState<any>(list);
+	useEffect(() => {
+		executeOrderParent()
+			.then(res => {
+				// console.log(res.data);
+				//setListData(res.data);
+			})
+			.catch(err => {
+				console.log(err.message);
+			});
+	}, []);
 
+	const [{ data: orderChildData, loading: orderChildLoading }, excuteOrderChild] = useAxios<
+		OrderChildRes[]
+	>(
+		{
+			method: 'GET',
+			url: `/order/get/${orderParentData && orderParentData[0].order_number}`,
+		},
+		{ manual: true },
+	);
 	/* 각 주문 리스트 아이템  */
 	const OrderItem = (props: OrderItemProps) => {
 		const { isProgress, time, handleOpen } = props;
-		const orderTime = '14:01';
-		const title = '적양배추 1/2통 외 2건';
-		const orderState = '결제 완료';
-		const totalPrice = 52000;
+		const orderTime = moment(orderParentData && orderParentData[0].order_created_at).format(
+			'HH:mm',
+		);
+		const title =
+			orderChildData &&
+			orderChildData[0].order_product_name + '외' + orderChildData?.length + '건';
+
+		const orderState = '결제완료';
+		const totalPrice = orderParentData && orderParentData[0].order_total_price;
 
 		const OrderProgress = (): JSX.Element => {
 			return (
@@ -63,7 +146,10 @@ export default function OrderList(): JSX.Element {
 			<TouchableOpacity
 				style={styles.rootChild}
 				onPress={() => {
-					naviagtion.navigate('주문 상세 내역');
+					const OrderDetailParam: OrderDetailStackParams = {
+						orderParentId: orderParentData && orderParentData[0].order_parent_id,
+					};
+					naviagtion.navigate('주문 상세 내역', OrderDetailParam);
 				}}
 			>
 				<View style={{ flex: 3 }}>
@@ -168,6 +254,7 @@ export default function OrderList(): JSX.Element {
 				handleOpen={handlePickUpModal}
 				pickUpTime={pickUpTime}
 				handlePickUpTime={handlePickUpTime}
+				orderParentId={orderParentData && orderParentData[0].order_parent_id}
 			/>
 		</SafeAreaView>
 	);
