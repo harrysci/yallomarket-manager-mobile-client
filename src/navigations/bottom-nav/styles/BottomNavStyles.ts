@@ -6,7 +6,7 @@ const BottomNavStyles = StyleSheet.create({
 		backgroundColor: '#FBFBFB',
 	},
 	productListTabImage: {
-		width: 17.1,
+		width: 17,
 		height: 19.6,
 	},
 	barcodeScanTabImage: {
