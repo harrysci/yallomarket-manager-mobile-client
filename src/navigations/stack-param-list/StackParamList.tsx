@@ -25,4 +25,8 @@ export type StackParamList = {
 	'상세 이미지 촬영': UploadDetailPhotoParams;
 	'상세 이미지 확인': ConfirmDetailImageStackParams;
 	'바코드 스캔': any;
+
+	/* 주문 내역 */
+	'주문 내역': any;
+	'주문 상세 내역': any;
 };
