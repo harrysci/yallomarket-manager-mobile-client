@@ -14,7 +14,7 @@ import { OrderDetailStackParams } from '../order-detail/OrderDetail';
 export interface OrderItemProps {
 	isProgress: boolean;
 	time: number;
-
+	orderParent: OrderParentRes;
 	handleOpen: (state: boolean) => void;
 }
 export interface PickUpTimeOverlayProps {
@@ -22,7 +22,6 @@ export interface PickUpTimeOverlayProps {
 	pickUpTime: number;
 	handleOpen: (state: boolean) => void;
 	handlePickUpTime: (isUp: number) => void;
-	orderParentId: number | undefined;
 }
 export interface OrderParentRes {
 	order_parent_id: number;
@@ -53,7 +52,10 @@ export interface OrderChildRes {
 	order_unit_price: number; // 상품 한 개의 가격
 	order_quantity: number; // 주문 수량
 }
-
+export interface UpdateOrderReq {
+	order_number: string | undefined;
+	order_status: number;
+}
 export default function OrderList(): JSX.Element {
 	const list = [
 		{
@@ -103,32 +105,57 @@ export default function OrderList(): JSX.Element {
 			});
 	}, []);
 
-	const [{ data: orderChildData, loading: orderChildLoading }, excuteOrderChild] = useAxios<
-		OrderChildRes[]
-	>(
-		{
-			method: 'GET',
-			url: `/order/get/${orderParentData && orderParentData[0].order_number}`,
-		},
-		{ manual: true },
-	);
 	/* 각 주문 리스트 아이템  */
 	const OrderItem = (props: OrderItemProps) => {
-		const { isProgress, time, handleOpen } = props;
-		const orderTime = moment(orderParentData && orderParentData[0].order_created_at).format(
-			'HH:mm',
+		const { isProgress, time, handleOpen, orderParent } = props;
+		const [{ data: orderChildData, loading: orderChildLoading }, executeOrderChild] = useAxios<
+			OrderChildRes[]
+		>(
+			{
+				method: 'GET',
+				url: `/order/get/${orderParent.order_number}`,
+			},
+			{ manual: true },
 		);
+		useEffect(() => {
+			executeOrderChild()
+				.then(res => {
+					// console.log(res.data);
+					//setListData(res.data);
+				})
+				.catch(err => {
+					console.log(err.message);
+				});
+		}, []);
+		const updateOrderReq1: UpdateOrderReq = {
+			order_number: orderParent.order_number,
+			order_status: 1,
+		};
+		const [, excuteUpdateOrder1] = useAxios<any>(
+			{
+				method: 'POST',
+				url: `/order/update/`,
+				data: updateOrderReq1,
+			},
+			{ manual: true },
+		);
+		const handelUpdateOrder1 = () => {
+			excuteUpdateOrder1().then(() => {
+				executeOrderParent();
+			});
+		};
+		const orderTime = moment(orderParent.order_created_at).format('HH:mm');
 		const title =
 			orderChildData &&
-			orderChildData[0].order_product_name + '외' + orderChildData?.length + '건';
+			orderChildData[0].order_product_name + ' 외 ' + orderChildData?.length + '건';
 
-		const orderState = '결제완료';
-		const totalPrice = orderParentData && orderParentData[0].order_total_price;
+		const orderState = orderParent.order_number;
+		const totalPrice = orderParent.order_total_price;
 
 		const OrderProgress = (): JSX.Element => {
 			return (
-				<View style={styles.proRoot}>
-					<AnimatedCircularProgress fill={80} size={52} width={4} tintColor="#000000">
+				<TouchableOpacity style={styles.proRoot} onPress={() => handelUpdateOrder1()}>
+					<AnimatedCircularProgress fill={100} size={52} width={4} tintColor="#000000">
 						{fill => (
 							<View style={[]}>
 								<View style={styles.circleRoot}>
@@ -138,7 +165,7 @@ export default function OrderList(): JSX.Element {
 						)}
 					</AnimatedCircularProgress>
 					<Text style={styles.stateText}>접수완료</Text>
-				</View>
+				</TouchableOpacity>
 			);
 		};
 
@@ -147,7 +174,9 @@ export default function OrderList(): JSX.Element {
 				style={styles.rootChild}
 				onPress={() => {
 					const OrderDetailParam: OrderDetailStackParams = {
-						orderParentId: orderParentData && orderParentData[0].order_parent_id,
+						order_number: orderParent.order_number,
+						orderChild: orderChildData,
+						orderParent: orderParent,
 					};
 					naviagtion.navigate('주문 상세 내역', OrderDetailParam);
 				}}
@@ -162,7 +191,7 @@ export default function OrderList(): JSX.Element {
 
 				<View style={styles.sub}>
 					{!isProgress ? (
-						<TouchableOpacity onPress={() => handleOpen(true)}>
+						<TouchableOpacity onPress={() => handelUpdateOrder1()}>
 							<Image
 								source={require('../../../../assets/icons/order/order-start.png')}
 								style={styles.orderStartImage}
@@ -245,8 +274,19 @@ export default function OrderList(): JSX.Element {
 			</View>
 
 			<ScrollView style={styles.scrollRoot}>
-				<OrderItem time={pickUpTime} isProgress={false} handleOpen={handlePickUpModal} />
-				<OrderItem time={30} isProgress={true} handleOpen={handlePickUpModal} />
+				{/* <OrderItem time={pickUpTime} isProgress={false} handleOpen={handlePickUpModal} />
+				<OrderItem time={30} isProgress={true} handleOpen={handlePickUpModal} /> */}
+				{orderParentData &&
+					orderParentData.length > 0 &&
+					orderParentData?.map(each => (
+						<OrderItem
+							key={each.order_parent_id}
+							time={pickUpTime}
+							isProgress={each.order_status !== 0}
+							handleOpen={handlePickUpModal}
+							orderParent={each}
+						/>
+					))}
 			</ScrollView>
 
 			<PickUpTimeOverlay
@@ -254,7 +294,6 @@ export default function OrderList(): JSX.Element {
 				handleOpen={handlePickUpModal}
 				pickUpTime={pickUpTime}
 				handlePickUpTime={handlePickUpTime}
-				orderParentId={orderParentData && orderParentData[0].order_parent_id}
 			/>
 		</SafeAreaView>
 	);
