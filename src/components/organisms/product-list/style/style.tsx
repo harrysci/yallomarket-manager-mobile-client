@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
 		marginTop: 43,
 	},
 	title: {
-		//fontFamily: "AppleSDGothicNeo",
 		height: 25,
 		fontSize: 21,
 		fontWeight: '600',
@@ -35,7 +34,6 @@ const styles = StyleSheet.create({
 		marginHorizontal: 17,
 	},
 	martname: {
-		//fontFamily: "AppleSDGothicNeo",
 		height: 15,
 		fontSize: 12,
 		fontWeight: 'normal',

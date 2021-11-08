@@ -25,11 +25,9 @@ const style = StyleSheet.create({
 	},
 	point: {
 		width: 9,
-		height: 21,
 		fontSize: 23,
 		fontWeight: 'normal',
 		fontStyle: 'normal',
-		lineHeight: 23,
 		letterSpacing: 0,
 		textAlign: 'right',
 		color: '#ff0000',
