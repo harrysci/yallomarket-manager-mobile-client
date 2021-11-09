@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 	},
 
 	priceContainer: {
-		width: '51%',
+		width: '53%',
 	},
 	createdDateContainer: {
 		flexDirection: 'row',

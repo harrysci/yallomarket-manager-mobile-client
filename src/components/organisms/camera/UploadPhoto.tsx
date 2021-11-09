@@ -1,7 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import { Button } from 'react-native-elements/dist/buttons/Button';
 import { styles } from './styles/style';
 import { Text } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -34,17 +33,19 @@ export default function UploadPhoto(props: UploadPhotoProps): JSX.Element {
 		}
 	};
 	return (
-		<View style={styles.root}>
-			<View style={styles.cameraStyle}>
-				<RNCamera ref={cameraRef} style={styles.camera} captureAudio={false} />
+		<View style={Platform.OS === 'ios' ? styles.root : styles.androidRoot}>
+			<View style={Platform.OS === 'ios' ? styles.cameraStyle : styles.androidCameraStyle}>
+				<RNCamera ref={cameraRef} style={styles.camera} captureAudio={false} ratio="1:1" />
 			</View>
-			<View style={styles.flexRow}>
+
+			<View style={Platform.OS === 'ios' ? styles.flexRow : styles.androidFlexRow}>
 				<Text style={styles.font1}>등록할 상품의 </Text>
 				<Text style={styles.font3}>대표 이미지를</Text>
 				<Text style={styles.font1}> 촬영해 주세요.</Text>
 			</View>
+
 			<View style={styles.buttonFlex}>
-				<Button
+				<TouchableOpacity
 					style={styles.buttonStyle}
 					onPress={() => {
 						takePhoto();

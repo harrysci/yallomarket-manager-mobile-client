@@ -9,8 +9,10 @@ import { Overlay } from 'react-native-elements';
 
 export const ScannerScreen = (): JSX.Element => {
 	const [barcodeNum, setCodeInfo] = React.useState<string>();
-	const onBarcodeScan = (event: BarCodeReadEvent) => {
+	const onBarcodeScan = (event: BarCodeReadEvent): string => {
 		setCodeInfo(event.data);
+
+		return event.data;
 	};
 
 	// const navigation = useNavigation();
@@ -26,7 +28,11 @@ export const ScannerScreen = (): JSX.Element => {
 	return (
 		<View style={styles.capture}>
 			<View style={styles.scannerStyle}>
-				<BarcodeScanner onBarcodeScan={onBarcodeScan} barcodeNum={barcodeNum} />
+				<BarcodeScanner
+					onBarcodeScan={onBarcodeScan}
+					barcodeNum={barcodeNum}
+					handleUploadOverlay={handleUploadOverlay}
+				/>
 			</View>
 
 			<View style={styles.InfoText}>

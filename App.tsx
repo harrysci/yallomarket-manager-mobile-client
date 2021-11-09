@@ -21,6 +21,8 @@ import ConfirmDetailImage from './src/components/organisms/camera/ConfirmDetailI
 import ProductInfoInput from './src/components/screens/product-info-input/productInfoInput';
 import ProductDetailInfoPage from './src/components/screens/product-detail-info-page/ProductDetailInfoPage';
 import { ScannerScreen } from './src/components/screens/barcode/ScannerScreen';
+import OrderList from './src/components/screens/order/order-list/OrderList';
+import OrderDetail from './src/components/screens/order/order-detail/OrderDetail';
 
 /* IOS stack 이동 animation options */
 const TransitionScreenOptions = {
@@ -92,6 +94,25 @@ const App = () => {
 						name="상세 이미지 확인"
 						options={{ title: '상세 이미지 촬영' }}
 						component={ConfirmDetailImage}
+					/>
+
+					<Stack.Screen
+						name="주문 내역"
+						options={{
+							title: '주문 내역',
+							headerShown: false, // test 를 위해 header 를 보이게 함
+							headerBackTitle: ' ',
+						}}
+						component={OrderList}
+					/>
+					<Stack.Screen
+						name="주문 상세 내역"
+						options={{
+							title: '주문 상세 내역',
+							headerShown: true, // test 를 위해 header 를 보이게 함
+							headerBackTitle: '주문 내역',
+						}}
+						component={OrderDetail}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>

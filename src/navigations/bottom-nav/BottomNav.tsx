@@ -11,6 +11,7 @@ import { StackParamList } from '../stack-param-list/StackParamList';
 import ProductListContext, {
 	useProductList,
 } from '../../utils/contexts/product-list-context/ProductListContext';
+import OrderList from '../../components/screens/order/order-list/OrderList';
 // import BarcodeRecognitionComplete from '../../components/screens/barcode-recognition-complete/BarcodeRecognitionComplete';
 
 const Tab = createBottomTabNavigator();
@@ -38,6 +39,22 @@ const BottomNav = (): JSX.Element => {
 									<Image
 										style={BottomNavStyles.barcodeScanTabImage}
 										source={require('../../assets/icons/tabs/scan_inactive.png')}
+									/>
+								);
+							}
+						} else if (route.name === '주문 내역') {
+							if (focused) {
+								return (
+									<Image
+										style={BottomNavStyles.productListTabImage}
+										source={require('../../assets/icons/tabs/order_active.png')}
+									/>
+								);
+							} else {
+								return (
+									<Image
+										style={BottomNavStyles.productListTabImage}
+										source={require('../../assets/icons/tabs/order_inactivate.png')}
 									/>
 								);
 							}
@@ -71,7 +88,7 @@ const BottomNav = (): JSX.Element => {
 				}}
 			>
 				<Tab.Screen name="바코드 스캔" component={ScannerScreen} />
-				{/* <Tab.Screen name="바코드 스캔" component={BarcodeRecognitionComplete} /> */}
+				<Tab.Screen name="주문 내역" component={OrderList} />
 				<Tab.Screen
 					name="등록 목록"
 					component={ListScreen}
