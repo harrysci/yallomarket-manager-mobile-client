@@ -8,6 +8,7 @@ import { ConfirmPhotoStackParams } from '../stack-params/ConfirmPhotoStackParams
 import { SecondStepStackParam } from '../stack-params/SecondStepStackParam';
 import { UploadDetailPhotoParams } from '../stack-params/UploadDetailPhotoParams';
 import { ConfirmDetailImageStackParams } from '../stack-params/ConfirmDetailImageStackParams';
+import { OrderDetailStackParams } from '../../components/screens/order/order-detail/OrderDetail';
 
 export type StackParamList = {
 	테스트: any;
@@ -28,5 +29,5 @@ export type StackParamList = {
 
 	/* 주문 내역 */
 	'주문 내역': any;
-	'주문 상세 내역': any;
+	'주문 상세 내역': OrderDetailStackParams;
 };

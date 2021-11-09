@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios, { AxiosRequestConfig } from 'axios';
 import { Platform } from 'react-native';
 // cookie
 // import cookie from 'react-cookies';
+
+import * as dotEnv from 'react-native-dotenv';
 
 export const cancelToken = axios.CancelToken;
 export const { isCancel } = axios;
@@ -18,10 +21,10 @@ const postData: PostRequestData = {
 
 const axiosInstance = axios.create({
 	/* Product Mode (ec2 api server endpoint 사용) */
-	baseURL: 'http://18.219.151.100:5000',
+	baseURL: process.env.REACT_APP_API_SERVER_ENDPOINT,
 
 	/* Develope Mode (local api server endpoint 사용) */
-	// baseURL: Platform.OS === 'android' ? 'http://10.0.2.2:5000' : 'http://localhost:5000',
+	// baseURL: Platform.OS === 'android' ? 'http://192.168.101.81:5000' : 'http://localhost:5000',
 	timeout: 9000,
 });
 

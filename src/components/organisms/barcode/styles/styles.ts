@@ -19,8 +19,6 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	font: {
-		height: 23,
-		// fontFamily: '',
 		fontSize: 17,
 		fontWeight: 'bold',
 		fontStyle: 'normal',
